@@ -1,0 +1,619 @@
+{
+  "status": "draft",
+  "year": 37,
+  "lastEruption": 31,
+  "alchemyRevealed": false,
+  "nations": {
+    "nation_velkrad": {
+      "pop": 210,
+      "army": 9,
+      "treasury": 150,
+      "stability": 55,
+      "territory": 100,
+      "foodBase": 0.72,
+      "trade": 12,
+      "mages": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "aura": [
+        600,
+        180,
+        45,
+        9,
+        1
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 35,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 4.2
+        }
+      ]
+    },
+    "nation_seradin": {
+      "pop": 160,
+      "army": 4,
+      "treasury": 220,
+      "stability": 58,
+      "territory": 100,
+      "foodBase": 0.75,
+      "trade": 14,
+      "mages": [
+        700,
+        210,
+        50,
+        10,
+        2
+      ],
+      "aura": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 40,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 3.2
+        }
+      ]
+    },
+    "nation_kalis": {
+      "pop": 420,
+      "army": 10,
+      "treasury": 400,
+      "stability": 66,
+      "territory": 100,
+      "foodBase": 1.45,
+      "trade": 30,
+      "mages": [
+        500,
+        140,
+        30,
+        5,
+        0
+      ],
+      "aura": [
+        450,
+        130,
+        28,
+        5,
+        1
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 25,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 8.4
+        }
+      ]
+    },
+    "nation_nelas": {
+      "pop": 230,
+      "army": 6,
+      "treasury": 260,
+      "stability": 70,
+      "territory": 100,
+      "foodBase": 1.05,
+      "trade": 15,
+      "mages": [
+        350,
+        100,
+        22,
+        4,
+        1
+      ],
+      "aura": [
+        250,
+        70,
+        14,
+        2,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 20,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 4.6
+        }
+      ]
+    },
+    "nation_iskar": {
+      "pop": 60,
+      "army": 2,
+      "treasury": 60,
+      "stability": 60,
+      "territory": 100,
+      "foodBase": 0.7,
+      "trade": 6,
+      "mages": [
+        90,
+        22,
+        4,
+        0,
+        0
+      ],
+      "aura": [
+        120,
+        30,
+        6,
+        1,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 25,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 1.2
+        }
+      ]
+    },
+    "nation_ortes": {
+      "pop": 110,
+      "army": 3,
+      "treasury": 200,
+      "stability": 68,
+      "territory": 100,
+      "foodBase": 0.82,
+      "trade": 28,
+      "mages": [
+        160,
+        40,
+        8,
+        1,
+        0
+      ],
+      "aura": [
+        140,
+        35,
+        6,
+        1,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 20,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 2.2
+        }
+      ]
+    },
+    "nation_peloa": {
+      "pop": 170,
+      "army": 6,
+      "treasury": 160,
+      "stability": 52,
+      "territory": 100,
+      "foodBase": 1.1,
+      "trade": 10,
+      "mages": [
+        200,
+        55,
+        11,
+        2,
+        0
+      ],
+      "aura": [
+        220,
+        60,
+        12,
+        2,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 30,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 3.4
+        }
+      ]
+    },
+    "nation_tambur": {
+      "pop": 120,
+      "army": 3.5,
+      "treasury": 110,
+      "stability": 62,
+      "territory": 100,
+      "foodBase": 1.05,
+      "trade": 14,
+      "mages": [
+        150,
+        38,
+        7,
+        1,
+        0
+      ],
+      "aura": [
+        130,
+        30,
+        5,
+        0,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 20,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 2.4
+        }
+      ]
+    },
+    "nation_harkan": {
+      "pop": 130,
+      "army": 7,
+      "treasury": 120,
+      "stability": 64,
+      "territory": 100,
+      "foodBase": 1.05,
+      "trade": 8,
+      "mages": [
+        110,
+        26,
+        5,
+        1,
+        0
+      ],
+      "aura": [
+        230,
+        65,
+        14,
+        3,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 15,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 2.6
+        }
+      ]
+    },
+    "nation_graven": {
+      "pop": 80,
+      "army": 2.5,
+      "treasury": 140,
+      "stability": 56,
+      "territory": 100,
+      "foodBase": 0.72,
+      "trade": 18,
+      "mages": [
+        120,
+        30,
+        6,
+        1,
+        0
+      ],
+      "aura": [
+        100,
+        26,
+        5,
+        1,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 30,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 1.6
+        }
+      ]
+    },
+    "nation_merca": {
+      "pop": 25,
+      "army": 1,
+      "treasury": 250,
+      "stability": 60,
+      "territory": 100,
+      "foodBase": 0.55,
+      "trade": 35,
+      "mages": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "aura": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "revolutionPrep": 40,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 0.5
+        }
+      ]
+    },
+    "nation_quel": {
+      "pop": 12,
+      "army": 0.4,
+      "treasury": 60,
+      "stability": 58,
+      "territory": 100,
+      "foodBase": 0.9,
+      "trade": 12,
+      "mages": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "aura": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 25,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 0.24
+        }
+      ]
+    },
+    "nation_eln": {
+      "pop": 8,
+      "army": 0.3,
+      "treasury": 50,
+      "stability": 65,
+      "territory": 100,
+      "foodBase": 0.6,
+      "trade": 15,
+      "mages": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "aura": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "dispatched": {
+        "mage": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "aura": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "revolutionPrep": 20,
+      "cohorts": [
+        {
+          "born": 31,
+          "source": "분화",
+          "size": 0.16
+        }
+      ]
+    }
+  }
+}

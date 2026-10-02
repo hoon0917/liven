@@ -1,0 +1,169 @@
+{
+  "id": "world_liven",
+  "name": "리벤",
+  "nameOriginal": "Liven",
+  "tagline": {
+    "text": "재능이 지배하는 결핍의 세계에서, 재능 없는 자들이 물질의 과학으로 새로운 내일을 빚기 시작한다.",
+    "status": "draft"
+  },
+  "tone": "hopeful",
+  "era": {
+    "id": "era_pact",
+    "name": "가문맹약력",
+    "short": "맹약력",
+    "epoch": "대가문들이 처음 서로의 영역을 인정한 맹약",
+    "currentYear": 37
+  },
+  "volcano": {
+    "regionId": "region_volcano",
+    "cycleYears": [
+      10,
+      20
+    ],
+    "lastEruption": 31
+  },
+  "creationMyth": {
+    "summary": "텅 빈 공간에 론이 흐르는 무한한 폭포가 있었다. 한계가 있는 공간에 론이 차올라 형태를 갖추며 우주가 생겼고, 론은 지금도 차오르며 공간을 팽창시키고 있다.",
+    "hasPersonalGod": false,
+    "worldStillForming": true
+  },
+  "concepts": [
+    {
+      "id": "concept_ron",
+      "name": "론",
+      "nameOriginal": "Ron",
+      "description": "세계의 근원 에너지이자 자연 에너지. 형태를 갖추면 물질이 되며, 물질은 더 이상 론이 아니다.",
+      "perceivableByHumans": false,
+      "volatile": true,
+      "infinite": true,
+      "inflow": "외부에서 리벤으로 계속 유입, 내부에 쌓였다가 화산으로 분출",
+      "ambient": true,
+      "concentrationSources": [
+        "volcano",
+        "meteor",
+        "lake",
+        "random"
+      ],
+      "concentrationAffects": "태아의 그릇 크기만 (약 3천 년 전 대범람 때만 예외적으로 생명체의 형태까지 바꿈)"
+    },
+    {
+      "id": "concept_vessel",
+      "name": "그릇",
+      "description": "모든 인간이 가진 론의 내적 용량. 태아 시절 흡수한 론의 양으로 크기가 정해진다.",
+      "directions": [
+        {
+          "id": "outward",
+          "name": "밖으로 열린 그릇",
+          "result": "power_magic"
+        },
+        {
+          "id": "inward",
+          "name": "안으로 닫힌 그릇",
+          "result": "power_aura"
+        },
+        {
+          "id": "dual",
+          "name": "양방향 그릇",
+          "result": [
+            "power_magic",
+            "power_aura"
+          ],
+          "source": "자연의 론"
+        }
+      ],
+      "recharge": "휴식 시 충전, 속도는 모두 동일하고 용량만 다름",
+      "sizeRevealed": "수련 중 한계·지속 시간·발현 규모로 드러남",
+      "smallVesselEffect": "마법·오러 불가",
+      "dormantLargeVesselSigns": [
+        "감",
+        "지혜"
+      ]
+    },
+    {
+      "id": "concept_ron_nexus",
+      "name": "론 응집지",
+      "description": "론이 우연히 짙게 모였다가 휘발성 때문에 곧 사라지는 곳. 자연의 론을 받은 태아는 모든 속성의 양방향 그릇을 가진다.",
+      "dualEffectKnown": false
+    },
+    {
+      "id": "concept_eruption_birth",
+      "name": "분화기 출산 전략",
+      "description": "분화 직후 큰 그릇의 아이가 많이 태어난다는 경험적 추측에 따라, 국가와 가문이 넓은 영토 곳곳에서 아이를 낳게 하고 그 세대를 특별 학생으로 키운다."
+    }
+  ],
+  "powers": [
+    {
+      "id": "power_magic",
+      "name": "마법",
+      "requiresTalent": true,
+      "vesselDirection": "outward",
+      "source": "concept_ron",
+      "manifestation": "체내의 론을 몸 밖으로 꺼내 자연의 원소로 발현",
+      "limit": "체내 론 소모, 휴식으로 회복(일정 시간 필요)"
+    },
+    {
+      "id": "power_aura",
+      "name": "오러",
+      "requiresTalent": true,
+      "vesselDirection": "inward",
+      "source": "concept_ron",
+      "manifestation": "신체와 손에 든 무기 강화, 초인적 속도와 힘",
+      "defense": "에너지 실드처럼 마법·무기·연금술 무기를 튕겨내되 방어할 때마다 론 소모",
+      "limit": "체내 론 소모, 휴식으로 회복(일정 시간 필요)"
+    },
+    {
+      "id": "power_alchemy",
+      "name": "연금술",
+      "requiresTalent": false,
+      "source": "matter",
+      "manifestation": "물질 조합(폭발물 등)",
+      "limit": "재료 의존, 유한",
+      "traceableByMagic": false,
+      "public": false,
+      "knownBy": [
+        "faction_revolution"
+      ],
+      "futurePotential": "부족한 자원의 생성"
+    }
+  ],
+  "factions": [
+    {
+      "id": "faction_revolution",
+      "name": null,
+      "nameStatus": "pending",
+      "members": "재능을 갖지 못한 자들",
+      "scope": "worldwide",
+      "goal": "혁명",
+      "core": "power_alchemy",
+      "structure": "창시자와 최상층만 원리를 알고, 하부 세포는 완성품과 절차만 받음",
+      "currentPhase": "pre_revolution"
+    }
+  ],
+  "worldRules": {
+    "resourcesScarce": true,
+    "magesAndKnightsCoexist": "대부분의 나라에서 공존, 예외 국가 존재",
+    "nationalPowerMetric": "보유 마법사·기사의 등급과 수",
+    "islandNationPowerMetric": "국고(강자 파견을 받을 수 있는 힘)",
+    "houseOverNation": true,
+    "housesCanDispatchIndependently": true,
+    "alliances": "temporary_only",
+    "antiRevolutionCoalitionPossible": false,
+    "dualVesselAttemptedByHouses": false,
+    "knightTypes": [
+      "aura_knight",
+      "sword_knight"
+    ]
+  },
+  "pending": [
+    "혁명 세력의 명칭, 창시자, 창설 연도",
+    "맹약 이전 시대와 맹약의 계기, 31년 이전의 분화 연도",
+    "대가문의 수와 이름",
+    "지역·지형의 고유명사",
+    "마법 원소 목록",
+    "종교"
+  ],
+  "greatFlood": {
+    "yearsAgo": 3000,
+    "desc": "거대한 분화로 중앙 대륙이 론에 잠겨, 있던 장소에 따라 사람들이 여러 종족으로, 동물이 마물로 바뀌었다."
+  }
+}

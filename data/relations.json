@@ -1,0 +1,655 @@
+{
+  "status": "draft",
+  "stages": [
+    {
+      "min": 60,
+      "name": "동맹"
+    },
+    {
+      "min": 20,
+      "name": "우호"
+    },
+    {
+      "min": -19,
+      "name": "중립"
+    },
+    {
+      "min": -49,
+      "name": "긴장"
+    },
+    {
+      "min": -69,
+      "name": "적대"
+    },
+    {
+      "min": -100,
+      "name": "전쟁 가능"
+    }
+  ],
+  "nations": [
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_seradin"
+      ],
+      "value": -55,
+      "reason": "순수한 기사국가와 마법국가가 산맥 하나를 사이에 두고 맞닿아 있다. 서로를 존재의 위협으로 본다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_kalis"
+      ],
+      "value": -35,
+      "reason": "식량이 부족한 벨크라드가 칼리스의 곡창을 노린다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_nelas"
+      ],
+      "value": -10,
+      "reason": "화산 무주지에 막혀 직접 맞닿지 않는다. 경계만 한다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_iskar"
+      ],
+      "value": 15,
+      "reason": "이스카르의 모피와 기름을 벨크라드의 철과 바꾼다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_ortes"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_peloa"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_tambur"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_harkan"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_graven"
+      ],
+      "value": -25,
+      "reason": "그라벤의 드워프들이 벨크라드에게 고향을 빼앗긴 동족 편을 든다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_velkrad",
+        "nation_eln"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_kalis"
+      ],
+      "value": -5,
+      "reason": "직접 맞닿지 않는다. 벨크라드라는 공동의 위협이 있지만 손을 잡지는 못한다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_nelas"
+      ],
+      "value": 0,
+      "reason": "교역이 적고 다툴 일도 적다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_iskar"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_ortes"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_peloa"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_tambur"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_harkan"
+      ],
+      "value": -20,
+      "reason": "하르칸 기병이 서부 해안을 노략한 일이 있다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_graven"
+      ],
+      "value": 35,
+      "reason": "다크엘프와 드워프의 광물 교역으로 오래 손을 잡아 왔다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_merca"
+      ],
+      "value": 30,
+      "reason": "세라딘의 한 마탑 가문이 메르카에 강자를 파견하고 있다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_seradin",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_nelas"
+      ],
+      "value": 25,
+      "reason": "곡물과 약초를 바꾼다. 남부는 침략하기 어려워 서로 위협이 되지 않는다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_iskar"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_ortes"
+      ],
+      "value": 30,
+      "reason": "칼리스의 곡물이 오르테스의 배로 실려 나간다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_peloa"
+      ],
+      "value": -30,
+      "reason": "메르카 자유항의 영향력을 두고 다툰다. 펠로아는 칼리스의 땅도 탐낸다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_tambur"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_harkan"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_graven"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_merca"
+      ],
+      "value": 50,
+      "reason": "칼리스가 강자를 파견해 메르카를 지킨다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_kalis",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_iskar"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_ortes"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_peloa"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_tambur"
+      ],
+      "value": 20,
+      "reason": "약초와 약재를 다루는 전통을 나누는 사이다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_harkan"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_graven"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_quel"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_nelas",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_ortes"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_peloa"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_tambur"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_harkan"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_graven"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_iskar",
+        "nation_eln"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_peloa"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_tambur"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_harkan"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_graven"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_merca"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_ortes",
+        "nation_eln"
+      ],
+      "value": 55,
+      "reason": "오르테스의 선단 가문이 강자를 파견해 엘른을 지킨다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_tambur"
+      ],
+      "value": -25,
+      "reason": "땅이 좁은 펠로아가 탐부르의 강변 땅을 탐낸다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_harkan"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_graven"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_merca"
+      ],
+      "value": -3,
+      "reason": "바다를 사이에 둔 이웃이다. 교역과 경계가 함께한다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_quel"
+      ],
+      "value": 50,
+      "reason": "펠로아가 강자를 파견해 쿠엘을 지킨다."
+    },
+    {
+      "pair": [
+        "nation_peloa",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_tambur",
+        "nation_harkan"
+      ],
+      "value": 10,
+      "reason": "말과 향신료를 바꾼다."
+    },
+    {
+      "pair": [
+        "nation_tambur",
+        "nation_graven"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_tambur",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_tambur",
+        "nation_quel"
+      ],
+      "value": -15,
+      "reason": "쿠엘이 펠로아의 영향권에 들어간 것을 불편해한다."
+    },
+    {
+      "pair": [
+        "nation_tambur",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_harkan",
+        "nation_graven"
+      ],
+      "value": -15,
+      "reason": "초원의 가축과 광산의 은을 두고 국경 마찰이 잦다."
+    },
+    {
+      "pair": [
+        "nation_harkan",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_harkan",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_harkan",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_graven",
+        "nation_merca"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_graven",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_graven",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_merca",
+        "nation_quel"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_merca",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    },
+    {
+      "pair": [
+        "nation_quel",
+        "nation_eln"
+      ],
+      "value": 0,
+      "reason": "멀리 떨어져 있어 특별한 이해관계가 없다."
+    }
+  ]
+}

@@ -1,0 +1,391 @@
+{
+  "status": "draft",
+  "note": "사용자 위임으로 Claude가 작성한 초안. 종교는 종교 단계에서 정한다.",
+  "nations": [
+    {
+      "id": "nation_velkrad",
+      "name": "벨크라드",
+      "nameOriginal": "Velkrad",
+      "regionId": "region_central_north",
+      "type": "knight",
+      "polity": "기사왕국. 가장 강한 기사 가문들의 수장 중에서 기사왕을 뽑는다.",
+      "races": {
+        "race_human": 86,
+        "race_dwarf": 10,
+        "race_orc": 4
+      },
+      "capital": "철문성",
+      "economy": "철과 석재, 무기와 갑옷",
+      "diplomacy": "공격적. 식량을 얻으려 남쪽 곡창을 노린다.",
+      "history": "맹약 이전 인간 기사 가문들이 드워프의 산맥 홀을 빼앗아 요새로 삼았다. 맹약으로 가문 간 영역이 굳어진 뒤로는 바깥으로 눈을 돌리고 있다.",
+      "religion": null
+    },
+    {
+      "id": "nation_seradin",
+      "name": "세라딘",
+      "nameOriginal": "Seradin",
+      "regionId": "region_central_west",
+      "type": "magic",
+      "polity": "탑주 회의. 일곱 마탑 가문의 탑주들이 합의로 다스린다.",
+      "races": {
+        "race_human": 72,
+        "race_darkelf": 25,
+        "race_elf": 1,
+        "race_orc": 2
+      },
+      "capital": "일곱탑",
+      "economy": "소금과 광물, 물 다루는 마법",
+      "diplomacy": "신중하고 학문적이다. 벨크라드를 가장 큰 위협으로 본다.",
+      "history": "협곡의 다크엘프 씨족과 인간 마법 가문이 물을 다루는 마법으로 사막 협곡에 탑 도시를 세웠다.",
+      "religion": null
+    },
+    {
+      "id": "nation_kalis",
+      "name": "칼리스",
+      "nameOriginal": "Kalis",
+      "regionId": "region_central_east",
+      "type": "coexist",
+      "polity": "왕국. 왕가 아래에 마법 가문과 기사 가문이 앉는 가문 의회가 있다.",
+      "races": {
+        "race_human": 93,
+        "race_orc": 3,
+        "race_elf": 2,
+        "race_dwarf": 2
+      },
+      "capital": "하구성",
+      "economy": "곡물과 항구 무역",
+      "diplomacy": "실리적이다. 곡물로 이웃을 달래고 바다로 영향력을 넓힌다.",
+      "history": "중앙 대륙의 곡창이자 인간의 원래 땅이다. 메르카 자유항에 강자를 파견해 바다의 관문을 쥐고 있다.",
+      "religion": null
+    },
+    {
+      "id": "nation_nelas",
+      "name": "넬라스",
+      "nameOriginal": "Nelas",
+      "regionId": "region_central_south",
+      "type": "coexist",
+      "polity": "공국. 대공 가문이 다스리되 숲의 엘프 공동체는 자치를 누린다.",
+      "races": {
+        "race_human": 80,
+        "race_elf": 17,
+        "race_orc": 3
+      },
+      "capital": "초록문",
+      "economy": "목재와 약초, 치료술",
+      "diplomacy": "방어적이다. 풍토병과 숲이 지켜 주므로 먼저 싸움을 걸지 않는다.",
+      "history": "엘프의 숲과 인간의 골짜기 마을이 오랜 협정으로 공존해 왔다. 치료사들이 각국에 초빙된다.",
+      "religion": null
+    },
+    {
+      "id": "nation_iskar",
+      "name": "이스카르",
+      "nameOriginal": "Iskar",
+      "regionId": "continent_1",
+      "type": "coexist",
+      "polity": "족장 연합. 빙원의 씨족장들이 겨울 회의에서 일을 정한다.",
+      "races": {
+        "race_human": 85,
+        "race_dwarf": 8,
+        "race_orc": 7
+      },
+      "capital": "얼음항",
+      "economy": "모피와 바다 짐승의 기름",
+      "diplomacy": "생존이 먼저다. 철과 곡물을 얻으려 벨크라드와 거래한다.",
+      "history": "혹한 속에서 살아남기 위해 마법 가문과 기사 가문이 한 천막 아래 모였다.",
+      "religion": null
+    },
+    {
+      "id": "nation_ortes",
+      "name": "오르테스",
+      "nameOriginal": "Ortes",
+      "regionId": "continent_2",
+      "type": "coexist",
+      "polity": "해운 평의회. 선단을 가진 가문들의 평의회가 다스린다.",
+      "races": {
+        "race_human": 92,
+        "race_elf": 3,
+        "race_dwarf": 3,
+        "race_orc": 2
+      },
+      "capital": "안개만",
+      "economy": "조선과 해운",
+      "diplomacy": "바다의 중개자다. 엘른 등대섬에 강자를 파견해 북쪽 항로를 지킨다.",
+      "history": "안개 낀 만에서 세계 최고의 배를 만들며 대륙과 섬을 잇는 해운을 쥐었다.",
+      "religion": null
+    },
+    {
+      "id": "nation_peloa",
+      "name": "펠로아",
+      "nameOriginal": "Peloa",
+      "regionId": "continent_3",
+      "type": "coexist",
+      "polity": "왕국. 왕권이 강한 편이지만 가문들의 눈치를 본다.",
+      "races": {
+        "race_human": 95,
+        "race_orc": 3,
+        "race_elf": 2
+      },
+      "capital": "구릉왕성",
+      "economy": "곡물과 과일",
+      "diplomacy": "팽창적이다. 땅이 좁아 이웃의 땅을 탐낸다. 쿠엘 섬에 강자를 파견하고 있다.",
+      "history": "풍요로운 구릉이 사람으로 가득 차면서 바깥으로 나갈 길을 찾고 있다.",
+      "religion": null
+    },
+    {
+      "id": "nation_tambur",
+      "name": "탐부르",
+      "nameOriginal": "Tambur",
+      "regionId": "continent_4",
+      "type": "coexist",
+      "polity": "강변 도시 연맹. 강을 따라 늘어선 도시들의 가문이 연맹을 이룬다.",
+      "races": {
+        "race_human": 82,
+        "race_elf": 10,
+        "race_orc": 8
+      },
+      "capital": "큰물목",
+      "economy": "향신료와 약재",
+      "diplomacy": "조용한 교역국이다. 펠로아의 팽창을 경계한다.",
+      "history": "밀림의 풍토병과 맹수 속에서 강을 따라 도시를 세웠다.",
+      "religion": null
+    },
+    {
+      "id": "nation_harkan",
+      "name": "하르칸",
+      "nameOriginal": "Harkan",
+      "regionId": "continent_5",
+      "type": "coexist",
+      "polity": "칸국. 기마 가문들이 칸을 추대한다.",
+      "races": {
+        "race_human": 80,
+        "race_orc": 18,
+        "race_dwarf": 2
+      },
+      "capital": "천막도성",
+      "economy": "말과 가축",
+      "diplomacy": "용맹하다. 기병을 앞세워 이웃의 약점을 노린다.",
+      "history": "초원의 기마 가문들과 오크 부족이 함께 말을 달리며 칸국을 세웠다.",
+      "religion": null
+    },
+    {
+      "id": "nation_graven",
+      "name": "그라벤",
+      "nameOriginal": "Graven",
+      "regionId": "continent_6",
+      "type": "coexist",
+      "polity": "광산 군주국. 은광을 쥔 군주 가문이 다스린다.",
+      "races": {
+        "race_human": 70,
+        "race_dwarf": 26,
+        "race_orc": 4
+      },
+      "capital": "은굴성",
+      "economy": "은과 구리",
+      "diplomacy": "광물 교역으로 살아간다. 세라딘과 손을 잡고 벨크라드를 경계한다.",
+      "history": "고향을 잃은 드워프 씨족 일부가 건너와 인간과 함께 광산을 열었다.",
+      "religion": null
+    },
+    {
+      "id": "nation_merca",
+      "name": "메르카",
+      "nameOriginal": "Merca",
+      "regionId": "island_nation_1",
+      "type": "mercenary",
+      "polity": "자유항 상인 회의. 마법·기사 가문이 없다.",
+      "races": {
+        "race_human": 75,
+        "race_orc": 10,
+        "race_darkelf": 8,
+        "race_elf": 4,
+        "race_dwarf": 3
+      },
+      "capital": "메르카항",
+      "economy": "중계 무역과 용병 시장",
+      "diplomacy": "돈이 되는 쪽에 선다. 칼리스와 세라딘의 한 마탑 가문이 강자를 파견하고 있다.",
+      "history": "항로 위의 작은 섬이 세계 최대의 시장이 되었다.",
+      "religion": null
+    },
+    {
+      "id": "nation_quel",
+      "name": "쿠엘",
+      "nameOriginal": "Quel",
+      "regionId": "island_nation_2",
+      "type": "mercenary",
+      "polity": "수장국. 섬의 수장이 다스린다. 마법·기사 가문이 없다.",
+      "races": {
+        "race_human": 96,
+        "race_elf": 4
+      },
+      "capital": "진주곶",
+      "economy": "진주와 어업, 소금",
+      "diplomacy": "펠로아가 파견한 강자 아래에 있다.",
+      "history": "진주잡이 마을이 모여 섬나라가 되었다. 분화기마다 아이들을 바다 건너로 보낸다.",
+      "religion": null
+    },
+    {
+      "id": "nation_eln",
+      "name": "엘른",
+      "nameOriginal": "Eln",
+      "regionId": "island_nation_3",
+      "type": "mercenary",
+      "polity": "등대 길드. 항로를 관리하는 길드가 다스린다. 마법·기사 가문이 없다.",
+      "races": {
+        "race_human": 97,
+        "race_dwarf": 3
+      },
+      "capital": "첫등대",
+      "economy": "항로 관리와 해도",
+      "diplomacy": "오르테스가 파견한 강자 아래에 있다.",
+      "history": "북쪽 바다의 등대를 지키던 이들이 해도를 팔며 나라가 되었다.",
+      "religion": null
+    }
+  ],
+  "neighbors": {
+    "land": [
+      [
+        "nation_velkrad",
+        "nation_kalis"
+      ],
+      [
+        "nation_velkrad",
+        "nation_seradin"
+      ],
+      [
+        "nation_kalis",
+        "nation_nelas"
+      ],
+      [
+        "nation_nelas",
+        "nation_seradin"
+      ]
+    ],
+    "sea": [
+      [
+        "nation_velkrad",
+        "nation_iskar"
+      ],
+      [
+        "nation_velkrad",
+        "nation_ortes"
+      ],
+      [
+        "nation_velkrad",
+        "nation_graven"
+      ],
+      [
+        "nation_velkrad",
+        "nation_eln"
+      ],
+      [
+        "nation_kalis",
+        "nation_ortes"
+      ],
+      [
+        "nation_kalis",
+        "nation_peloa"
+      ],
+      [
+        "nation_kalis",
+        "nation_merca"
+      ],
+      [
+        "nation_nelas",
+        "nation_peloa"
+      ],
+      [
+        "nation_nelas",
+        "nation_tambur"
+      ],
+      [
+        "nation_nelas",
+        "nation_harkan"
+      ],
+      [
+        "nation_nelas",
+        "nation_quel"
+      ],
+      [
+        "nation_seradin",
+        "nation_harkan"
+      ],
+      [
+        "nation_seradin",
+        "nation_graven"
+      ],
+      [
+        "nation_iskar",
+        "nation_ortes"
+      ],
+      [
+        "nation_ortes",
+        "nation_peloa"
+      ],
+      [
+        "nation_peloa",
+        "nation_tambur"
+      ],
+      [
+        "nation_tambur",
+        "nation_harkan"
+      ],
+      [
+        "nation_harkan",
+        "nation_graven"
+      ],
+      [
+        "nation_graven",
+        "nation_iskar"
+      ],
+      [
+        "nation_merca",
+        "nation_peloa"
+      ],
+      [
+        "nation_merca",
+        "nation_ortes"
+      ],
+      [
+        "nation_quel",
+        "nation_peloa"
+      ],
+      [
+        "nation_quel",
+        "nation_tambur"
+      ],
+      [
+        "nation_eln",
+        "nation_iskar"
+      ],
+      [
+        "nation_eln",
+        "nation_ortes"
+      ]
+    ]
+  },
+  "patrons": [
+    {
+      "island": "nation_merca",
+      "patron": "nation_kalis",
+      "kind": "nation",
+      "desc": "칼리스가 국가 명의로 4막 오러 기사를 파견했다."
+    },
+    {
+      "island": "nation_merca",
+      "patron": "nation_seradin",
+      "kind": "house",
+      "desc": "세라딘의 한 마탑 가문이 탑주 회의와 상관없이 4환 마법사를 파견했다."
+    },
+    {
+      "island": "nation_quel",
+      "patron": "nation_peloa",
+      "kind": "nation",
+      "desc": "펠로아가 3막 오러 기사와 3환 마법사를 파견했다."
+    },
+    {
+      "island": "nation_eln",
+      "patron": "nation_ortes",
+      "kind": "house",
+      "desc": "오르테스의 한 선단 가문이 4환 마법사를 파견했다."
+    }
+  ]
+}

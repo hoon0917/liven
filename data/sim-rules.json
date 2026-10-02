@@ -1,0 +1,117 @@
+{
+  "status": "draft",
+  "note": "1턴 = 1년. 모든 수치는 초안이며 이 파일만 고치면 시뮬레이션 규칙이 바뀐다.",
+  "eruption": {
+    "minGap": 10,
+    "maxGap": 20,
+    "centralStabilityHit": 3,
+    "centralPopLoss": 0.004
+  },
+  "cohort": {
+    "sizeRate": 0.02,
+    "judgeAfter": 8,
+    "talentRate": 0.0015,
+    "luckSigma": 0.8,
+    "gradeDist": [
+      0.55,
+      0.28,
+      0.12,
+      0.04,
+      0.01
+    ]
+  },
+  "meteor": {
+    "chance": 0.12,
+    "cohortSizeRate": 0.002,
+    "markerYears": 5
+  },
+  "ronLake": {
+    "chance": 0.05,
+    "cohortSizeRate": 0.003
+  },
+  "talents": {
+    "attrition": 0.035,
+    "houseBirth": 0.026
+  },
+  "economy": {
+    "taxPerPop": 0.5,
+    "upkeepPerPower": 0.008,
+    "foodCost": 0.35,
+    "debtFloor": -300
+  },
+  "stability": {
+    "target": 60,
+    "drift": 0.15,
+    "famine": -20,
+    "debt": -15,
+    "war": -12,
+    "plenty": 5
+  },
+  "population": {
+    "faminePopLoss": 0.02,
+    "plentyBonus": 0.002,
+    "warLoss": 0.004
+  },
+  "relations": {
+    "drift": 3,
+    "reversion": 0.05,
+    "landFoodPressure": -1.5,
+    "granaryEnvy": -2.5,
+    "typeClash": -1,
+    "commonEnemy": 4,
+    "allianceMin": 60,
+    "allianceFormChance": 0.3,
+    "allianceBreakChance": 0.15,
+    "allianceMaxYears": 6,
+    "allianceBreakPenalty": -15,
+    "warMax": -70
+  },
+  "war": {
+    "declareChance": 0.25,
+    "seaFactor": 0.4,
+    "minPowerRatio": 0.85,
+    "peaceChance": 0.18,
+    "exhaustion": 30,
+    "maxYears": 6,
+    "territoryGain": [
+      2,
+      6
+    ],
+    "territoryFloor": 40,
+    "armyLoss": 0.08,
+    "talentLossLoser": 0.03,
+    "talentLossWinner": 0.015,
+    "stabilityLossLoser": 6,
+    "postWarRelation": -45,
+    "defenseBonus": {
+      "nation_nelas": 1.3
+    },
+    "patronShare": 0.25,
+    "armyPower": 40
+  },
+  "monsters": {
+    "replaceRate": 0.3,
+    "attackChance": 0.2,
+    "minTierToLog": 4,
+    "slayBase": 40
+  },
+  "revolution": {
+    "baseGrowth": 2.0,
+    "stabilityFactor": 20,
+    "exclusiveBonus": 0.5,
+    "famineBonus": 1,
+    "islandBonus": 0.3,
+    "revealedGrowthBonus": -0.6,
+    "threshold": 100,
+    "stabilityMax": 58,
+    "uprisingChance": 0.25,
+    "alchemyPowerPerPrep": 14,
+    "talentFactor": 0.6,
+    "failReset": 0,
+    "revealFear": -3,
+    "materialStart": 40,
+    "materialRegen": 3,
+    "materialCost": 60
+  },
+  "famineLogCooldown": 5
+}

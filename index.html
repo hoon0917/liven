@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>리벤 세계 지도</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <main class="map-wrap">
+      <svg id="map" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="리벤 세계 지도"></svg>
+      <div class="legend" id="legend" aria-label="범례"></div>
+    </main>
+    <aside class="panel">
+      <div class="simbar" id="simbar"></div>
+      <div class="panel-body" id="panel" aria-live="polite"></div>
+    </aside>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
