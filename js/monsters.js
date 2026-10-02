@@ -100,15 +100,21 @@ export function drawMonsters(svg, monsters, cfg, onSelect) {
   const tierName = Object.fromEntries(cfg.tiers.map((t) => [t.level, t.name]));
 
   for (const m of monsters) {
-    const s = 5 + m.tier * 1.6;
+    const s = m.legend ? 15 : 5 + m.tier * 1.6;
+    if (m.legend) {
+      const ring = document.createElementNS(NS, 'circle');
+      ring.setAttribute('cx', m.x); ring.setAttribute('cy', m.y); ring.setAttribute('r', 26);
+      ring.setAttribute('class', 'legend-ring');
+      g.appendChild(ring);
+    }
     const p = document.createElementNS(NS, 'path');
     p.setAttribute('d', `M${m.x} ${m.y - s}L${m.x + s} ${m.y}L${m.x} ${m.y + s}L${m.x - s} ${m.y}Z`);
     p.setAttribute('fill', tierColor[m.tier]);
-    p.setAttribute('class', 'monster');
+    p.setAttribute('class', m.legend ? 'monster legend' : 'monster');
     p.dataset.id = m.id;
     p.setAttribute('tabindex', '0');
     p.setAttribute('role', 'button');
-    p.setAttribute('aria-label', `${m.name}, ${tierName[m.tier]}`);
+    p.setAttribute('aria-label', `${m.name}, ${m.legend ? '전설급' : tierName[m.tier]}`);
     const title = document.createElementNS(NS, 'title');
     title.textContent = `${m.name} (${tierName[m.tier]})`;
     p.appendChild(title);

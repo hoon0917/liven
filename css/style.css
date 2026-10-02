@@ -445,3 +445,129 @@ html, body {
   .region { transition: none; }
   .erupting { animation: none; }
 }
+
+/* ===== 3차: 인물·사건·지도 변화 ===== */
+.orig { font-size: 15px; font-weight: 400; color: var(--ink-soft); letter-spacing: 0.08em; }
+
+.year-card {
+  margin: 20px 0 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper-deep);
+}
+.year-card-label { display: block; font-size: 12px; color: var(--ink-soft); margin-bottom: 4px; }
+.year-card p { margin: 0; font-family: var(--font-display); font-size: 18px; line-height: 1.6; }
+
+.alert-card {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-left: 4px solid var(--war);
+  background: rgba(140, 28, 19, 0.07);
+  font-size: 14px;
+}
+
+.ruler-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+}
+.ruler-title { font-size: 13px; color: var(--ink-soft); }
+.ruler-card .plink { font-size: 17px; font-family: var(--font-display); font-weight: 700; }
+
+.plink, .nlink {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgba(46, 38, 29, 0.35);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.plink { font-weight: 700; }
+.plink:hover, .nlink:hover { text-decoration-color: var(--ink); }
+.plink:focus-visible, .nlink:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+.people-list, .house-list { list-style: none; margin: 0 0 8px; padding: 0; font-size: 14px; }
+.people-list li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--ink-faint); }
+.people-list li span { color: var(--ink-soft); }
+.house-list li { padding: 10px 0; border-bottom: 1px solid var(--ink-faint); }
+.house-top { display: flex; justify-content: space-between; gap: 8px; }
+.house-motto { font-family: var(--font-display); font-size: 14px; color: var(--ink-soft); margin: 2px 0; }
+.house-meta { margin: 2px 0 6px; }
+.house-bars { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 6px; align-items: center; font-size: 12px; color: var(--ink-soft); }
+.house-bars .meter { width: 100%; margin: 0; }
+.meter.loyal span { background: var(--coexist); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; }
+.chip {
+  appearance: none;
+  border: 1px solid var(--ink-faint);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip.is-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.year-block { margin: 0 0 18px; }
+.year-head { margin: 0 0 4px; font-family: var(--font-display); font-size: 17px; }
+.year-summary { margin: 0 0 8px; font-family: var(--font-display); font-size: 15px; color: var(--ink-soft); }
+.log-cat {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  line-height: 18px;
+  border-radius: 3px;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  vertical-align: 1px;
+}
+.chronicle li.log-major { font-weight: 500; }
+.cat-전쟁 { border-left-color: var(--war) !important; }
+.cat-혁명 { border-left-color: var(--revolution) !important; }
+.cat-자연 { border-left-color: var(--volcano) !important; }
+.cat-인물 { border-left-color: var(--coexist) !important; }
+.cat-마물 { border-left-color: #a0302a !important; }
+.cat-외교 { border-left-color: var(--mercenary) !important; }
+.cat-탐험 { border-left-color: var(--sea-line) !important; }
+.cat-정치 { border-left-color: var(--magic) !important; }
+
+.deeds { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.deeds li { padding: 6px 0 6px 12px; border-left: 2px solid var(--ink-faint); }
+
+/* 지도: 점령지, 개척지, 새 섬, 전설급 마물 */
+.occupied { pointer-events: none; opacity: 0.85; }
+.label-colony { font-size: 12px; fill: var(--ink); font-weight: 700; }
+.region.colony { stroke-width: 2.2; }
+.new-island { cursor: pointer; }
+.legend-ring {
+  fill: none;
+  stroke: #a0302a;
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+  pointer-events: none;
+  animation: legendPulse 2.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes legendPulse { 50% { transform: scale(1.25); opacity: 0.4; } }
+.monster.legend { stroke-width: 2; }
+.swatch.occ { background: repeating-linear-gradient(-35deg, var(--magic) 0 3px, var(--paper) 3px 7px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .legend-ring { animation: none; }
+}

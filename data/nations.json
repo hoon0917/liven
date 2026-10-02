@@ -373,7 +373,8 @@
       "island": "nation_merca",
       "patron": "nation_seradin",
       "kind": "house",
-      "desc": "세라딘의 한 마탑 가문이 탑주 회의와 상관없이 4환 마법사를 파견했다."
+      "desc": "세라딘의 아샤르 가문이 탑주 회의와 상관없이 4환 마법사를 파견했다.",
+      "house": "house_ashar"
     },
     {
       "island": "nation_quel",
@@ -385,7 +386,8 @@
       "island": "nation_eln",
       "patron": "nation_ortes",
       "kind": "house",
-      "desc": "오르테스의 한 선단 가문이 4환 마법사를 파견했다."
+      "desc": "오르테스의 베일란 가문이 4환 마법사를 파견했다.",
+      "house": "house_beilan"
     }
   ]
 }

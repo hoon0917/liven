@@ -33,7 +33,7 @@ function profile(seed, jag) {
   };
 }
 
-function blobPoints(m, scale = 1, steps = 180) {
+export function blobPoints(m, scale = 1, steps = 180) {
   const f = profile(m.seed, m.jag);
   const pts = [];
   for (let i = 0; i < steps; i++) {
@@ -55,7 +55,7 @@ function sectorPoints(parent, from, to) {
   return pts;
 }
 
-const toPath = (pts) =>
+export const toPath = (pts) =>
   pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('') + 'Z';
 
 const TYPE_LABEL = {
@@ -213,11 +213,13 @@ export function renderMap(svg, data, onSelect, labels = {}) {
 
   // 지역 (폴리곤은 마물 배치 등에 쓰도록 모아 둔다)
   const polys = {};
+  const shapes = {};
   for (const r of data.regions) {
     if (r.id === 'continent_central') continue;
     let node;
     if (r.map.shape === 'sector') {
       polys[r.id] = sectorPoints(byId[r.map.parent].map, r.map.from, r.map.to);
+      shapes[r.id] = polys[r.id];
       node = el('path', { d: toPath(polys[r.id]), class: typeClass(r) + ' sector', 'fill-opacity': '0.8' }, gLand);
     } else if (r.map.shape === 'circle') {
       const { cx, cy, r: cr } = r.map;
@@ -228,6 +230,7 @@ export function renderMap(svg, data, onSelect, labels = {}) {
       continue; // 화산은 장식 위에 그린다
     } else {
       polys[r.id] = blobPoints(r.map, 0.9);
+      shapes[r.id] = blobPoints(r.map);
       node = el('path', { d: toPath(blobPoints(r.map)), class: typeClass(r) }, gLand);
     }
     makeClickable(node, r, onSelect);
@@ -278,6 +281,7 @@ export function renderMap(svg, data, onSelect, labels = {}) {
 
   return {
     polys,
+    shapes,
     anchors,
     setSelected(id) {
       svg.querySelectorAll('.is-selected').forEach((n) => n.classList.remove('is-selected'));

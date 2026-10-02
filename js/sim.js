@@ -1,4 +1,8 @@
 // 리벤 세계 시뮬레이션 엔진 (화면과 분리된 순수 로직)
+import { initPeople, yearlyPeople, createPerson, deed, newRuler } from './people.js';
+import { runEvents, battleLog, yearSummary } from './events.js';
+import { runStory } from './story.js';
+import { fill, pick } from './text.js';
 // step(state, data, hooks) 한 번 = 1년. 모든 규칙 수치는 data/sim-rules.json에서 온다.
 
 // ---------- 난수 (상태 안에 저장해 스냅샷으로 재현 가능) ----------
@@ -16,13 +20,8 @@ function normal(rng) {
   return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
 }
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-// 한국어 조사: 받침 유무에 따라 고른다. J('칼리스', '이', '가') → '칼리스가'
-function hasBatchim(w) {
-  const c = w.charCodeAt(w.length - 1);
-  if (c < 0xac00 || c > 0xd7a3) return false;
-  return (c - 0xac00) % 28 !== 0;
-}
-export const J = (w, withB, withoutB) => w + (hasBatchim(w) ? withB : withoutB);
+export { J } from './text.js';
+import { J } from './text.js';
 
 const pairKey = (a, b) => (a < b ? `${a}|${b}` : `${b}|${a}`);
 
@@ -78,6 +77,14 @@ export function createState(data, seed) {
     meteors: [],
     flash: null,
     log: [],
+    houses: JSON.parse(JSON.stringify(Object.fromEntries(data.houses.map((h) => [h.id, h])))),
+    patrons: JSON.parse(JSON.stringify(data.patrons)),
+    colonies: {},
+    known: {},
+    islandNames: {},
+    newIslands: [],
+    legend: null,
+    yearSummaries: {},
   };
   for (const [id, n] of Object.entries(state.nations)) {
     n.army0 = n.army;
@@ -86,13 +93,16 @@ export function createState(data, seed) {
     n.originalType = n.type;
     n.famine = false;
     n.food = n.foodBase;
+    n.occupied = {};
   }
+  for (const r of data.regionsList) if (r.kind === 'island_unexplored') state.known[r.id] = r.known !== false;
   for (const r of data.relations.nations) {
     const k = pairKey(r.pair[0], r.pair[1]);
     state.relations[k] = r.value;
     state.relationBase[k] = r.value;
   }
-  state.log.push({ year: state.year, kind: 'start', text: `기록이 시작되었다. 마지막 분화는 맹약력 ${state.lastEruption}년이었다.` });
+  initPeople(state, data, rngFrom(state));
+  state.log.push({ year: state.year, kind: 'start', text: `기록이 시작되었다. 마지막 분화는 맹약력 ${state.lastEruption}년이었다. 리벤의 열세 나라는 서로를 경계하며 다음 분화를 기다린다.` });
   return state;
 }
 
@@ -106,16 +116,38 @@ export function step(state, data, hooks = {}) {
   const name = (id) => def[id].name;
   const log = (kind, text, extra = {}) => state.log.push({ year: state.year, kind, text, ...extra });
   const atWar = (id) => state.wars.some((w) => w.a === id || w.b === id);
+  const isLandPair = (a, b) => data.neighbors.land.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
+  const isSeaPair = (a, b) => data.neighbors.sea.some(([x, y]) => (x === a && y === b) || (x === b && y === a));
+  const ctx = {
+    log, name, admin: false,
+    rel: (a, b) => state.relations[pairKey(a, b)],
+    addRel: (a, b, d) => { const k = pairKey(a, b); state.relations[k] = clamp(state.relations[k] + d, -100, 100); },
+    neighbors: (id) => Object.keys(N).filter((o) => o !== id && (isLandPair(id, o) || isSeaPair(id, o))),
+    neighborPairs: () => [...data.neighbors.land, ...data.neighbors.sea],
+    power: (id) => nationPower(N[id], data),
+    pointIn: (regionId, r) => (hooks.pointIn ? hooks.pointIn(regionId, r) : null),
+    colonizable: () => [
+      ...data.regionsList.filter((r) => r.kind === 'island_unexplored' && state.known[r.id] && !state.colonies[r.id])
+        .map((r) => ({ id: r.id, name: state.islandNames[r.id] || r.name })),
+      ...state.newIslands.filter((i) => state.known[i.id] && !state.colonies[i.id]).map((i) => ({ id: i.id, name: state.islandNames[i.id] || i.name })),
+    ],
+    unknownIslands: () => [
+      ...data.regionsList.filter((r) => r.kind === 'island_unexplored' && !state.known[r.id]).map((r) => ({ id: r.id })),
+      ...state.newIslands.filter((i) => !state.known[i.id]).map((i) => ({ id: i.id })),
+    ],
+  };
+  const rulerTraitMult = (id, m) => (state.persons[state.rulers[id]]?.traits || []).reduce((x, t) => x * (m[t] || 1), 1);
 
   state.year += 1;
   state.flash = null;
+  for (const n of Object.values(N)) n.lostBattle = false;
 
   // 1. 화산 분화
   const gap = state.year - state.lastEruption;
   if (gap >= R.eruption.minGap && rng() < 1 / (R.eruption.maxGap - gap + 1)) {
     state.lastEruption = state.year;
     state.flash = 'eruption';
-    log('eruption', '중앙 대륙의 화산이 분화했다. 보이지 않는 론이 사방으로 흩어졌다. 각국과 가문이 서둘러 아이들을 낳게 한다.');
+    log('eruption', pick(rng, ['중앙 대륙의 화산이 분화했다. 보이지 않는 론이 사방으로 흩어졌다. 각국과 가문이 서둘러 아이들을 낳게 한다.', '화산이 깨어났다. 하늘이 사흘 동안 잿빛이었다. 리벤의 모든 가문이 영지 곳곳으로 산모들을 보냈다.', '땅이 울리고 화산이 불을 뿜었다. 론이 어디에 내려앉았는지는 아무도 모른다. 모두가 아이들의 그릇에 희망을 건다.']), { w: 80, head: '화산이 깨어난 해' });
     for (const [id, n] of Object.entries(N)) {
       if (def[id].regionId.startsWith('region_central')) {
         n.stability -= R.eruption.centralStabilityHit;
@@ -124,6 +156,14 @@ export function step(state, data, hooks = {}) {
       n.cohorts.push({ born: state.year, source: '분화', size: n.pop * R.cohort.sizeRate * (n.territory / 100) });
     }
     if (hooks.respawnMonsters) hooks.respawnMonsters(state, rng, 1);
+    if (hooks.spawnIsland && rng() < data.events.events.newIsland.chance) {
+      const isl = hooks.spawnIsland(state, rng);
+      if (isl) {
+        state.newIslands.push({ ...isl, year: state.year });
+        state.known[isl.id] = false;
+        log('newIsland', pick(rng, data.events.events.newIsland.texts), { w: 30, head: '바다 밑에서 새 땅이 솟은 해' });
+      }
+    }
   }
 
   // 2. 유성과 론 호수 (론은 아무도 인지하지 못하므로 론 호수는 숨은 기록)
@@ -156,7 +196,7 @@ export function step(state, data, hooks = {}) {
       const total = c.size * 10000 * R.cohort.talentRate * luck;
       let target = id;
       if (n.type === 'mercenary') {
-        const p = data.patrons.find((x) => x.island === id && x.kind === 'nation') || data.patrons.find((x) => x.island === id);
+        const p = state.patrons.find((x) => x.island === id && x.kind === 'nation') || state.patrons.find((x) => x.island === id);
         if (!p) continue;
         target = p.patron;
       }
@@ -196,7 +236,8 @@ export function step(state, data, hooks = {}) {
   // 4. 경제, 식량, 인구, 안정도
   for (const [id, n] of Object.entries(N)) {
     const war = atWar(id);
-    n.food = n.foodBase * (n.territory / 100) * (n.foodRefPop / n.pop);
+    n.food = (n.foodBase + (n.colonyFood || 0)) * (n.territory / 100) * (n.foodRefPop / n.pop) + (n.foodMod || 0);
+    n.foodMod = 0;
     let famine = false;
     if (n.food < 1) {
       const cost = (1 - n.food) * n.pop * R.economy.foodCost;
@@ -241,7 +282,7 @@ export function step(state, data, hooks = {}) {
   const regionOwner = Object.fromEntries(Object.keys(N).map((id) => [def[id].regionId, id]));
   state.monsters = state.monsters.filter((m) => {
     const owner = regionOwner[m.regionId];
-    if (!owner || m.tier < 3 || rng() >= R.monsters.attackChance) return true;
+    if (!owner || m.legend || m.tier < 3 || rng() >= R.monsters.attackChance) return true;
     const n = N[owner];
     n.pop *= 1 - 0.001 * m.tier;
     n.stability -= 0.5 * m.tier;
@@ -297,7 +338,7 @@ export function step(state, data, hooks = {}) {
 
   // 7. 전쟁: 진행 중인 전쟁의 전투와 강화
   const WR = R.war;
-  const patronHelp = (id) => data.patrons.filter((p) => p.island === id).reduce((s, p) => s + nationPower(N[p.patron], data) * WR.patronShare, 0);
+  const patronHelp = (id) => state.patrons.filter((p) => p.island === id).reduce((s, p) => s + nationPower(N[p.patron], data) * WR.patronShare, 0);
   state.wars = state.wars.filter((w) => {
     const A = N[w.a], B = N[w.b];
     const ap = nationPower(A, data) * between(rng, 0.7, 1.3);
@@ -306,6 +347,11 @@ export function step(state, data, hooks = {}) {
     const gain = Math.min(between(rng, ...WR.territoryGain), Math.max(0, lose.territory - WR.territoryFloor));
     lose.territory -= gain;
     win.territory += gain;
+    lose.lostBattle = true;
+    // 빼앗긴 땅을 되찾는 것인지, 새로 점령하는 것인지 기록한다
+    const back = Math.min(gain, win.occupied[lid] || 0);
+    if (back > 0) { win.occupied[lid] -= back; if (win.occupied[lid] < 0.5) delete win.occupied[lid]; }
+    if (gain - back > 0) lose.occupied[wid] = (lose.occupied[wid] || 0) + (gain - back);
     const loot = Math.min(Math.max(0, lose.treasury), gain * 5);
     lose.treasury -= loot; win.treasury += loot;
     lose.stability -= WR.stabilityLossLoser; win.stability += 2;
@@ -314,12 +360,12 @@ export function step(state, data, hooks = {}) {
       for (let g = 0; g < 5; g++) { n.mages[g] *= 1 - loss; n.aura[g] *= 1 - loss; }
     }
     w.lastWinner = wid;
-    log('battle', `${J(name(wid), '이', '가')} ${J(name(lid), '과', '와')}의 싸움에서 이겨 영토를 ${gain.toFixed(1)}만큼 빼앗았다.`, { ids: [wid, lid] });
+    battleLog(state, data, rng, ctx, wid, lid, gain);
 
     const exhausted = A.stability < WR.exhaustion || B.stability < WR.exhaustion;
     if (exhausted || state.year - w.since >= WR.maxYears || rng() < WR.peaceChance) {
       state.relations[pairKey(w.a, w.b)] = WR.postWarRelation;
-      log('peace', `${J(name(w.a), '과', '와')} ${J(name(w.b), '이', '가')} 강화를 맺었다. 전쟁은 ${state.year - w.since + 1}년 동안 이어졌다.`, { ids: [w.a, w.b] });
+      log('peace', fill(pick(rng, ['{a:과} {b:이} 강화를 맺었다. 전쟁은 {x}년 동안 이어졌다.', '{a:과} {b}의 사절이 국경의 천막에서 만났다. {x}년의 전쟁이 끝났다.', '지친 {a:과} {b:이} 칼을 거두었다. {x}년 동안 흘린 피에 비해 얻은 것은 많지 않았다.']), { a: name(w.a), b: name(w.b), x: state.year - w.since + 1 }), { ids: [w.a, w.b], w: 35, head: `${J(name(w.a), '과', '와')} ${name(w.b)}의 전쟁이 끝난 해` });
       return false;
     }
     return true;
@@ -338,10 +384,12 @@ export function step(state, data, hooks = {}) {
     if (N[a].type === 'mercenary') continue;
     const ratio = nationPower(N[a], data) / (nationPower(N[b], data) + patronHelp(b));
     if (ratio < WR.minPowerRatio) continue;
-    if (rng() < WR.declareChance * (land ? 1 : WR.seaFactor)) {
+    if (rng() < WR.declareChance * (land ? 1 : WR.seaFactor) * rulerTraitMult(a, { ambitious: 1.4, brave: 1.2, cruel: 1.2, cautious: 0.6, merciful: 0.6 })) {
       state.wars.push({ a, b, since: state.year });
       const why = N[a].food < 1 ? ' 굶주림이 칼을 들게 했다.' : '';
-      log('war', `${J(name(a), '이', '가')} ${name(b)}에 전쟁을 선포했다.${why}`, { ids: [a, b] });
+      const rp = state.persons[state.rulers[a]];
+      log('war', fill(pick(rng, ['{a:이} {b}에 전쟁을 선포했다.', '{t} {p:이} 칼을 뽑았다. {a:이} {b:으로} 진군한다.', '{a}의 군기가 {b}의 국경을 넘었다. 전쟁이 시작되었다.']), { a: name(a), b: name(b), t: rp?.title, p: rp?.name }) + why,
+        { ids: [a, b], persons: rp ? [rp.id] : [], w: 70, head: `${J(name(a), '과', '와')} ${name(b)}의 칼끝이 부딪힌 해` });
     }
   }
 
@@ -364,12 +412,17 @@ export function step(state, data, hooks = {}) {
     const first = !state.alchemyRevealed;
     const rev = n.revolutionPrep * RV.alchemyPowerPerPrep * between(rng, 0.7, 1.3);
     const gov = (talentPower(n, W) * RV.talentFactor + n.army * WR.armyPower + patronHelp(id)) * between(rng, 0.7, 1.3);
+    const leader = createPerson(state, data, rng, { nation: id, role: 'rebel', side: '무명회', age: 25 + rng() * 20, job: pick(rng, data.names.commonerJobs) });
+    deed(state, leader, `${name(id)}에서 무명회의 봉기를 이끌었다.`);
+    const founder = state.persons[state.founder];
     if (first) {
       state.alchemyRevealed = true;
-      log('revolution', `${name(id)}에서 봉기가 일어났다. 재능 없는 자들이 정체를 알 수 없는 폭발하는 무기를 들었다. 마법으로도 그 근원을 읽어 낼 수 없었다. 세계가 처음으로 연금술을 목격했다.`, { ids: [id] });
+      if (founder) { founder.hidden = false; deed(state, founder, '세상에 이름이 알려졌다.'); }
+      log('revolution', `${name(id)}에서 봉기가 일어났다. 재능 없는 자들이 정체를 알 수 없는 폭발하는 무기를 들었다. 마법으로도 그 근원을 읽어 낼 수 없었다. 세계가 처음으로 연금술을 목격했다.`, { ids: [id], persons: [leader.id], w: 100, head: `${name(id)}에서 연금술이 처음 세상에 드러난 해` });
+      log('revolution', `봉기한 이들은 스스로를 무명회라 불렀다. 재능이라는 이름을 갖지 못한 자들의 모임. 그 뒤에는 ${founder ? J(founder.name, '이라는', '라는') : '이름 모를'} 창시자가 있다는 말이 퍼졌다.`, { ids: [id], persons: founder ? [founder.id] : [], w: 50 });
       for (const o of Object.values(N)) o.stability += RV.revealFear;
     } else {
-      log('revolution', `${name(id)}에서 봉기가 일어났다. 연금술 무기를 든 혁명 세력이 거리를 메웠다.`, { ids: [id] });
+      log('revolution', fill('{n}에서 무명회의 봉기가 일어났다. {p:이} 연금술 무기를 든 사람들을 이끌고 거리를 메웠다.', { n: name(id), p: leader.name }), { ids: [id], persons: [leader.id], w: 95, head: `${name(id)}에서 무명회가 일어선 해` });
     }
     if (rev > gov) {
       n.type = 'revolution';
@@ -377,17 +430,28 @@ export function step(state, data, hooks = {}) {
       n.stability = 40;
       n.revolutionPrep = 0;
       for (const k of Object.keys(state.relations)) if (k.split('|').includes(id)) state.relations[k] = clamp(state.relations[k] - 20, -100, 100);
-      log('revolution', `혁명이 성공했다. ${name(id)}의 가문 체제가 무너지고, 재능자의 절반이 나라를 떠났다.`, { ids: [id] });
+      for (const h of Object.values(state.houses)) if (h.nation === id) { h.exiled = true; h.ruling = false; }
+      newRuler(state, data, rng, ctx, id, leader, data.names.rulerTitles.revolution);
+      log('revolution', `혁명이 성공했다. ${name(id)}의 가문 체제가 무너지고, 재능자의 절반이 나라를 떠났다. ${J(leader.name, '이', '가')} 혁명 의장이 되었다.`, { ids: [id], persons: [leader.id], w: 100, head: `${name(id)}의 가문 체제가 무너진 해` });
     } else {
       n.revolutionPrep = RV.failReset;
       n.stability -= 10;
-      log('revolution', `${name(id)}의 봉기가 진압되었다. 살아남은 혁명 세력은 다시 숨어들었다.`, { ids: [id] });
+      leader.alive = false; leader.died = state.year; deed(state, leader, '봉기가 진압되어 처형되었다.');
+      log('revolution', fill('{n}의 봉기가 진압되었다. {p:은} 성문 앞에서 처형되었고, 살아남은 무명회 사람들은 다시 숨어들었다.', { n: name(id), p: leader.name }), { ids: [id], persons: [leader.id], w: 70 });
     }
   }
+
+  // 10. 인물과 사건
+  yearlyPeople(state, data, rng, ctx);
+  runEvents(state, data, rng, ctx);
+  if (data.story) runStory(state, data, rng, ctx);
 
   for (const n of Object.values(N)) {
     n.stability = clamp(n.stability, 0, 100);
     n.revolutionPrep = clamp(n.revolutionPrep, 0, 150);
+    n.treasury = Math.max(R.economy.debtFloor, n.treasury);
   }
+  // 11. 올해의 요약
+  state.yearSummaries[state.year] = yearSummary(state, data, rng, state.log.filter((l) => l.year === state.year));
   return state;
 }

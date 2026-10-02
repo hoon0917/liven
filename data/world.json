@@ -129,12 +129,22 @@
   "factions": [
     {
       "id": "faction_revolution",
-      "name": null,
-      "nameStatus": "pending",
+      "name": "무명회",
+      "nameOriginal": "the Nameless",
+      "nameStatus": "draft",
+      "meaning": "재능이라는 이름을 갖지 못한 자들의 모임",
       "members": "재능을 갖지 못한 자들",
       "scope": "worldwide",
       "goal": "혁명",
       "core": "power_alchemy",
+      "founded": 14,
+      "founder": {
+        "name": "카렌",
+        "origin": "세라딘의 소금밭 마을",
+        "race": "race_human",
+        "bornYear": -14,
+        "desc": "잠든 큰 그릇을 지닌 채 태어나 마법도 오러도 깨우지 못했지만, 남다른 지혜로 소금 호수의 광물에서 연금술을 발견했다."
+      },
       "structure": "창시자와 최상층만 원리를 알고, 하부 세포는 완성품과 절차만 받음",
       "currentPhase": "pre_revolution"
     }
@@ -155,11 +165,8 @@
     ]
   },
   "pending": [
-    "혁명 세력의 명칭, 창시자, 창설 연도",
     "맹약 이전 시대와 맹약의 계기, 31년 이전의 분화 연도",
-    "대가문의 수와 이름",
     "지역·지형의 고유명사",
-    "마법 원소 목록",
     "종교"
   ],
   "greatFlood": {
