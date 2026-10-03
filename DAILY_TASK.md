@@ -31,6 +31,13 @@ BACKLOG 항목과 별개로, 매일 `data/story.json`에 새 재료를 더한다
 - 문장 규칙: 설정집 말투의 평서문. 인물 뒤 조사는 `{a:이}`, `{o:으로}`처럼 쓴다. 론은 아무도 느끼거나 볼 수 없다. 종교는 아직 정해지지 않았으니 신이나 교단을 만들지 않는다.
 - 추가한 뒤 `node tools/validate-story.mjs`를 실행해 오류가 0개인지 확인한다. 경고가 나오면 문장을 고친다.
 
+## 인물 모드 재료 늘리기 (매일 함께 한다)
+- `data/player.json`의 `encounters`에 조우 2개 이상을 더한다. 조건(when)과 선택지(choices), 효과(fx)는 기존 형식을 따른다.
+- `intents`의 행동 단어나 `flavor`의 결과 조각을 늘려 직접 입력을 더 잘 알아듣게 한다.
+- `data/items.json`에 물건이나 제작법을 더할 수 있다. 새 물건은 기존 종류(goods, material, weapon, armor, tool, consumable, alchemy, relic) 안에서 만든다.
+- 변수와 층의 구조는 `lore/12_변수설계도.md`를 따른다.
+- 조우의 조건과 효과에 쓸 수 있는 이름은 `js/player.js`의 cond 함수와 applyFx 함수에 있는 것만 쓴다.
+
 ## 끝날 때
 - BACKLOG에서 끝낸 항목을 체크한다.
 - `CHANGELOG.md` 맨 위에 아래 형식으로 기록한다.

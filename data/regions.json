@@ -1,21 +1,57 @@
 {
   "meta": {
-    "viewBox": [0, 0, 1200, 1200],
-    "center": [600, 600],
+    "viewBox": [
+      0,
+      0,
+      1200,
+      1200
+    ],
+    "center": [
+      600,
+      600
+    ],
     "angleNote": "각도는 SVG 기준(0°=동쪽, 90°=남쪽, 시계 방향)",
     "namesPending": true
   },
   "features": {
-    "ridges": { "angles": [45, 135, 225, 315], "from": 0.26, "to": 0.86 },
-    "rivers": { "angles": [270, 0, 90, 180], "from": 0.3, "to": 1.02 }
+    "ridges": {
+      "angles": [
+        45,
+        135,
+        225,
+        315
+      ],
+      "from": 0.26,
+      "to": 0.86
+    },
+    "rivers": {
+      "angles": [
+        270,
+        0,
+        90,
+        180
+      ],
+      "from": 0.3,
+      "to": 1.02
+    }
   },
   "regions": [
     {
       "id": "continent_central",
       "name": "중앙 대륙",
       "kind": "continent",
-      "notes": ["세계 한가운데의 큰 대륙. 정중앙에 화산이 있다.", "네 갈래 산맥이 X자로 뻗어 4개국을 나눈다."],
-      "map": { "shape": "blob", "cx": 600, "cy": 600, "r": 215, "seed": 7, "jag": 0.12 }
+      "notes": [
+        "세계 한가운데의 큰 대륙. 정중앙에 화산이 있다.",
+        "네 갈래 산맥이 X자로 뻗어 4개국을 나눈다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 600,
+        "cy": 600,
+        "r": 215,
+        "seed": 7,
+        "jag": 0.12
+      }
     },
     {
       "id": "region_volcano",
@@ -24,9 +60,21 @@
       "parent": "continent_central",
       "nationType": "none",
       "terrain": "거대한 화산과 그 주변의 황폐한 땅",
-      "hazards": ["10~20년 주기의 분화", "용암과 화산재"],
-      "notes": ["리벤에 쌓인 론이 이곳을 통해 분출된다.", "너무 위험해 아무도 살 수 없다.", "마지막 분화: 맹약력 31년"],
-      "map": { "shape": "circle", "cx": 600, "cy": 600, "r": 48 }
+      "hazards": [
+        "10~20년 주기의 분화",
+        "용암과 화산재"
+      ],
+      "notes": [
+        "리벤에 쌓인 론이 이곳을 통해 분출된다.",
+        "너무 위험해 아무도 살 수 없다.",
+        "마지막 분화: 맹약력 31년"
+      ],
+      "map": {
+        "shape": "circle",
+        "cx": 600,
+        "cy": 600,
+        "r": 48
+      }
     },
     {
       "id": "region_central_north",
@@ -36,11 +84,28 @@
       "nationType": "knight",
       "climate": "한랭",
       "terrain": "높은 산맥과 빙하, 좁고 깊은 골짜기",
-      "abundant": ["철", "석재"],
-      "scarce": ["식량"],
-      "hazards": ["혹한"],
-      "notes": ["오러 기사 가문이 골짜기마다 요새를 쌓았다.", "식량을 얻으려 곡창을 노리며, 4개국 중 가장 공격적이다.", "서부 마법국가와 산맥 하나를 사이에 두고 맞닿아 있다."],
-      "map": { "shape": "sector", "parent": "continent_central", "from": 225, "to": 315 }
+      "abundant": [
+        "철",
+        "석재"
+      ],
+      "scarce": [
+        "식량"
+      ],
+      "hazards": [
+        "혹한"
+      ],
+      "notes": [
+        "오러 기사 가문이 골짜기마다 요새를 쌓았다.",
+        "식량을 얻으려 곡창을 노리며, 4개국 중 가장 공격적이다.",
+        "서부 마법국가와 산맥 하나를 사이에 두고 맞닿아 있다."
+      ],
+      "map": {
+        "shape": "sector",
+        "parent": "continent_central",
+        "from": 225,
+        "to": 315
+      },
+      "terrainStyle": "mountain"
     },
     {
       "id": "region_central_east",
@@ -50,11 +115,28 @@
       "nationType": "coexist",
       "climate": "온화",
       "terrain": "넓은 강 하구와 비교적 평평한 골짜기",
-      "abundant": ["곡물", "인구"],
-      "scarce": ["금속"],
-      "hazards": ["이웃 세 나라의 침략 위협"],
-      "notes": ["4개국의 곡창이다.", "인구가 많아 분화기 출산 전략에서 유리하다.", "섬과 작은 대륙들로 이어지는 항구가 있다."],
-      "map": { "shape": "sector", "parent": "continent_central", "from": -45, "to": 45 }
+      "abundant": [
+        "곡물",
+        "인구"
+      ],
+      "scarce": [
+        "금속"
+      ],
+      "hazards": [
+        "이웃 세 나라의 침략 위협"
+      ],
+      "notes": [
+        "4개국의 곡창이다.",
+        "인구가 많아 분화기 출산 전략에서 유리하다.",
+        "섬과 작은 대륙들로 이어지는 항구가 있다."
+      ],
+      "map": {
+        "shape": "sector",
+        "parent": "continent_central",
+        "from": -45,
+        "to": 45
+      },
+      "terrainStyle": "plains"
     },
     {
       "id": "region_central_south",
@@ -64,11 +146,28 @@
       "nationType": "coexist",
       "climate": "온난·습윤",
       "terrain": "숲과 늪으로 덮인 골짜기",
-      "abundant": ["목재", "약초"],
-      "scarce": ["석재", "금속"],
-      "hazards": ["풍토병"],
-      "notes": ["풍토병 때문에 외부 군대가 오래 머물기 어렵다.", "약초를 다루는 전통이 깊어 치료술이 발달했다."],
-      "map": { "shape": "sector", "parent": "continent_central", "from": 45, "to": 135 }
+      "abundant": [
+        "목재",
+        "약초"
+      ],
+      "scarce": [
+        "석재",
+        "금속"
+      ],
+      "hazards": [
+        "풍토병"
+      ],
+      "notes": [
+        "풍토병 때문에 외부 군대가 오래 머물기 어렵다.",
+        "약초를 다루는 전통이 깊어 치료술이 발달했다."
+      ],
+      "map": {
+        "shape": "sector",
+        "parent": "continent_central",
+        "from": 45,
+        "to": 135
+      },
+      "terrainStyle": "forest"
     },
     {
       "id": "region_central_west",
@@ -78,11 +177,29 @@
       "nationType": "magic",
       "climate": "건조",
       "terrain": "깊고 메마른 협곡, 소금 호수",
-      "abundant": ["소금", "광물"],
-      "scarce": ["물", "식량"],
-      "hazards": ["가뭄"],
-      "notes": ["마법 가문들이 협곡 절벽을 파고 학문의 탑을 세웠다.", "물을 다루는 마법이 생존 기술로 발달했다.", "발밑의 광물 중에 연금술 재료가 있다."],
-      "map": { "shape": "sector", "parent": "continent_central", "from": 135, "to": 225 }
+      "abundant": [
+        "소금",
+        "광물"
+      ],
+      "scarce": [
+        "물",
+        "식량"
+      ],
+      "hazards": [
+        "가뭄"
+      ],
+      "notes": [
+        "마법 가문들이 협곡 절벽을 파고 학문의 탑을 세웠다.",
+        "물을 다루는 마법이 생존 기술로 발달했다.",
+        "발밑의 광물 중에 연금술 재료가 있다."
+      ],
+      "map": {
+        "shape": "sector",
+        "parent": "continent_central",
+        "from": 135,
+        "to": 225
+      },
+      "terrainStyle": "desert"
     },
     {
       "id": "continent_1",
@@ -91,11 +208,30 @@
       "nationType": "coexist",
       "climate": "한랭",
       "terrain": "빙원과 얼어붙은 해안",
-      "abundant": ["모피", "바다 짐승의 기름"],
-      "scarce": ["목재", "곡물"],
-      "hazards": ["혹한", "얼음 바다"],
-      "notes": ["살아남기 위해 마법 가문과 기사 가문이 공존한다."],
-      "map": { "shape": "blob", "cx": 600, "cy": 195, "r": 82, "seed": 11, "jag": 0.2 }
+      "abundant": [
+        "모피",
+        "바다 짐승의 기름"
+      ],
+      "scarce": [
+        "목재",
+        "곡물"
+      ],
+      "hazards": [
+        "혹한",
+        "얼음 바다"
+      ],
+      "notes": [
+        "살아남기 위해 마법 가문과 기사 가문이 공존한다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 600,
+        "cy": 195,
+        "r": 82,
+        "seed": 11,
+        "jag": 0.2
+      },
+      "terrainStyle": "ice"
     },
     {
       "id": "continent_2",
@@ -104,11 +240,30 @@
       "nationType": "coexist",
       "climate": "서늘",
       "terrain": "안개 낀 침엽수림, 좁고 깊은 만",
-      "abundant": ["목재", "조선술"],
-      "scarce": ["곡물"],
-      "hazards": ["짙은 안개", "험한 해안"],
-      "notes": ["세계 최고의 배를 만든다.", "섬과 대륙을 잇는 해운의 중심이다."],
-      "map": { "shape": "blob", "cx": 951, "cy": 397, "r": 85, "seed": 23, "jag": 0.24 }
+      "abundant": [
+        "목재",
+        "조선술"
+      ],
+      "scarce": [
+        "곡물"
+      ],
+      "hazards": [
+        "짙은 안개",
+        "험한 해안"
+      ],
+      "notes": [
+        "세계 최고의 배를 만든다.",
+        "섬과 대륙을 잇는 해운의 중심이다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 951,
+        "cy": 397,
+        "r": 85,
+        "seed": 23,
+        "jag": 0.24
+      },
+      "terrainStyle": "taiga"
     },
     {
       "id": "continent_3",
@@ -117,11 +272,29 @@
       "nationType": "coexist",
       "climate": "온난",
       "terrain": "완만한 구릉과 평야",
-      "abundant": ["곡물", "과일"],
-      "scarce": ["금속", "땅"],
-      "hazards": ["인구 과밀"],
-      "notes": ["비교적 풍요롭지만 땅이 좁아 늘 이웃의 땅을 탐낸다."],
-      "map": { "shape": "blob", "cx": 951, "cy": 802, "r": 78, "seed": 37, "jag": 0.16 }
+      "abundant": [
+        "곡물",
+        "과일"
+      ],
+      "scarce": [
+        "금속",
+        "땅"
+      ],
+      "hazards": [
+        "인구 과밀"
+      ],
+      "notes": [
+        "비교적 풍요롭지만 땅이 좁아 늘 이웃의 땅을 탐낸다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 951,
+        "cy": 802,
+        "r": 78,
+        "seed": 37,
+        "jag": 0.16
+      },
+      "terrainStyle": "hills"
     },
     {
       "id": "continent_4",
@@ -130,11 +303,29 @@
       "nationType": "coexist",
       "climate": "열대",
       "terrain": "밀림과 강",
-      "abundant": ["향신료", "약재"],
-      "scarce": ["철"],
-      "hazards": ["풍토병", "맹수"],
-      "notes": ["살아남기 위해 마법 가문과 기사 가문이 공존한다."],
-      "map": { "shape": "blob", "cx": 600, "cy": 1005, "r": 86, "seed": 41, "jag": 0.18 }
+      "abundant": [
+        "향신료",
+        "약재"
+      ],
+      "scarce": [
+        "철"
+      ],
+      "hazards": [
+        "풍토병",
+        "맹수"
+      ],
+      "notes": [
+        "살아남기 위해 마법 가문과 기사 가문이 공존한다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 600,
+        "cy": 1005,
+        "r": 86,
+        "seed": 41,
+        "jag": 0.18
+      },
+      "terrainStyle": "jungle"
     },
     {
       "id": "continent_5",
@@ -143,11 +334,29 @@
       "nationType": "coexist",
       "climate": "온난",
       "terrain": "넓은 초원",
-      "abundant": ["말", "가축"],
-      "scarce": ["목재", "석재"],
-      "hazards": ["가뭄"],
-      "notes": ["기마 문화가 발달해 작은 대륙 중 기병 전력이 가장 강하다."],
-      "map": { "shape": "blob", "cx": 249, "cy": 802, "r": 88, "seed": 53, "jag": 0.14 }
+      "abundant": [
+        "말",
+        "가축"
+      ],
+      "scarce": [
+        "목재",
+        "석재"
+      ],
+      "hazards": [
+        "가뭄"
+      ],
+      "notes": [
+        "기마 문화가 발달해 작은 대륙 중 기병 전력이 가장 강하다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 249,
+        "cy": 802,
+        "r": 88,
+        "seed": 53,
+        "jag": 0.14
+      },
+      "terrainStyle": "grass"
     },
     {
       "id": "continent_6",
@@ -156,11 +365,29 @@
       "nationType": "coexist",
       "climate": "서늘",
       "terrain": "바위 황무지와 절벽 해안",
-      "abundant": ["은", "구리"],
-      "scarce": ["식량"],
-      "hazards": ["낙석", "척박함"],
-      "notes": ["살아남기 위해 마법 가문과 기사 가문이 공존한다."],
-      "map": { "shape": "blob", "cx": 249, "cy": 397, "r": 80, "seed": 67, "jag": 0.22 }
+      "abundant": [
+        "은",
+        "구리"
+      ],
+      "scarce": [
+        "식량"
+      ],
+      "hazards": [
+        "낙석",
+        "척박함"
+      ],
+      "notes": [
+        "살아남기 위해 마법 가문과 기사 가문이 공존한다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 249,
+        "cy": 397,
+        "r": 80,
+        "seed": 67,
+        "jag": 0.22
+      },
+      "terrainStyle": "rock"
     },
     {
       "id": "island_nation_1",
@@ -168,9 +395,22 @@
       "kind": "island_nation",
       "nationType": "mercenary",
       "terrain": "항로 위의 항구 섬",
-      "abundant": ["교역"],
-      "notes": ["중계 무역항이자 세계 최대의 용병 시장.", "마법·기사 가문이 없어 강자를 파견받는다."],
-      "map": { "shape": "blob", "cx": 893, "cy": 662, "r": 28, "seed": 71, "jag": 0.22 }
+      "abundant": [
+        "교역"
+      ],
+      "notes": [
+        "중계 무역항이자 세계 최대의 용병 시장.",
+        "마법·기사 가문이 없어 강자를 파견받는다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 893,
+        "cy": 662,
+        "r": 28,
+        "seed": 71,
+        "jag": 0.22
+      },
+      "terrainStyle": "hills"
     },
     {
       "id": "island_nation_2",
@@ -178,9 +418,23 @@
       "kind": "island_nation",
       "nationType": "mercenary",
       "terrain": "남쪽 바다의 섬",
-      "abundant": ["진주", "어업", "소금"],
-      "notes": ["마법·기사 가문이 없어 강자를 파견받는다."],
-      "map": { "shape": "blob", "cx": 765, "cy": 886, "r": 26, "seed": 73, "jag": 0.24 }
+      "abundant": [
+        "진주",
+        "어업",
+        "소금"
+      ],
+      "notes": [
+        "마법·기사 가문이 없어 강자를 파견받는다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 765,
+        "cy": 886,
+        "r": 26,
+        "seed": 73,
+        "jag": 0.24
+      },
+      "terrainStyle": "grass"
     },
     {
       "id": "island_nation_3",
@@ -188,19 +442,233 @@
       "kind": "island_nation",
       "nationType": "mercenary",
       "terrain": "북쪽 바다의 섬",
-      "abundant": ["항로 관리", "해도 제작"],
-      "notes": ["항로를 관리하고 해도를 만드는 등대의 섬.", "마법·기사 가문이 없어 강자를 파견받는다."],
-      "map": { "shape": "blob", "cx": 750, "cy": 317, "r": 25, "seed": 79, "jag": 0.2 }
+      "abundant": [
+        "항로 관리",
+        "해도 제작"
+      ],
+      "notes": [
+        "항로를 관리하고 해도를 만드는 등대의 섬.",
+        "마법·기사 가문이 없어 강자를 파견받는다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 750,
+        "cy": 317,
+        "r": 25,
+        "seed": 79,
+        "jag": 0.2
+      },
+      "terrainStyle": "rock"
     },
-    { "id": "island_young_1", "name": "젊은 섬", "kind": "island_unexplored", "subtype": "young", "known": false, "notes": ["최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."], "map": { "shape": "blob", "cx": 872, "cy": 128, "r": 18, "seed": 83, "jag": 0.3 } },
-    { "id": "island_young_2", "name": "젊은 섬", "kind": "island_unexplored", "subtype": "young", "known": false, "notes": ["최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."], "map": { "shape": "blob", "cx": 1140, "cy": 600, "r": 17, "seed": 89, "jag": 0.3 } },
-    { "id": "island_young_3", "name": "젊은 섬", "kind": "island_unexplored", "subtype": "young", "known": false, "notes": ["최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."], "map": { "shape": "blob", "cx": 327, "cy": 1072, "r": 18, "seed": 97, "jag": 0.3 } },
-    { "id": "island_young_4", "name": "젊은 섬", "kind": "island_unexplored", "subtype": "young", "known": false, "notes": ["최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."], "map": { "shape": "blob", "cx": 60, "cy": 600, "r": 16, "seed": 101, "jag": 0.3 } },
-    { "id": "island_harsh_1", "name": "얼음에 갇힌 섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["얼음 바다"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 422, "cy": 111, "r": 22, "seed": 103, "jag": 0.25 } },
-    { "id": "island_harsh_2", "name": "얼음에 갇힌 섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["얼음 바다"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 435, "cy": 314, "r": 20, "seed": 107, "jag": 0.25 } },
-    { "id": "island_harsh_3", "name": "폭풍의 섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["폭풍", "암초"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 1068, "cy": 559, "r": 21, "seed": 109, "jag": 0.25 } },
-    { "id": "island_harsh_4", "name": "암초의 섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["암초", "폭풍"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 934, "cy": 998, "r": 22, "seed": 113, "jag": 0.25 } },
-    { "id": "island_harsh_5", "name": "가스가 뿜어 나오는 섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["독한 화산 가스"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 270, "cy": 600, "r": 22, "seed": 127, "jag": 0.25 } },
-    { "id": "island_harsh_6", "name": "메마른 바위섬", "kind": "island_unexplored", "subtype": "harsh", "known": true, "hazards": ["먹을 물이 없음"], "notes": ["존재는 알려져 있지만 접근이 어렵다."], "map": { "shape": "blob", "cx": 435, "cy": 886, "r": 20, "seed": 131, "jag": 0.25 } }
+    {
+      "id": "island_young_1",
+      "name": "젊은 섬",
+      "kind": "island_unexplored",
+      "subtype": "young",
+      "known": false,
+      "notes": [
+        "최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 872,
+        "cy": 128,
+        "r": 18,
+        "seed": 83,
+        "jag": 0.3
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_young_2",
+      "name": "젊은 섬",
+      "kind": "island_unexplored",
+      "subtype": "young",
+      "known": false,
+      "notes": [
+        "최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 1140,
+        "cy": 600,
+        "r": 17,
+        "seed": 89,
+        "jag": 0.3
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_young_3",
+      "name": "젊은 섬",
+      "kind": "island_unexplored",
+      "subtype": "young",
+      "known": false,
+      "notes": [
+        "최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 327,
+        "cy": 1072,
+        "r": 18,
+        "seed": 97,
+        "jag": 0.3
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_young_4",
+      "name": "젊은 섬",
+      "kind": "island_unexplored",
+      "subtype": "young",
+      "known": false,
+      "notes": [
+        "최근 분화로 생겨난 땅. 세계에 아직 알려지지 않았다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 60,
+        "cy": 600,
+        "r": 16,
+        "seed": 101,
+        "jag": 0.3
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_harsh_1",
+      "name": "얼음에 갇힌 섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "얼음 바다"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 422,
+        "cy": 111,
+        "r": 22,
+        "seed": 103,
+        "jag": 0.25
+      },
+      "terrainStyle": "ice"
+    },
+    {
+      "id": "island_harsh_2",
+      "name": "얼음에 갇힌 섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "얼음 바다"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 435,
+        "cy": 314,
+        "r": 20,
+        "seed": 107,
+        "jag": 0.25
+      },
+      "terrainStyle": "ice"
+    },
+    {
+      "id": "island_harsh_3",
+      "name": "폭풍의 섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "폭풍",
+        "암초"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 1068,
+        "cy": 559,
+        "r": 21,
+        "seed": 109,
+        "jag": 0.25
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_harsh_4",
+      "name": "암초의 섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "암초",
+        "폭풍"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 934,
+        "cy": 998,
+        "r": 22,
+        "seed": 113,
+        "jag": 0.25
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_harsh_5",
+      "name": "가스가 뿜어 나오는 섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "독한 화산 가스"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 270,
+        "cy": 600,
+        "r": 22,
+        "seed": 127,
+        "jag": 0.25
+      },
+      "terrainStyle": "rock"
+    },
+    {
+      "id": "island_harsh_6",
+      "name": "메마른 바위섬",
+      "kind": "island_unexplored",
+      "subtype": "harsh",
+      "known": true,
+      "hazards": [
+        "먹을 물이 없음"
+      ],
+      "notes": [
+        "존재는 알려져 있지만 접근이 어렵다."
+      ],
+      "map": {
+        "shape": "blob",
+        "cx": 435,
+        "cy": 886,
+        "r": 20,
+        "seed": 131,
+        "jag": 0.25
+      },
+      "terrainStyle": "rock"
+    }
   ]
 }

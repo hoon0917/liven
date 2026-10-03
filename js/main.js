@@ -2,6 +2,8 @@ import { renderMap, TYPE_LABEL, blobPoints, toPath } from './map.js';
 import { generateMonsters, drawMonsters, makeRng, randomPoint } from './monsters.js';
 import { createState, step, nationPower, relationStage, J } from './sim.js';
 import { gradeLabel } from './people.js';
+import { createGame } from './game.js';
+import { seasonOf } from './player.js';
 
 const panel = document.getElementById('panel');
 const simbar = document.getElementById('simbar');
@@ -9,6 +11,8 @@ const legend = document.getElementById('legend');
 const svg = document.getElementById('map');
 const NS = 'http://www.w3.org/2000/svg';
 const SNAPSHOT_KEY = 'liven-snapshot-v2';
+const GAME_KEY = 'liven-game-v1';
+const MODE_KEY = 'liven-mode';
 const SPEEDS = [{ label: '1배', ms: 1400 }, { label: '2배', ms: 700 }, { label: '4배', ms: 300 }];
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -49,7 +53,7 @@ function row(label, value, raw = false) {
 
 async function init() {
   const FILES = ['world', 'regions', 'monsters', 'races', 'grades', 'nations', 'relations', 'sim-rules', 'state-initial',
-    'houses', 'names', 'events', 'elements', 'story'];
+    'houses', 'names', 'events', 'elements', 'story', 'places', 'player', 'items'];
   let files;
   try {
     files = await Promise.all(FILES.map((f) => loadJSON(`data/${f}.json`)));
@@ -60,7 +64,7 @@ async function init() {
       <p class="error">데이터를 불러오지 못했습니다. data 폴더에 JSON 파일 ${FILES.length}개가 모두 있는지 확인하세요.<br><small>${esc(err.message)}</small></p>`;
     return;
   }
-  const [world, regionData, monsterCfg, races, grades, nations, relations, rules, stateInitial, houses, names, events, elements, story] = files;
+  const [world, regionData, monsterCfg, races, grades, nations, relations, rules, stateInitial, houses, names, events, elements, story, placesData, playerData, items] = files;
 
   const regionById = Object.fromEntries(regionData.regions.map((r) => [r.id, r]));
   const nationById = Object.fromEntries(nations.nations.map((n) => [n.id, n]));
@@ -71,7 +75,7 @@ async function init() {
   const catOf = (kind) => events.events[kind]?.cat ?? BASE_CAT[kind] ?? '세계';
   const catOfEntry = (l) => l.cat ?? catOf(l.kind);
   const data = {
-    rules, grades, relations, stateInitial, world, names, events, elements, monsterCfg, story,
+    rules, grades, relations, stateInitial, world, names, events, elements, monsterCfg, story, player: playerData, items,
     races: Object.fromEntries(races.races.map((r) => [r.id, r])),
     nationById, nationsList: nations.nations, regionsList: regionData.regions,
     neighbors: nations.neighbors, patrons: nations.patrons, houses: houses.houses,
@@ -94,7 +98,19 @@ async function init() {
     else view = { type: 'region', id };
     render();
   };
-  const map = renderMap(svg, regionData, select, labels);
+  const map = renderMap(svg, regionData, select, labels, {
+    seas: placesData.seas, places: placesData.nations, nations: nations.nations, houses: houses.houses,
+    landPairs: nations.neighbors.land, seaPairs: nations.neighbors.sea,
+  });
+  // 확대·축소 단추
+  const zoomUi = document.createElement('div');
+  zoomUi.className = 'zoom-ui';
+  zoomUi.innerHTML = '<button type="button" aria-label="확대">+</button><button type="button" aria-label="축소">−</button><button type="button" aria-label="전체 보기">⤢</button>';
+  const [zin, zout, zreset] = zoomUi.querySelectorAll('button');
+  zin.addEventListener('click', () => map.zoomBy(1 / 1.4));
+  zout.addEventListener('click', () => map.zoomBy(1.4));
+  zreset.addEventListener('click', () => map.reset());
+  svg.parentElement.appendChild(zoomUi);
   const pickable = regionData.regions.filter((r) => r.id !== 'continent_central' && map.polys[r.id]);
   const volcanoMap = regionById.region_volcano.map;
   const labelZones = Object.entries(map.anchors)
@@ -298,6 +314,30 @@ async function init() {
     vol.classList.remove('erupting');
     if (state.flash === 'eruption') { void vol.getBoundingClientRect(); vol.classList.add('erupting'); }
 
+    // 인물 모드: 아직 모르는 장소는 흐리게
+    const known = mode === 'game' && state.player?.known ? new Set(state.player.known) : null;
+    svg.querySelectorAll('[data-place]').forEach((e) => e.classList.toggle('pl-unknown', !!known && !known.has(e.dataset.place)));
+    // 내 인물의 위치
+    const pl = state.player;
+    if (mode === 'game' && pl?.alive) {
+      const P = (id) => map.places.find((x) => x.id === id);
+      let x, y;
+      if (pl.travel) {
+        const a = P(pl.travel.from), b = P(pl.travel.to);
+        const t = Math.min(1, pl.travel.done / pl.travel.weeks);
+        x = a.x + (b.x - a.x) * t; y = a.y + (b.y - a.y) * t;
+        const path = document.createElementNS(NS, 'path');
+        path.setAttribute('d', `M${a.x} ${a.y}L${b.x} ${b.y}`);
+        path.setAttribute('class', 'player-path');
+        g.appendChild(path);
+      } else { const here = P(pl.place); x = here?.x; y = here?.y; }
+      if (x !== undefined) {
+        const mk = document.createElementNS(NS, 'g');
+        mk.setAttribute('class', 'player-marker');
+        mk.innerHTML = `<circle cx="${x}" cy="${y}" r="9" class="pm-ring"/><circle cx="${x}" cy="${y}" r="4" class="pm-dot"/><path d="M${x} ${y - 9}v-14l9 4-9 4" class="pm-flag"/>`;
+        g.appendChild(mk);
+      }
+    }
     const mg = drawMonsters(svg, state.monsters, monsterCfg, select);
     mg.classList.toggle('is-hidden', !showMonsters);
   }
@@ -321,6 +361,18 @@ async function init() {
 
   // ---------- 조작 막대 ----------
   function renderSimbar() {
+    if (mode === 'game' && state.player) {
+      const season = seasonOf(data, state.week || 1);
+      simbar.innerHTML = `
+        <div class="sim-year"><span class="sim-year-value">${esc(world.era.short)} ${state.year}년</span><span class="sim-week">${esc(season.name)} · ${state.week}주째</span></div>
+        <div class="sim-controls">
+          <button type="button" class="btn ${view.type === 'game' ? 'is-on' : ''}" data-act="me">내 인물</button>
+          <button type="button" class="btn ${view.type !== 'game' ? 'is-on' : ''}" data-act="world">세계</button>
+        </div>`;
+      simbar.querySelector('[data-act="me"]').addEventListener('click', () => { view = { type: 'game' }; render(); });
+      simbar.querySelector('[data-act="world"]').addEventListener('click', () => { view = { type: 'world' }; render(); });
+      return;
+    }
     simbar.innerHTML = `
       <div class="sim-year"><span class="sim-year-value">${esc(world.era.short)} ${state.year}년</span></div>
       <div class="sim-controls">
@@ -417,6 +469,7 @@ async function init() {
       <h3 class="section-title">최근 연대기</h3>
       ${recent.length ? chronicleHtml(recent, { years: 2, showSummary: false }) : '<p class="hint">아직 기록이 없습니다. 다음 해를 눌러 시간을 흘려 보세요.</p>'}
       <div class="btn-row"><button type="button" class="btn" data-act="chronicle">연대기 전체</button></div>
+      ${mode === 'game' ? '' : '<div class="btn-row"><button type="button" class="btn btn-primary" data-act="enterGame">인물로 들어가기</button></div>'}
       <h3 class="section-title">세계 관리</h3>
       <div class="btn-row">
         <button type="button" class="btn" data-act="save">지금 상태 저장</button>
@@ -428,6 +481,7 @@ async function init() {
       <p class="pending">종족, 국가, 가문, 사건, 시뮬레이션 수치는 모두 초안입니다.</p>
     `;
     panel.querySelector('[data-act="chronicle"]').addEventListener('click', () => { view = { type: 'chronicle' }; render(); });
+    panel.querySelector('[data-act="enterGame"]')?.addEventListener('click', () => { stop(); game_enter(); });
     panel.querySelector('[data-act="save"]').addEventListener('click', (e) => {
       try { localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(state)); e.target.textContent = `${era.short} ${state.year}년 저장됨`; }
       catch { e.target.textContent = '저장하지 못했습니다'; }
@@ -611,6 +665,9 @@ async function init() {
 
   let lastViewKey = '';
   function render() {
+    if (!mode) { renderSimbar(); drawOverlay(); game.showIntro(); return; }
+    if (mode === 'game' && !state.player) { renderSimbar(); drawOverlay(); game.showCreate(); return; }
+    if (mode === 'game' && view.type === 'game') { renderSimbar(); drawOverlay(); map.setSelected(null); game.showGame(); lastViewKey = 'game'; return; }
     renderSimbar();
     drawOverlay();
     map.setSelected(view.type === 'region' || view.type === 'monster' ? view.id : null);
@@ -626,12 +683,46 @@ async function init() {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { view = { type: 'world' }; render(); }
+    if (e.key === 'Escape') { view = { type: mode === 'game' && state.player ? 'game' : 'world' }; render(); }
   });
 
-  newWorld(initialSeed());
+  // ---------- 인물 모드 ----------
+  let mode = null;
+  const game_enter = () => { mode = 'game'; try { localStorage.setItem(MODE_KEY, 'game'); } catch { /* */ } view = { type: 'game' }; render(); };
+  try { mode = localStorage.getItem(MODE_KEY); } catch { mode = null; }
+  const saveGame = () => { try { localStorage.setItem(GAME_KEY, JSON.stringify(state)); return true; } catch { return false; } };
+  const game = createGame({
+    panel, data,
+    getState: () => state,
+    places: () => map.places,
+    typeText: (t) => TYPE_TEXT[t],
+    hooks: { ...hooks, worldStep: () => step(state, data, hooks) },
+    setMode(m) {
+      mode = m;
+      try { m ? localStorage.setItem(MODE_KEY, m) : localStorage.removeItem(MODE_KEY); } catch { /* 저장 불가 환경 */ }
+      view = { type: m === 'game' ? 'game' : 'world' };
+      if (m !== 'game') render();
+    },
+    focusPlayer() {
+      const p = state.player;
+      const here = map.places.find((x) => x.id === p?.place);
+      if (here) map.focus(here.x, here.y, 520);
+      view = { type: 'game' };
+    },
+    render: () => render(),
+    afterTurn() { saveGame(); view = { type: 'game' }; render(); },
+    showWorld() { view = { type: 'world' }; render(); },
+    save: saveGame,
+  });
+
+  let saved = null;
+  if (mode === 'game') { try { saved = JSON.parse(localStorage.getItem(GAME_KEY) || 'null'); } catch { saved = null; } }
+  if (saved?.player) { state = saved; view = { type: 'game' }; }
+  else newWorld(initialSeed());
+  if (mode === 'game') view = { type: 'game' };
   renderLegend();
   render();
+  if (mode === 'game' && state.player) game.showGame();
 }
 
 init();

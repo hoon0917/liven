@@ -1,0 +1,135 @@
+{
+  "status": "draft",
+  "note": "지도에 표시할 마을과 항구 이름. 수도와 가문 영지는 nations.json, houses.json에서 가져온다. 좌표는 지도가 그려질 때 땅 모양에 맞춰 정해진다.",
+  "seas": [
+    {
+      "name": "안쪽 바다",
+      "x": 600,
+      "y": 338,
+      "size": 20
+    },
+    {
+      "name": "얼음 바다",
+      "x": 600,
+      "y": 60,
+      "size": 22
+    },
+    {
+      "name": "따뜻한 바다",
+      "x": 600,
+      "y": 1150,
+      "size": 22
+    },
+    {
+      "name": "바깥 대양",
+      "x": 95,
+      "y": 1000,
+      "size": 24
+    },
+    {
+      "name": "안개 해협",
+      "x": 1060,
+      "y": 250,
+      "size": 16
+    },
+    {
+      "name": "진주 바다",
+      "x": 800,
+      "y": 960,
+      "size": 16
+    }
+  ],
+  "nations": {
+    "nation_velkrad": {
+      "towns": [
+        "서리목",
+        "쇠망치골",
+        "북쪽고개"
+      ],
+      "port": "얼음나루"
+    },
+    "nation_seradin": {
+      "towns": [
+        "소금우물",
+        "붉은협곡",
+        "그늘마을"
+      ],
+      "port": "마른나루"
+    },
+    "nation_kalis": {
+      "towns": [
+        "갈대여울",
+        "세갈래목",
+        "곡창마을"
+      ],
+      "port": "동쪽부두",
+      "capitalPort": true
+    },
+    "nation_nelas": {
+      "towns": [
+        "이끼다리",
+        "약초골",
+        "늪가마을"
+      ],
+      "port": "초록나루"
+    },
+    "nation_iskar": {
+      "towns": [
+        "고래뼈촌",
+        "흰벌판"
+      ],
+      "capitalPort": true
+    },
+    "nation_ortes": {
+      "towns": [
+        "닻언덕",
+        "돛짓는마을"
+      ],
+      "capitalPort": true
+    },
+    "nation_peloa": {
+      "towns": [
+        "포도언덕",
+        "과수골",
+        "넓은들"
+      ],
+      "port": "남동나루"
+    },
+    "nation_tambur": {
+      "towns": [
+        "향신료촌",
+        "덩굴마을"
+      ],
+      "capitalPort": true
+    },
+    "nation_harkan": {
+      "towns": [
+        "말우물",
+        "바람언덕",
+        "붉은풀촌"
+      ],
+      "port": "서남나루"
+    },
+    "nation_graven": {
+      "towns": [
+        "구리마을",
+        "낙석골"
+      ],
+      "port": "절벽나루"
+    },
+    "nation_merca": {
+      "towns": [
+        "밤부두"
+      ],
+      "capitalPort": true
+    },
+    "nation_quel": {
+      "towns": [],
+      "capitalPort": true
+    },
+    "nation_eln": {
+      "towns": [],
+      "capitalPort": true
+    }
+  }
+}

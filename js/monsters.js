@@ -100,7 +100,7 @@ export function drawMonsters(svg, monsters, cfg, onSelect) {
   const tierName = Object.fromEntries(cfg.tiers.map((t) => [t.level, t.name]));
 
   for (const m of monsters) {
-    const s = m.legend ? 15 : 5 + m.tier * 1.6;
+    const s = m.legend ? 12 : 3.5 + m.tier * 1.2;
     if (m.legend) {
       const ring = document.createElementNS(NS, 'circle');
       ring.setAttribute('cx', m.x); ring.setAttribute('cy', m.y); ring.setAttribute('r', 26);
