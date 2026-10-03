@@ -341,8 +341,11 @@ export function step(state, data, hooks = {}) {
   const patronHelp = (id) => state.patrons.filter((p) => p.island === id).reduce((s, p) => s + nationPower(N[p.patron], data) * WR.patronShare, 0);
   state.wars = state.wars.filter((w) => {
     const A = N[w.a], B = N[w.b];
-    const ap = nationPower(A, data) * between(rng, 0.7, 1.3);
-    const bp = (nationPower(B, data) * (WR.defenseBonus[w.b] || 1) + patronHelp(w.b)) * between(rng, 0.7, 1.3);
+    // 인물(플레이어)이 참전해 쌓은 공이 그 나라의 전투력에 더해진다
+    const aidA = (state.warAid?.[w.a] || 0) / 200, aidB = (state.warAid?.[w.b] || 0) / 200;
+    if (state.warAid) { state.warAid[w.a] = 0; state.warAid[w.b] = 0; }
+    const ap = nationPower(A, data) * between(rng, 0.7, 1.3) * (1 + aidA);
+    const bp = (nationPower(B, data) * (WR.defenseBonus[w.b] || 1) + patronHelp(w.b)) * between(rng, 0.7, 1.3) * (1 + aidB);
     const [win, lose, wid, lid] = ap >= bp ? [A, B, w.a, w.b] : [B, A, w.b, w.a];
     const gain = Math.min(between(rng, ...WR.territoryGain), Math.max(0, lose.territory - WR.territoryFloor));
     lose.territory -= gain;
@@ -405,14 +408,18 @@ export function step(state, data, hooks = {}) {
       + (n.famine ? RV.famineBonus : 0)
       + (n.type === 'mercenary' ? RV.islandBonus : 0)
       + (state.alchemyRevealed ? RV.revealedGrowthBonus : 0);
-    if (n.revolutionPrep < RV.threshold || n.stability >= RV.stabilityMax || rng() >= RV.uprisingChance) continue;
-    if (state.alchemyStock < RV.materialCost) continue;
-    state.alchemyStock -= RV.materialCost;
+    const forcedPid = n.forceUprising || null;
+    const forced = !!forcedPid;
+    if (!forced && (n.revolutionPrep < RV.threshold || n.stability >= RV.stabilityMax || rng() >= RV.uprisingChance)) continue;
+    n.forceUprising = null;
+    if (!forced && state.alchemyStock < RV.materialCost) continue;
+    state.alchemyStock = Math.max(0, state.alchemyStock - RV.materialCost);
 
     const first = !state.alchemyRevealed;
-    const rev = n.revolutionPrep * RV.alchemyPowerPerPrep * between(rng, 0.7, 1.3);
+    const rev = n.revolutionPrep * RV.alchemyPowerPerPrep * between(rng, 0.7, 1.3) * (forced ? 1.0 + Math.min(0.3, (state.player?.fame || 0) / 400) : 1);
     const gov = (talentPower(n, W) * RV.talentFactor + n.army * WR.armyPower + patronHelp(id)) * between(rng, 0.7, 1.3);
-    const leader = createPerson(state, data, rng, { nation: id, role: 'rebel', side: '무명회', age: 25 + rng() * 20, job: pick(rng, data.names.commonerJobs) });
+    const leader = forcedPid && state.persons[forcedPid]?.alive ? state.persons[forcedPid]
+      : createPerson(state, data, rng, { nation: id, role: 'rebel', side: '무명회', age: 25 + rng() * 20, job: pick(rng, data.names.commonerJobs) });
     deed(state, leader, `${name(id)}에서 무명회의 봉기를 이끌었다.`);
     const founder = state.persons[state.founder];
     if (first) {
@@ -436,8 +443,9 @@ export function step(state, data, hooks = {}) {
     } else {
       n.revolutionPrep = RV.failReset;
       n.stability -= 10;
-      leader.alive = false; leader.died = state.year; deed(state, leader, '봉기가 진압되어 처형되었다.');
-      log('revolution', fill('{n}의 봉기가 진압되었다. {p:은} 성문 앞에서 처형되었고, 살아남은 무명회 사람들은 다시 숨어들었다.', { n: name(id), p: leader.name }), { ids: [id], persons: [leader.id], w: 70 });
+      if (leader.role === 'player') { deed(state, leader, '봉기가 진압되어 몸을 숨겼다.'); if (state.player) { state.player.notoriety += 30; state.player.hp = Math.min(state.player.hp, 40); } }
+      else { leader.alive = false; leader.died = state.year; deed(state, leader, '봉기가 진압되어 처형되었다.'); }
+      log('revolution', fill(leader.role === 'player' ? '{n}의 봉기가 진압되었다. 앞장섰던 {p:은} 포위를 뚫고 사라졌다. 현상금이 걸렸다.' : '{n}의 봉기가 진압되었다. {p:은} 성문 앞에서 처형되었고, 살아남은 무명회 사람들은 다시 숨어들었다.', { n: name(id), p: leader.name }), { ids: [id], persons: [leader.id], w: 70 });
     }
   }
 

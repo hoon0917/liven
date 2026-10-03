@@ -117,6 +117,13 @@ export function sell(state, data, place, id) {
   const price = priceAt(state, data, place, it, 'sell');
   p.coins += price;
   addItem(p, id, -1);
+  // 곡물 구호: 굶주린 나라에 식량을 풀면 그 나라의 사정이 아주 조금 나아진다
+  const n = state.nations[place.nation];
+  if (it.food && n.famine) {
+    n.foodMod = (n.foodMod || 0) + 0.004; n.stability = Math.min(100, n.stability + 0.1); p.fame += 0.5;
+    p.flags.relief = (p.flags.relief || 0) + 1;
+    if (p.flags.relief % 20 === 0) state.log.push({ year: state.year, kind: 'player', cat: '외교', text: `굶주린 ${data.nationById[place.nation].name}에 ${J(p.name, '이', '가')} 실어 온 곡물이 풀렸다.`, ids: [place.nation], persons: [p.personId], w: 30 });
+  }
   const ps = state.placeState[place.id];
   ps.stock[id] = (ps.stock[id] ?? 10) + 1;
   return `${J(it.name, '을', '를')} ${price}냥에 팔았다.`;

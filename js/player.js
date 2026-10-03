@@ -1,6 +1,6 @@
 // 턴제 인물 모드: 한 턴 = 일주일. 52주가 지나면 세계가 1년 흐른다.
 import { fill, pick, J } from './text.js';
-import { createPerson, deed } from './people.js';
+import { createPerson, deed, personDies } from './people.js';
 import { meetPerson, initLife, initPlaces, gearBonus, guardOf, addItem, setNemesis, growNemesis, socialize, weeklyLife, yearlyLife, recordLegend, syncRon, carry, itemOf } from './life.js';
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -106,6 +106,7 @@ function cond(c, state, data, cx) {
   if (c.startsWith('weather:')) return p.weather === c.slice(8);
   if (c.startsWith('lore:')) return p.stats.lore >= +c.slice(5);
   if (c.startsWith('coins:')) return p.coins >= +c.slice(6);
+  if (c.startsWith('houseFavor:')) return p.houseFavor >= +c.slice(11);
   switch (c) {
     case 'travel': return !!p.travel;
     case 'town': return !p.travel && (place?.kind === 'town' || place?.kind === 'seat');
@@ -134,6 +135,11 @@ function cond(c, state, data, cx) {
     case 'army': return p.affiliation === 'army';
     case 'hurt': return p.hp < 50;
     case 'champion': return cx.champions.length > 0;
+    case 'prepReady': return cx.n.revolutionPrep >= 85 && cx.n.type !== 'revolution' && (p.flags.missions || 0) >= 6;
+    case 'notTravel': return !p.travel;
+    case 'mighty': return p.awakened && (p.grade >= 3 || p.vessel.dir === 'dual');
+    case 'famous50': return p.fame >= 50;
+    case 'stealthy': return p.stats.stealth >= 45 && (p.flags.missions || 0) >= 10;
     case 'nemesisHere': return p.nemesis?.kind === 'monster' && state.monsters.some((m) => m.id === p.nemesis.id && m.regionId === cx.regionId);
     case 'hasBanditNemesis': return p.nemesis?.kind === 'bandit';
     case 'hasLegend': return (state.legends || []).length > 0 && !p.travel;
@@ -189,6 +195,27 @@ function applyFx(state, data, rng, cx, fx) {
       p.nemesis = null;
     }
     else if (k === 'nemesisGrow') growNemesis(state, data);
+    // 세계를 움직이는 효과: 평소에는 작고, 결정적 순간에는 크다 (lore/12 10절)
+    else if (k === 'warAid' && cx.atWar) { state.warAid ??= {}; state.warAid[cx.nid] = Math.min(100, (state.warAid[cx.nid] || 0) + v); }
+    else if (k === 'forceUprising') { cx.n.revolutionPrep = Math.max(cx.n.revolutionPrep, 100); cx.n.forceUprising = p.personId; chronicle(state, fill('{n}의 무명회가 봉기를 결심했다. 그 앞에 {p:이} 섰다.', { n: data.nationById[cx.nid].name, p: p.name }), 70); }
+    else if (k === 'houseLoyalty' && p.house) state.houses[p.house].loyalty = clamp(state.houses[p.house].loyalty + v, 0, 100);
+    else if (k === 'houseInfluence' && p.house) state.houses[p.house].influence = clamp(state.houses[p.house].influence + v, 10, 100);
+    else if (k === 'advise') {
+      if (v === 'peace') for (const [key, val] of Object.entries(state.relations)) { if (key.split('|').includes(cx.nid) && val < 0) state.relations[key] = val + 6; }
+      if (v === 'tax') { cx.n.stability = clamp(cx.n.stability + 5, 0, 100); cx.n.treasury -= 30; cx.n.revolutionPrep -= 5; }
+      if (v === 'war') { cx.n.army += 0.5; cx.n.treasury -= 25; }
+      chronicle(state, fill('{n}의 지도자가 {p}의 조언을 받아들였다.', { n: data.nationById[cx.nid].name, p: p.name }), 25);
+    }
+    else if (k === 'assassinate') {
+      const r = state.persons[state.rulers[cx.nid]];
+      if (r?.alive) {
+        const ctx2 = { log: (kind, text, extra = {}) => state.log.push({ year: state.year, kind, text, ...extra }), name: (id) => data.nationById[id].name, admin: false };
+        state.log.push({ year: state.year, kind: 'revolution', cat: '혁명', text: fill('{n}의 {t} {r:이} 한밤중에 살해되었다. 범인은 잡히지 않았다. 궁 안에서는 마법도 오러도 감지되지 않았다는 말이 돌았다.', { n: data.nationById[cx.nid].name, t: r.title, r: r.name }), ids: [cx.nid], persons: [r.id], w: 90, head: `${data.nationById[cx.nid].name}의 지도자가 쓰러진 해` });
+        cx.n.stability = clamp(cx.n.stability - 15, 0, 100);
+        personDies(state, data, rng, ctx2, r, 'assassination');
+        p.memory.push({ year: state.year, week: state.week, kind: 'assassin', text: `${r.title} ${J(r.name, '을', '를')} 쓰러뜨렸다. 아무도 모른다.` });
+      }
+    }
     else if (k === 'loveUp' && p.family?.partner) p.family.love = clamp(p.family.love + v, 0, 100);
     else if (k === 'revealPlace' && v === 'legend') { const L = (state.legends || []).slice(-1)[0]; if (L?.place && !p.known.includes(L.place)) p.known.push(L.place); }
     else if (k === 'tip') { const it = pick(rng, data.items.goods); if (cx.ps) cx.ps.drift[it.id] = -0.2; out.push(`${it.name} 값이 오를 거라는 말을 들었다.`); }
@@ -266,6 +293,7 @@ export function availableActions(state, data, places) {
   add('hunt', cx.monsters.length > 0, '근처에 마물이 없다');
   if (place?.kind === 'seat' || place?.kind === 'capital') add('visitHouse', p.affiliation !== 'house', '이미 가문에 속해 있다');
   if (cx.n.revolutionPrep >= 40 || state.alchemyRevealed) add('seekNameless', p.affiliation !== 'nameless', '이미 무명회의 사람이다');
+  if (p.affiliation === 'nameless' && cx.n.type !== 'revolution') add('mission');
   if (p.awakened) add('meditate');
   add('trade', p.coins >= 5, '밑천이 없다');
   add('steal');
@@ -439,6 +467,19 @@ export function doAction(state, data, rng, places, id, arg = {}) {
     case 'meet': {
       say(meetPerson(state, data, rng, arg.pid, arg.kind, (stat, dc) => check(state, data, stat, dc, rng)));
       p.fatigue += 8;
+      break;
+    }
+    case 'mission': {
+      p.flags.missions = (p.flags.missions || 0) + 1;
+      if (check(state, data, 'stealth', 40, rng)) {
+        cx.n.revolutionPrep += 1.5 + Math.random() * 1.5;
+        p.coins += 3; gain('stealth', [0, 1]);
+        say(pick(rng, ['밤새 전단을 붙이고 새벽에 돌아왔다.', '폭약 상자를 수레 밑에 숨겨 옮겼다.', '가문 기사들의 순찰 시간을 적어 넘겼다.', '새로 들어온 사람들에게 연락 방법을 가르쳤다.']) + ' 이 나라의 거리가 아주 조금 달라졌다.');
+      } else {
+        p.notoriety += 4; p.hp -= Math.round(12 * (1 - guardOf(data, p)));
+        say('경비대의 눈에 띄었다. 겨우 빠져나왔지만 얼굴이 알려졌다.');
+      }
+      p.fatigue += A.mission.fatigue;
       break;
     }
     case 'socialize': {
