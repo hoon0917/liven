@@ -261,7 +261,7 @@ export function availableActions(state, data, places) {
   const A = data.player.actions;
   const list = [];
   const add = (id, enabled = true, reason = '') => list.push({ id, name: A[id].name, desc: A[id].desc, enabled, reason });
-  if (place?.kind !== 'seat') A.socialize && list.push({ id: 'socialize', name: A.socialize.name, desc: A.socialize.desc, enabled: true });
+  if (A.socialize) list.push({ id: 'socialize', name: A.socialize.name, desc: A.socialize.desc, enabled: true });
   add('work'); add('train'); add('study', p.coins >= 2, '돈이 모자란다'); add('rumor'); add('rest'); add('travel');
   add('hunt', cx.monsters.length > 0, '근처에 마물이 없다');
   if (place?.kind === 'seat' || place?.kind === 'capital') add('visitHouse', p.affiliation !== 'house', '이미 가문에 속해 있다');

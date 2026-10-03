@@ -171,7 +171,7 @@ export function createGame(api) {
   function marketTab(st, p, cx) {
     if (p.travel) return '<p class="hint">길 위에는 장터가 없다.</p>';
     const items = marketItems(st, data, cx.place);
-    if (!items.length) return `<p class="hint">${esc(cx.place?.name)}에는 장터가 없다.</p>`;
+    if (!items.length) { const near = api.places().filter((x) => x.nation === cx.place?.nation && st.placeState?.[x.id]?.facilities.includes('market')).map((x) => x.name); return `<p class="hint">${esc(cx.place?.name)}에는 장터가 없다.${near.length ? ` 이 나라에서는 ${esc(near.join(', '))}에 장터가 선다.` : ''}</p>`; }
     const kindName = { goods: '교역품', material: '재료', consumable: '소모품', weapon: '무기', armor: '갑옷', tool: '도구' };
     const rows = items.map((it) => {
       const b = priceAt(st, data, cx.place, it, 'buy'), s = priceAt(st, data, cx.place, it, 'sell');
