@@ -1,0 +1,151 @@
+{
+  "id": "history_liven",
+  "status": "draft",
+  "note": "역사 연표. year는 맹약력(음수는 원년 이전). approx가 true이면 어림값. 새 항목은 모두 [초안]이며 [확정] 표시는 기존 확정 설정을 옮긴 것이다.",
+  "entries": [
+    {
+      "id": "hist_flood",
+      "year": -2960,
+      "name": "대범람",
+      "approx": true,
+      "status": "confirmed",
+      "text": "중앙 대륙 전체를 덮은 거대한 분화. 론이 생명체의 모습까지 바꾸어 오크·엘프·드워프·다크엘프가 갈렸고 마물이 생겼다. 연도는 약 3천 년 전이라는 [확정] 설정을 따른 어림값이다."
+    },
+    {
+      "id": "hist_flood_after",
+      "year": -2950,
+      "name": "갈림이 굳음",
+      "approx": true,
+      "status": "draft",
+      "text": "바뀐 몸이 자손에게 대물림되어 종족으로 굳었다. 화산 가까운 땅의 사람들은 고향을 잃고 흩어지기 시작했다."
+    },
+    {
+      "id": "hist_elf_records",
+      "year": -2800,
+      "name": "숲의 기록 시작",
+      "approx": true,
+      "status": "draft",
+      "text": "남부 숲의 엘프 공동체가 대범람의 증언을 장로회의 기록으로 남기기 시작했다."
+    },
+    {
+      "id": "hist_dwarf_halls",
+      "year": -2400,
+      "name": "산맥 홀의 완성",
+      "approx": true,
+      "status": "draft",
+      "text": "북부 산맥 아래에서 드워프 씨족들이 큰 집(홀)을 이어 지하 도시를 이루었다."
+    },
+    {
+      "id": "hist_canyon_cities",
+      "year": -1900,
+      "name": "협곡 도시",
+      "approx": true,
+      "status": "draft",
+      "text": "서부 협곡 절벽을 파 다크엘프 씨족의 도시들이 들어섰다."
+    },
+    {
+      "id": "hist_human_cities",
+      "year": -1500,
+      "name": "평야의 도시들",
+      "approx": true,
+      "status": "draft",
+      "text": "동부 평야와 해안에서 인간의 도시들이 곡식과 항구를 바탕으로 커졌다. 곡창이라는 칼리스 지역의 뿌리다."
+    },
+    {
+      "id": "hist_salt_towers",
+      "year": -420,
+      "name": "탑 도시의 시작",
+      "approx": true,
+      "status": "draft",
+      "text": "협곡의 다크엘프 씨족과 인간 마법 가문이 물을 다루는 마법으로 사막 협곡에 첫 탑을 세웠다. 세라딘의 시작이다."
+    },
+    {
+      "id": "hist_dwarf_loss",
+      "year": -190,
+      "name": "산맥 홀의 상실",
+      "approx": true,
+      "status": "draft",
+      "text": "인간 기사 가문들이 북부 산맥의 드워프 홀 일부를 빼앗아 요새로 삼았다. 드워프가 원한을 오래 기억하는 까닭이다."
+    },
+    {
+      "id": "hist_houses_age",
+      "year": -90,
+      "name": "가문의 시대",
+      "approx": true,
+      "status": "draft",
+      "text": "마법 가문과 기사 가문이 영지를 두고 서로 습격하며 가문이 국가보다 앞서는 질서가 굳었다."
+    },
+    {
+      "id": "hist_eruption_m28",
+      "year": -28,
+      "name": "기록된 가장 오래된 분화",
+      "approx": false,
+      "status": "draft",
+      "text": "data/world.json의 eruptionHistory와 같다. 분화 뒤 큰 그릇의 아이들이 태어난다는 경험이 쌓이기 시작했다."
+    },
+    {
+      "id": "hist_eruption_m14",
+      "year": -14,
+      "name": "재의 해",
+      "approx": false,
+      "status": "draft",
+      "text": "분화의 재가 세 해 동안 하늘을 덮었다. 카렌이 태어났다. 큰 흉작이 들었고 골짜기 약탈이 시작되었다."
+    },
+    {
+      "id": "hist_valley_raids",
+      "year": -13,
+      "name": "골짜기 약탈",
+      "approx": false,
+      "status": "draft",
+      "text": "가문들이 곡식과 우물이 있는 골짜기를 두고 맹약 이전 14년 동안 서로 습격했다. -1년에 끝났다."
+    },
+    {
+      "id": "hist_pact",
+      "year": 0,
+      "name": "가문맹약",
+      "approx": false,
+      "status": "confirmed",
+      "text": "대가문들이 처음 서로의 영역을 인정했다. 맹약력 원년의 기준이다. 조항은 lore/10에 있다."
+    },
+    {
+      "id": "hist_eruption_2",
+      "year": 2,
+      "name": "맹약 뒤 첫 분화",
+      "approx": false,
+      "status": "draft",
+      "text": "맹약의 석 달 칼부림 금지 조항이 처음 시험받았다."
+    },
+    {
+      "id": "hist_nameless",
+      "year": 14,
+      "name": "무명회 창설",
+      "approx": false,
+      "status": "draft",
+      "text": "카렌이 소금밭의 광물에서 연금술을 발견하고 재능 없는 자들의 모임을 열었다. 창설 연도는 [확정] 설정이다."
+    },
+    {
+      "id": "hist_eruption_16",
+      "year": 16,
+      "name": "분화기 출산 전략의 공공화",
+      "approx": false,
+      "status": "draft",
+      "text": "분화 직후 넓은 영토에서 아이를 낳게 하는 방식이 국가와 가문의 공공연한 전략이 되었다."
+    },
+    {
+      "id": "hist_eruption_31",
+      "year": 31,
+      "name": "마지막 분화",
+      "approx": false,
+      "status": "confirmed",
+      "text": "이때 태어난 특별 학생들이 맹약력 37년에 수련을 막 시작했다."
+    },
+    {
+      "id": "hist_now",
+      "year": 37,
+      "name": "현재",
+      "approx": false,
+      "status": "confirmed",
+      "text": "혁명 전이다. 무명회는 각국 세포에 연금술 도구를 나누고 봉기를 준비한다. 다음 분화는 41~51년 사이로 예상된다."
+    }
+  ]
+}

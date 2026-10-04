@@ -1,510 +1,542 @@
 {
- "status": "draft",
- "note": "물건 데이터. price는 기준 가격(냥). 나라의 넉넉한 것과 부족한 것에 따라 장소마다 값이 달라진다. weight는 짐 무게.",
- "carryMax": 40,
- "goods": [
-  {
-   "id": "iron",
-   "name": "철",
-   "kind": "goods",
-   "price": 12,
-   "weight": 4,
-   "from": [
-    "nation_velkrad"
-   ],
-   "scarceIn": [
-    "nation_kalis",
-    "nation_nelas",
-    "nation_tambur"
-   ]
-  },
-  {
-   "id": "stone",
-   "name": "석재",
-   "kind": "goods",
-   "price": 6,
-   "weight": 6,
-   "from": [
-    "nation_velkrad"
-   ],
-   "scarceIn": [
-    "nation_nelas",
-    "nation_harkan"
-   ]
-  },
-  {
-   "id": "grain",
-   "name": "곡물",
-   "kind": "goods",
-   "price": 5,
-   "weight": 3,
-   "from": [
-    "nation_kalis",
-    "nation_peloa"
-   ],
-   "scarceIn": [
-    "nation_velkrad",
-    "nation_seradin",
-    "nation_iskar",
-    "nation_graven",
-    "nation_eln",
-    "nation_merca"
-   ],
-   "food": true
-  },
-  {
-   "id": "timber",
-   "name": "목재",
-   "kind": "goods",
-   "price": 6,
-   "weight": 5,
-   "from": [
-    "nation_nelas",
-    "nation_ortes"
-   ],
-   "scarceIn": [
-    "nation_iskar",
-    "nation_harkan"
-   ]
-  },
-  {
-   "id": "herbs",
-   "name": "약초",
-   "kind": "goods",
-   "price": 9,
-   "weight": 1,
-   "from": [
-    "nation_nelas",
-    "nation_tambur"
-   ],
-   "scarceIn": []
-  },
-  {
-   "id": "salt",
-   "name": "소금",
-   "kind": "goods",
-   "price": 7,
-   "weight": 2,
-   "from": [
-    "nation_seradin",
-    "nation_quel"
-   ],
-   "scarceIn": [
-    "nation_tambur",
-    "nation_iskar"
-   ]
-  },
-  {
-   "id": "furs",
-   "name": "모피",
-   "kind": "goods",
-   "price": 14,
-   "weight": 2,
-   "from": [
-    "nation_iskar"
-   ],
-   "scarceIn": [
-    "nation_tambur",
-    "nation_peloa"
-   ]
-  },
-  {
-   "id": "oil",
-   "name": "바다 짐승 기름",
-   "kind": "goods",
-   "price": 10,
-   "weight": 3,
-   "from": [
-    "nation_iskar"
-   ],
-   "scarceIn": [
-    "nation_seradin"
-   ]
-  },
-  {
-   "id": "spice",
-   "name": "향신료",
-   "kind": "goods",
-   "price": 18,
-   "weight": 1,
-   "from": [
-    "nation_tambur"
-   ],
-   "scarceIn": [
-    "nation_iskar",
-    "nation_velkrad",
-    "nation_graven"
-   ]
-  },
-  {
-   "id": "silver",
-   "name": "은",
-   "kind": "goods",
-   "price": 25,
-   "weight": 2,
-   "from": [
-    "nation_graven"
-   ],
-   "scarceIn": [
-    "nation_peloa",
-    "nation_tambur"
-   ]
-  },
-  {
-   "id": "copper",
-   "name": "구리",
-   "kind": "goods",
-   "price": 11,
-   "weight": 3,
-   "from": [
-    "nation_graven"
-   ],
-   "scarceIn": [
-    "nation_kalis",
-    "nation_peloa"
-   ]
-  },
-  {
-   "id": "pearl",
-   "name": "진주",
-   "kind": "goods",
-   "price": 30,
-   "weight": 1,
-   "from": [
-    "nation_quel"
-   ],
-   "scarceIn": [
-    "nation_velkrad",
-    "nation_seradin",
-    "nation_kalis"
-   ]
-  },
-  {
-   "id": "fruit",
-   "name": "과일",
-   "kind": "goods",
-   "price": 4,
-   "weight": 2,
-   "from": [
-    "nation_peloa"
-   ],
-   "scarceIn": [
-    "nation_iskar",
-    "nation_seradin"
-   ],
-   "food": true
-  },
-  {
-   "id": "horse_goods",
-   "name": "초원 말",
-   "kind": "goods",
-   "price": 40,
-   "weight": 0,
-   "from": [
-    "nation_harkan"
-   ],
-   "scarceIn": [
-    "nation_seradin",
-    "nation_nelas"
-   ]
-  }
- ],
- "materials": [
-  {
-   "id": "salt_crystal",
-   "name": "소금 호수의 결정",
-   "kind": "material",
-   "price": 8,
-   "weight": 1,
-   "from": [
-    "nation_seradin"
-   ],
-   "note": "마법으로는 그 가치를 알아볼 수 없다."
-  },
-  {
-   "id": "sulfur",
-   "name": "유황",
-   "kind": "material",
-   "price": 10,
-   "weight": 1,
-   "from": [
-    "nation_seradin",
-    "nation_graven"
-   ],
-   "note": "화산 근처 골짜기에서 난다."
-  },
-  {
-   "id": "charcoal",
-   "name": "숯",
-   "kind": "material",
-   "price": 3,
-   "weight": 2,
-   "from": [
-    "nation_nelas",
-    "nation_ortes"
-   ]
-  },
-  {
-   "id": "saltpeter",
-   "name": "초석",
-   "kind": "material",
-   "price": 12,
-   "weight": 1,
-   "from": [
-    "nation_graven",
-    "nation_velkrad"
-   ]
-  },
-  {
-   "id": "glass",
-   "name": "유리병",
-   "kind": "material",
-   "price": 5,
-   "weight": 1,
-   "from": [
-    "nation_merca",
-    "nation_kalis"
-   ]
-  }
- ],
- "equipment": [
-  {
-   "id": "knife",
-   "name": "단검",
-   "kind": "weapon",
-   "price": 8,
-   "weight": 1,
-   "sword": 4,
-   "stealth": 2
-  },
-  {
-   "id": "sword",
-   "name": "장검",
-   "kind": "weapon",
-   "price": 30,
-   "weight": 3,
-   "sword": 10
-  },
-  {
-   "id": "spear",
-   "name": "창",
-   "kind": "weapon",
-   "price": 18,
-   "weight": 3,
-   "sword": 7
-  },
-  {
-   "id": "bow",
-   "name": "사냥 활",
-   "kind": "weapon",
-   "price": 22,
-   "weight": 2,
-   "sword": 5,
-   "survival": 5,
-   "hunt": 8
-  },
-  {
-   "id": "fine_sword",
-   "name": "북부산 강철 검",
-   "kind": "weapon",
-   "price": 90,
-   "weight": 3,
-   "sword": 18,
-   "from": [
-    "nation_velkrad"
-   ]
-  },
-  {
-   "id": "leather",
-   "name": "가죽 갑옷",
-   "kind": "armor",
-   "price": 20,
-   "weight": 4,
-   "guard": 0.15
-  },
-  {
-   "id": "mail",
-   "name": "사슬 갑옷",
-   "kind": "armor",
-   "price": 60,
-   "weight": 8,
-   "guard": 0.3
-  },
-  {
-   "id": "lantern",
-   "name": "등불",
-   "kind": "tool",
-   "price": 6,
-   "weight": 1,
-   "explore": 10
-  },
-  {
-   "id": "rope",
-   "name": "밧줄",
-   "kind": "tool",
-   "price": 4,
-   "weight": 2,
-   "survival": 5
-  },
-  {
-   "id": "chart",
-   "name": "해도",
-   "kind": "tool",
-   "price": 25,
-   "weight": 0,
-   "sea": 1,
-   "from": [
-    "nation_eln",
-    "nation_ortes"
-   ]
-  },
-  {
-   "id": "horse",
-   "name": "말",
-   "kind": "tool",
-   "price": 45,
-   "weight": 0,
-   "land": 0.4,
-   "carry": 30,
-   "from": [
-    "nation_harkan"
-   ]
-  }
- ],
- "consumables": [
-  {
-   "id": "bread",
-   "name": "마른 빵",
-   "kind": "consumable",
-   "price": 2,
-   "weight": 1,
-   "meal": true
-  },
-  {
-   "id": "herb_pill",
-   "name": "약초환",
-   "kind": "consumable",
-   "price": 8,
-   "weight": 0,
-   "hp": 20,
-   "from": [
-    "nation_nelas",
-    "nation_tambur"
-   ]
-  },
-  {
-   "id": "bandage",
-   "name": "붕대",
-   "kind": "consumable",
-   "price": 3,
-   "weight": 0,
-   "hp": 8
-  },
-  {
-   "id": "tonic",
-   "name": "기운 나는 탕약",
-   "kind": "consumable",
-   "price": 6,
-   "weight": 0,
-   "fatigue": -30
-  }
- ],
- "alchemy": [
-  {
-   "id": "blast",
-   "name": "연금술 폭약",
-   "kind": "alchemy",
-   "weight": 1,
-   "combat": 30,
-   "note": "오러 실드도 몇 번이고 맞으면 버티지 못한다. 마법으로 추적할 수 없다."
-  },
-  {
-   "id": "smoke",
-   "name": "연막 병",
-   "kind": "alchemy",
-   "weight": 1,
-   "escape": 30
-  },
-  {
-   "id": "fire_oil",
-   "name": "불붙는 기름",
-   "kind": "alchemy",
-   "weight": 1,
-   "combat": 15,
-   "hunt": 15
-  }
- ],
- "recipes": [
-  {
-   "out": "blast",
-   "needs": {
-    "salt_crystal": 1,
-    "sulfur": 1,
-    "saltpeter": 1,
-    "glass": 1
-   },
-   "lore": 25,
-   "nameless": true
-  },
-  {
-   "out": "smoke",
-   "needs": {
-    "charcoal": 2,
-    "salt_crystal": 1,
-    "glass": 1
-   },
-   "lore": 15,
-   "nameless": true
-  },
-  {
-   "out": "fire_oil",
-   "needs": {
-    "oil": 1,
-    "sulfur": 1,
-    "glass": 1
-   },
-   "lore": 20,
-   "nameless": true
-  },
-  {
-   "out": "herb_pill",
-   "needs": {
-    "herbs": 2
-   },
-   "lore": 10
-  },
-  {
-   "out": "bandage",
-   "needs": {
-    "herbs": 1
-   },
-   "lore": 5
-  }
- ],
- "relics": [
-  {
-   "id": "relic_tablet",
-   "name": "대범람 이전의 석판",
-   "kind": "relic",
-   "price": 60,
-   "weight": 3,
-   "lore": 5
-  },
-  {
-   "id": "relic_ring",
-   "name": "이름 모를 반지",
-   "kind": "relic",
-   "price": 45,
-   "weight": 0,
-   "speech": 4
-  },
-  {
-   "id": "relic_map",
-   "name": "옛 해안선이 그려진 지도",
-   "kind": "relic",
-   "price": 50,
-   "weight": 0,
-   "explore": 15
-  }
- ]
+  "status": "draft",
+  "note": "물건 데이터. price는 기준 가격(냥). 나라의 넉넉한 것과 부족한 것에 따라 장소마다 값이 달라진다. weight는 짐 무게.",
+  "carryMax": 40,
+  "goods": [
+    {
+      "id": "iron",
+      "name": "철",
+      "kind": "goods",
+      "price": 12,
+      "weight": 4,
+      "from": [
+        "nation_velkrad"
+      ],
+      "scarceIn": [
+        "nation_kalis",
+        "nation_nelas",
+        "nation_tambur"
+      ]
+    },
+    {
+      "id": "stone",
+      "name": "석재",
+      "kind": "goods",
+      "price": 6,
+      "weight": 6,
+      "from": [
+        "nation_velkrad"
+      ],
+      "scarceIn": [
+        "nation_nelas",
+        "nation_harkan"
+      ]
+    },
+    {
+      "id": "grain",
+      "name": "곡물",
+      "kind": "goods",
+      "price": 5,
+      "weight": 3,
+      "from": [
+        "nation_kalis",
+        "nation_peloa"
+      ],
+      "scarceIn": [
+        "nation_velkrad",
+        "nation_seradin",
+        "nation_iskar",
+        "nation_graven",
+        "nation_eln",
+        "nation_merca"
+      ],
+      "food": true
+    },
+    {
+      "id": "timber",
+      "name": "목재",
+      "kind": "goods",
+      "price": 6,
+      "weight": 5,
+      "from": [
+        "nation_nelas",
+        "nation_ortes"
+      ],
+      "scarceIn": [
+        "nation_iskar",
+        "nation_harkan"
+      ]
+    },
+    {
+      "id": "herbs",
+      "name": "약초",
+      "kind": "goods",
+      "price": 9,
+      "weight": 1,
+      "from": [
+        "nation_nelas",
+        "nation_tambur"
+      ],
+      "scarceIn": []
+    },
+    {
+      "id": "salt",
+      "name": "소금",
+      "kind": "goods",
+      "price": 7,
+      "weight": 2,
+      "from": [
+        "nation_seradin",
+        "nation_quel"
+      ],
+      "scarceIn": [
+        "nation_tambur",
+        "nation_iskar"
+      ]
+    },
+    {
+      "id": "furs",
+      "name": "모피",
+      "kind": "goods",
+      "price": 14,
+      "weight": 2,
+      "from": [
+        "nation_iskar"
+      ],
+      "scarceIn": [
+        "nation_tambur",
+        "nation_peloa"
+      ]
+    },
+    {
+      "id": "oil",
+      "name": "바다 짐승 기름",
+      "kind": "goods",
+      "price": 10,
+      "weight": 3,
+      "from": [
+        "nation_iskar"
+      ],
+      "scarceIn": [
+        "nation_seradin"
+      ]
+    },
+    {
+      "id": "spice",
+      "name": "향신료",
+      "kind": "goods",
+      "price": 18,
+      "weight": 1,
+      "from": [
+        "nation_tambur"
+      ],
+      "scarceIn": [
+        "nation_iskar",
+        "nation_velkrad",
+        "nation_graven"
+      ]
+    },
+    {
+      "id": "silver",
+      "name": "은",
+      "kind": "goods",
+      "price": 25,
+      "weight": 2,
+      "from": [
+        "nation_graven"
+      ],
+      "scarceIn": [
+        "nation_peloa",
+        "nation_tambur"
+      ]
+    },
+    {
+      "id": "copper",
+      "name": "구리",
+      "kind": "goods",
+      "price": 11,
+      "weight": 3,
+      "from": [
+        "nation_graven"
+      ],
+      "scarceIn": [
+        "nation_kalis",
+        "nation_peloa"
+      ]
+    },
+    {
+      "id": "pearl",
+      "name": "진주",
+      "kind": "goods",
+      "price": 30,
+      "weight": 1,
+      "from": [
+        "nation_quel"
+      ],
+      "scarceIn": [
+        "nation_velkrad",
+        "nation_seradin",
+        "nation_kalis"
+      ]
+    },
+    {
+      "id": "fruit",
+      "name": "과일",
+      "kind": "goods",
+      "price": 4,
+      "weight": 2,
+      "from": [
+        "nation_peloa"
+      ],
+      "scarceIn": [
+        "nation_iskar",
+        "nation_seradin"
+      ],
+      "food": true
+    },
+    {
+      "id": "horse_goods",
+      "name": "초원 말",
+      "kind": "goods",
+      "price": 40,
+      "weight": 0,
+      "from": [
+        "nation_harkan"
+      ],
+      "scarceIn": [
+        "nation_seradin",
+        "nation_nelas"
+      ]
+    },
+    {
+      "id": "dried_fish",
+      "name": "말린 생선",
+      "kind": "goods",
+      "price": 4,
+      "weight": 2,
+      "from": [
+        "nation_iskar",
+        "nation_ortes"
+      ],
+      "scarceIn": [
+        "nation_harkan",
+        "nation_seradin"
+      ],
+      "food": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "salt_crystal",
+      "name": "소금 호수의 결정",
+      "kind": "material",
+      "price": 8,
+      "weight": 1,
+      "from": [
+        "nation_seradin"
+      ],
+      "note": "마법으로는 그 가치를 알아볼 수 없다."
+    },
+    {
+      "id": "sulfur",
+      "name": "유황",
+      "kind": "material",
+      "price": 10,
+      "weight": 1,
+      "from": [
+        "nation_seradin",
+        "nation_graven"
+      ],
+      "note": "화산 근처 골짜기에서 난다."
+    },
+    {
+      "id": "charcoal",
+      "name": "숯",
+      "kind": "material",
+      "price": 3,
+      "weight": 2,
+      "from": [
+        "nation_nelas",
+        "nation_ortes"
+      ]
+    },
+    {
+      "id": "saltpeter",
+      "name": "초석",
+      "kind": "material",
+      "price": 12,
+      "weight": 1,
+      "from": [
+        "nation_graven",
+        "nation_velkrad"
+      ]
+    },
+    {
+      "id": "glass",
+      "name": "유리병",
+      "kind": "material",
+      "price": 5,
+      "weight": 1,
+      "from": [
+        "nation_merca",
+        "nation_kalis"
+      ]
+    }
+  ],
+  "equipment": [
+    {
+      "id": "knife",
+      "name": "단검",
+      "kind": "weapon",
+      "price": 8,
+      "weight": 1,
+      "sword": 4,
+      "stealth": 2
+    },
+    {
+      "id": "sword",
+      "name": "장검",
+      "kind": "weapon",
+      "price": 30,
+      "weight": 3,
+      "sword": 10
+    },
+    {
+      "id": "spear",
+      "name": "창",
+      "kind": "weapon",
+      "price": 18,
+      "weight": 3,
+      "sword": 7
+    },
+    {
+      "id": "bow",
+      "name": "사냥 활",
+      "kind": "weapon",
+      "price": 22,
+      "weight": 2,
+      "sword": 5,
+      "survival": 5,
+      "hunt": 8
+    },
+    {
+      "id": "fine_sword",
+      "name": "북부산 강철 검",
+      "kind": "weapon",
+      "price": 90,
+      "weight": 3,
+      "sword": 18,
+      "from": [
+        "nation_velkrad"
+      ]
+    },
+    {
+      "id": "leather",
+      "name": "가죽 갑옷",
+      "kind": "armor",
+      "price": 20,
+      "weight": 4,
+      "guard": 0.15
+    },
+    {
+      "id": "mail",
+      "name": "사슬 갑옷",
+      "kind": "armor",
+      "price": 60,
+      "weight": 8,
+      "guard": 0.3
+    },
+    {
+      "id": "lantern",
+      "name": "등불",
+      "kind": "tool",
+      "price": 6,
+      "weight": 1,
+      "explore": 10
+    },
+    {
+      "id": "rope",
+      "name": "밧줄",
+      "kind": "tool",
+      "price": 4,
+      "weight": 2,
+      "survival": 5
+    },
+    {
+      "id": "chart",
+      "name": "해도",
+      "kind": "tool",
+      "price": 25,
+      "weight": 0,
+      "sea": 1,
+      "from": [
+        "nation_eln",
+        "nation_ortes"
+      ]
+    },
+    {
+      "id": "horse",
+      "name": "말",
+      "kind": "tool",
+      "price": 45,
+      "weight": 0,
+      "land": 0.4,
+      "carry": 30,
+      "from": [
+        "nation_harkan"
+      ]
+    }
+  ],
+  "consumables": [
+    {
+      "id": "bread",
+      "name": "마른 빵",
+      "kind": "consumable",
+      "price": 2,
+      "weight": 1,
+      "meal": true
+    },
+    {
+      "id": "herb_pill",
+      "name": "약초환",
+      "kind": "consumable",
+      "price": 8,
+      "weight": 0,
+      "hp": 20,
+      "from": [
+        "nation_nelas",
+        "nation_tambur"
+      ]
+    },
+    {
+      "id": "bandage",
+      "name": "붕대",
+      "kind": "consumable",
+      "price": 3,
+      "weight": 0,
+      "hp": 8
+    },
+    {
+      "id": "tonic",
+      "name": "기운 나는 탕약",
+      "kind": "consumable",
+      "price": 6,
+      "weight": 0,
+      "fatigue": -30
+    },
+    {
+      "id": "salt_soup",
+      "name": "소금 푼 따뜻한 국",
+      "kind": "consumable",
+      "price": 3,
+      "weight": 0,
+      "fatigue": -15,
+      "hp": 4
+    }
+  ],
+  "alchemy": [
+    {
+      "id": "blast",
+      "name": "연금술 폭약",
+      "kind": "alchemy",
+      "weight": 1,
+      "combat": 30,
+      "note": "오러 실드도 몇 번이고 맞으면 버티지 못한다. 마법으로 추적할 수 없다."
+    },
+    {
+      "id": "smoke",
+      "name": "연막 병",
+      "kind": "alchemy",
+      "weight": 1,
+      "escape": 30
+    },
+    {
+      "id": "fire_oil",
+      "name": "불붙는 기름",
+      "kind": "alchemy",
+      "weight": 1,
+      "combat": 15,
+      "hunt": 15
+    }
+  ],
+  "recipes": [
+    {
+      "out": "blast",
+      "needs": {
+        "salt_crystal": 1,
+        "sulfur": 1,
+        "saltpeter": 1,
+        "glass": 1
+      },
+      "lore": 25,
+      "nameless": true
+    },
+    {
+      "out": "smoke",
+      "needs": {
+        "charcoal": 2,
+        "salt_crystal": 1,
+        "glass": 1
+      },
+      "lore": 15,
+      "nameless": true
+    },
+    {
+      "out": "fire_oil",
+      "needs": {
+        "oil": 1,
+        "sulfur": 1,
+        "glass": 1
+      },
+      "lore": 20,
+      "nameless": true
+    },
+    {
+      "out": "herb_pill",
+      "needs": {
+        "herbs": 2
+      },
+      "lore": 10
+    },
+    {
+      "out": "bandage",
+      "needs": {
+        "herbs": 1
+      },
+      "lore": 5
+    },
+    {
+      "out": "salt_soup",
+      "needs": {
+        "salt_crystal": 1
+      },
+      "lore": 0
+    }
+  ],
+  "relics": [
+    {
+      "id": "relic_tablet",
+      "name": "대범람 이전의 석판",
+      "kind": "relic",
+      "price": 60,
+      "weight": 3,
+      "lore": 5
+    },
+    {
+      "id": "relic_ring",
+      "name": "이름 모를 반지",
+      "kind": "relic",
+      "price": 45,
+      "weight": 0,
+      "speech": 4
+    },
+    {
+      "id": "relic_map",
+      "name": "옛 해안선이 그려진 지도",
+      "kind": "relic",
+      "price": 50,
+      "weight": 0,
+      "explore": 15
+    }
+  ]
 }
