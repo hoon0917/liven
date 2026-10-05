@@ -432,6 +432,15 @@
       "weight": 0,
       "fatigue": -15,
       "hp": 4
+    },
+    {
+      "id": "fruit_bread",
+      "name": "과일을 넣은 빵",
+      "kind": "consumable",
+      "price": 4,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -10
     }
   ],
   "alchemy": [
@@ -511,6 +520,14 @@
         "salt_crystal": 1
       },
       "lore": 0
+    },
+    {
+      "out": "fruit_bread",
+      "needs": {
+        "grain": 1,
+        "fruit": 1
+      },
+      "lore": 3
     }
   ],
   "relics": [
