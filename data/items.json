@@ -223,6 +223,21 @@
         "nation_seradin"
       ],
       "food": true
+    },
+    {
+      "id": "lamp_oil",
+      "name": "등대 기름",
+      "kind": "goods",
+      "price": 6,
+      "weight": 3,
+      "from": [
+        "nation_ortes",
+        "nation_eln"
+      ],
+      "scarceIn": [
+        "nation_harkan",
+        "nation_seradin"
+      ]
     }
   ],
   "materials": [
