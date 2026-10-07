@@ -1,0 +1,204 @@
+{
+  "id": "currency_liven",
+  "status": "draft",
+  "note": "화폐와 교역 단위. 모든 항목은 [초안]. 기존 코드와 데이터가 이미 쓰는 단위 '냥'과 '푼'을 그대로 기준으로 삼았다. items.json의 price는 냥이다. 인격신도 론도 나오지 않는다. 주화의 진짜 여부는 저울·시금석·소금 시험으로 가리며 마법으로는 알 수 없다.",
+  "units": [
+    {
+      "id": "cur_pun",
+      "name": "푼",
+      "metal": "동(나라마다 철·뼈·조개 등)",
+      "valueNyang": 0.1,
+      "note": "푼돈. 한 냥은 열 푼."
+    },
+    {
+      "id": "cur_nyang",
+      "name": "냥",
+      "metal": "은",
+      "valueNyang": 1,
+      "note": "기준 단위. 은 한 냥쭝(냥 저울 기준)의 값이다. 품삯, 물가, 현상금이 모두 냥으로 매겨진다."
+    },
+    {
+      "id": "cur_gold",
+      "name": "금화",
+      "metal": "금",
+      "valueNyang": 40,
+      "note": "왕가·가문 수장·큰 상회 사이의 큰 거래에만 쓴다. 일반 평민은 평생 만져 보지 못한다."
+    }
+  ],
+  "standard": {
+    "id": "cur_standard",
+    "name": "냥 저울",
+    "text": "맹약 이전에는 가문마다 은의 무게가 달라 거래 때마다 다시 달았다. 맹약 뒤 교역이 늘자 메르카 장터가 기준 저울과 분동을 만들어 각국에 나누어 주었고, 각국은 제 문양만 달리해 같은 무게의 은냥을 찍는다.",
+    "status": "draft"
+  },
+  "nationalCoins": [
+    {
+      "id": "coin_velkrad",
+      "nationId": "nation_velkrad",
+      "name": "철문 은냥",
+      "look": "냥 한쪽 면에 성문 무늬를 찍는다. 철이 흔해 푼돈은 철 푼을 쓴다.",
+      "small": "철 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_seradin",
+      "nationId": "nation_seradin",
+      "name": "탑 은냥",
+      "look": "일곱 탑을 일곱 점으로 새긴다. 소금 시험으로 순도를 가린다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_kalis",
+      "nationId": "nation_kalis",
+      "name": "하구 은냥",
+      "look": "강물 무늬. 곡물 거래에 가장 널리 쓰여 이웃 나라에서도 받아 준다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_nelas",
+      "nationId": "nation_nelas",
+      "name": "잎새 은냥",
+      "look": "잎 무늬. 숲 마을에서는 주화보다 약초 한 묶음으로 값을 치르는 일이 흔하다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_iskar",
+      "nationId": "nation_iskar",
+      "name": "얼음항 은냥",
+      "look": "두껍고 작게 찍는다. 겨울에는 모피 한 장이 은냥 대신 오간다.",
+      "small": "뼈 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_ortes",
+      "nationId": "nation_ortes",
+      "name": "닻 은냥",
+      "look": "닻 무늬. 선단 가문이 맡아 찍으며 배 위에서는 이 은냥만 값을 치른다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_peloa",
+      "nationId": "nation_peloa",
+      "name": "왕궁 은냥",
+      "look": "왕가 문장을 새긴다. 과일 철에는 푼돈이 모자라 과일 한 광주리를 푼으로 친다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_tambur",
+      "nationId": "nation_tambur",
+      "name": "강변 은냥",
+      "look": "도시마다 무늬가 달라 같은 값어치여도 받는 데 따라 값을 깎는다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_harkan",
+      "nationId": "nation_harkan",
+      "name": "천막 은냥",
+      "look": "가운데에 구멍이 있어 끈에 꿰어 다닌다. 말 한 마리는 서른 냥으로 친다.",
+      "small": "끈 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_graven",
+      "nationId": "nation_graven",
+      "name": "은굴 은냥",
+      "look": "순도가 가장 높다. 이웃 나라 상인이 녹여 다시 찍으려고 사 가기도 한다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_merca",
+      "nationId": "nation_merca",
+      "name": "저울 은냥",
+      "look": "주화보다 저울이 중요하다. 메르카 장터의 냥 저울이 모든 나라 냥의 기준 무게를 정한다.",
+      "small": "동 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_quel",
+      "nationId": "nation_quel",
+      "name": "진주곶 은냥",
+      "look": "진주 부스러기를 섞어 찍는다는 소문이 있다. 큰 값은 진주 한 알로 치른다.",
+      "small": "조개 푼",
+      "status": "draft"
+    },
+    {
+      "id": "coin_eln",
+      "nationId": "nation_eln",
+      "name": "등대 은냥",
+      "look": "등대 무늬. 입항료를 이 은냥으로 받아 항구에서는 가장 먼저 환전된다.",
+      "small": "동 푼",
+      "status": "draft"
+    }
+  ],
+  "exchange": {
+    "note": "다른 나라 냥은 무게가 같으면 받아 주지만 환전상이 수수료를 뗀다. 수수료는 비율이며 게임에 쓸 때는 작게 쓴다.",
+    "feeDefault": 0.05,
+    "feeLow": [
+      "nation_merca",
+      "nation_eln",
+      "nation_ortes"
+    ],
+    "feeHigh": [
+      "nation_harkan",
+      "nation_iskar"
+    ],
+    "feeLowRate": 0.02,
+    "feeHighRate": 0.1,
+    "debasement": "전쟁이 길어진 나라는 은에 구리를 섞는다. 이웃 상인이 받지 않으면 그 나라 물가가 오른다."
+  },
+  "tradeUnits": [
+    {
+      "id": "tu_load",
+      "name": "짐",
+      "text": "사람 한 명이 지는 양. items.json의 weight 4~6짜리 한 개쯤이다. 철, 석재, 목재의 거래 단위.",
+      "goods": [
+        "iron",
+        "stone",
+        "timber"
+      ]
+    },
+    {
+      "id": "tu_mal",
+      "name": "말",
+      "text": "곡식을 되는 나무통. 곡물의 거래 단위.",
+      "goods": [
+        "grain"
+      ]
+    },
+    {
+      "id": "tu_pil",
+      "name": "필",
+      "text": "한 벌 옷감 길이. 모피와 천의 거래 단위.",
+      "goods": [
+        "furs"
+      ]
+    },
+    {
+      "id": "tu_bottle",
+      "name": "병",
+      "text": "유리병 하나 분량. 기름과 약, 연금술 재료의 거래 단위.",
+      "goods": [
+        "oil",
+        "glass",
+        "lamp_oil"
+      ]
+    }
+  ],
+  "tradeRules": [
+    "큰 거래는 장터 서기가 냥 저울로 무게를 달고 장부에 적는다. 장부가 있으면 분쟁 때 가문 의회가 아닌 장터 서기가 판가름한다.",
+    "외상 거래는 맹약 이전 가문 사이의 빚 관습에서 나왔다. 어음은 있으나 메르카·오르테스·탐부르에서만 통한다.",
+    "산골과 숲 마을에서는 주화가 모자라 물건으로 값을 친다. 그곳의 냥은 장부 위의 값에 가깝다.",
+    "일곱탑의 서기들은 소금으로 은의 순도를 가린다. 마법으로 순도를 알 수는 없고, 이 시험이 그들의 신뢰를 지탱한다."
+  ],
+  "constraints": [
+    "론과 신, 교단은 화폐에 나타나지 않는다. 종교는 아직 정해지지 않았다.",
+    "기존 [확정] 설정과 충돌하지 않는다."
+  ]
+}

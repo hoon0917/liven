@@ -400,6 +400,15 @@
       "from": [
         "nation_harkan"
       ]
+    },
+    {
+      "id": "touchstone",
+      "name": "시금석과 소금 병",
+      "kind": "tool",
+      "price": 7,
+      "weight": 1,
+      "lore": 3,
+      "note": "은냥의 순도를 가리는 도구. 마법으로는 순도를 알 수 없다."
     }
   ],
   "consumables": [
