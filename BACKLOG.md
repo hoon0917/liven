@@ -13,7 +13,7 @@
 - [x] 종교 1: 화산과 론을 둘러싼 신앙의 큰 갈래 (`data/religion.json`, `lore/14_종교1.md`)
 - [x] 종교 2: 각국 국교와 섬의 토속신앙, 종교 간 관계 (`data/religion.json`, `lore/15_종교2.md`)
 - [x] 화폐와 교역 단위 (`data/currency.json`, `lore/16_화폐와교역.md`)
-- [ ] 언어와 문자
+- [x] 언어와 문자 (`data/language.json`, `lore/17_언어와문자.md`)
 - [ ] 직업과 계층, 길드
 - [x] 주요 인물 (각국 지도자, 이름난 강자)
 
