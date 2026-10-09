@@ -474,6 +474,15 @@
       "weight": 1,
       "meal": true,
       "fatigue": -10
+    },
+    {
+      "id": "guild_porridge",
+      "name": "조합 회관의 보리죽",
+      "kind": "consumable",
+      "price": 2,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -12
     }
   ],
   "alchemy": [
@@ -596,6 +605,15 @@
       "weight": 1,
       "lore": 2,
       "note": "드워프가 계약을 새겨 둘로 나눈 돌의 한쪽. 읽는 이를 만나면 다른 한쪽의 실마리가 된다."
+    },
+    {
+      "id": "keepsake_guild_tally",
+      "name": "조합 증표 나무패",
+      "kind": "relic",
+      "price": 12,
+      "weight": 0,
+      "speech": 2,
+      "note": "견습 명부에 이름이 오른 사람에게 주는 나무패. 같은 조합원을 만나면 말문이 트인다."
     }
   ]
 }

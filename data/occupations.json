@@ -1,0 +1,266 @@
+{
+  "id": "occupations_liven",
+  "status": "draft",
+  "note": "직업과 계층, 길드. 모든 항목은 [초안]. 마법·오러는 그릇의 일이고 직업이나 길드 가입으로 얻는 것이 아니다([확정] 설정). 평민은 큰 그릇을 가져도 본인이 알 수 없다. 종교 요소는 없다. 연도는 data/history.json, 화폐는 data/currency.json, 글과 서기는 data/language.json과 맞춘다.",
+  "classes": [
+    {
+      "id": "class_house_head",
+      "name": "가문 본가",
+      "status": "draft",
+      "text": "대가문 수장과 그 직계. 영지와 골짜기를 쥐고 가문 의회에 앉는다. 큰 그릇의 아이가 태어날 확률이 높아 재능이 혈통처럼 보인다.",
+      "share": "전체의 1% 안팎"
+    },
+    {
+      "id": "class_retainer",
+      "name": "가신과 객식구",
+      "status": "draft",
+      "text": "가문의 방계, 기사, 마법 수련생, 가문 서기. 가문에 몸을 의탁하고 호의를 받는다. 평민 출신이 가문의 객식구가 되는 길도 열려 있다.",
+      "share": "전체의 5% 안팎"
+    },
+    {
+      "id": "class_scribe",
+      "name": "글 아는 사람",
+      "status": "draft",
+      "text": "장터 서기, 가문 서기, 기록관, 대서인, 말잇개. 서기체나 종족의 글을 읽고 쓰며 셈에 밝다. 나라와 가문 어디에도 필요하지만 자리는 많지 않다.",
+      "share": "전체의 3% 안팎"
+    },
+    {
+      "id": "class_guildsman",
+      "name": "조합원",
+      "status": "draft",
+      "text": "장인과 상인, 선원 가운데 길드에 이름이 오른 사람. 입단료를 내고 견습부터 거친다. 조합은 값과 자리와 규격을 지키고 분쟁을 스스로 가른다.",
+      "share": "전체의 15% 안팎"
+    },
+    {
+      "id": "class_commoner",
+      "name": "밭과 물가의 사람",
+      "status": "draft",
+      "text": "농민, 어민, 목동, 광부, 나무꾼. 땅과 물에 매인 대다수. 세금과 징발을 가장 먼저 느낀다.",
+      "share": "전체의 60% 안팎"
+    },
+    {
+      "id": "class_wanderer",
+      "name": "떠돌이 일꾼",
+      "status": "draft",
+      "text": "조합에 들지 못했거나 떠난 품팔이, 짐꾼, 광대, 약초 캐는 사람. 일감을 찾아 장터에서 장터로 옮긴다. 조합원보다 값을 낮게 받는다.",
+      "share": "전체의 16% 안팎"
+    }
+  ],
+  "mobility": [
+    "평민이 가문에 들어가려면 가문 서기 시험이나 무공, 또는 가문의 눈에 띄는 일이 필요하다. 길은 좁지만 막혀 있지 않다.",
+    "조합에 들려면 입단료와 견습 기간이 든다. 입단료는 은 8~10냥이 보통이고 모자라면 첫해 품삯에서 깎는다.",
+    "조합에서 쫓겨나거나 스스로 나오면 떠돌이 일꾼이 된다.",
+    "계층은 그릇의 크기와 무관하다. 큰 그릇을 가진 평민은 깨어나기 전에는 누구도 알 수 없다."
+  ],
+  "ranks": [
+    {
+      "id": "rank_apprentice",
+      "name": "견습",
+      "text": "입단료를 내고 명부에 이름을 올린 사람. 첫해에는 연장을 만지지 못하고 허드렛일을 한다."
+    },
+    {
+      "id": "rank_hand",
+      "name": "일꾼",
+      "text": "견습을 마치고 품삯을 받는 사람. 장인의 지시를 따른다."
+    },
+    {
+      "id": "rank_master",
+      "name": "장인",
+      "text": "장인 시험을 넘은 사람. 제 이름으로 좌판이나 공방을 연다. 견습을 받을 수 있다."
+    },
+    {
+      "id": "rank_elder",
+      "name": "어른",
+      "text": "조합원 투표로 뽑힌 장인. 회비와 자리, 분쟁을 정한다. 임기는 세 해."
+    }
+  ],
+  "guilds": [
+    {
+      "id": "guild_scribes",
+      "name": "서기 학당",
+      "nation": "nation_merca",
+      "since": 5,
+      "trade": "서기·대서인·말잇개",
+      "text": "맹약력 5년 무렵 메르카 장터의 서기들이 장터말과 셈을 가르치려 세웠다. 졸업생은 각국 장터와 가문의 장부 자리로 나간다. 학당은 글을 가르칠 뿐 가문의 편을 들지 않는다는 규약을 둔다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_smiths",
+      "name": "쇠망치 모임",
+      "nation": "nation_velkrad",
+      "since": -60,
+      "trade": "대장장이",
+      "text": "철문성 대장간 거리의 장인들이 연장과 무기의 규격을 맞추려 만든 모임. 기사 가문에 무기를 대지만 가문 소속이 아니다. 불량 칼에는 모임의 인장을 찍어 주지 않는다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_lamps",
+      "name": "등대 길드",
+      "nation": "nation_eln",
+      "since": -30,
+      "trade": "항로·등대·해도",
+      "text": "국가 설정(lore/04)에 이미 적힌, 엘른을 다스리는 길드. 항로와 등대와 해도를 관리하며 마법·기사 가문이 없다. 등대 기름과 항로 통행료로 운영된다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_keels",
+      "name": "용골 조합",
+      "nation": "nation_ortes",
+      "since": -45,
+      "trade": "조선",
+      "text": "안개만 조선소의 장인들. 용골을 놓는 첫 날 조합원 모두가 한 못씩 박는 관습이 있다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_grain",
+      "name": "창고 조합",
+      "nation": "nation_kalis",
+      "since": -12,
+      "trade": "곡물 창고·계량",
+      "text": "재 흉년 때 곡식을 나눠 보관하던 창고지기들이 맹약 뒤 정식으로 꾸린 조합. 말과 되를 정직하게 다는 것을 제일 규약으로 둔다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_caravan",
+      "name": "대상 연맹",
+      "nation": "nation_seradin",
+      "since": 8,
+      "trade": "대상 호송·소금 운송",
+      "text": "소금 호수와 협곡 길을 오가는 상단들의 연맹. 길목의 우물과 쉼터를 공동으로 관리하고 길잡이를 서로 빌려 준다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_pearl",
+      "name": "진주잡이 조",
+      "nation": "nation_quel",
+      "since": -20,
+      "trade": "진주 채취",
+      "text": "쿠엘 아이들이 물속 손짓말로 일하는 조. 열 명이 한 조이고 수확은 똑같이 나눈다. 병든 조원의 몫은 한 해 동안 보장한다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_mercbands",
+      "name": "용병 중개소",
+      "nation": "nation_merca",
+      "since": 3,
+      "trade": "용병 계약 중개",
+      "text": "메르카 장터의 용병 시장에서 계약을 서기체로 적어 주고 수수료를 받는 곳. 오크의 용병 계약은 서기가 적고 오크는 가장자리에 매듭 하나를 묶는다.",
+      "status": "draft"
+    },
+    {
+      "id": "guild_herbs",
+      "name": "약초 손님",
+      "nation": "nation_nelas",
+      "since": -25,
+      "trade": "약초 채취·약재 거래",
+      "text": "넬라스와 탐부르의 약초꾼들이 캐는 철과 땅을 정하는 모임. 캐낸 약초의 이름과 쓰임을 장부에 남긴다. 치료 자체는 치료원의 일이다.",
+      "status": "draft"
+    }
+  ],
+  "occupations": [
+    {
+      "id": "job_smith",
+      "name": "대장장이",
+      "class": "class_guildsman",
+      "guild": "guild_smiths",
+      "note": "연장과 무기를 만든다. 무기 값은 철 값을 따른다."
+    },
+    {
+      "id": "job_scribe",
+      "name": "장터 서기",
+      "class": "class_scribe",
+      "guild": "guild_scribes",
+      "note": "계약과 저울과 은냥을 감별한다."
+    },
+    {
+      "id": "job_letter_writer",
+      "name": "대서인",
+      "class": "class_scribe",
+      "guild": "guild_scribes",
+      "note": "글 모르는 이의 편지와 계약을 대신 쓴다."
+    },
+    {
+      "id": "job_interpreter",
+      "name": "말잇개",
+      "class": "class_scribe",
+      "guild": "guild_scribes",
+      "note": "종족 사이 말을 옮긴다."
+    },
+    {
+      "id": "job_shipwright",
+      "name": "배 짓는 장인",
+      "class": "class_guildsman",
+      "guild": "guild_keels",
+      "note": "안개만 조선소에서 일한다."
+    },
+    {
+      "id": "job_sailor",
+      "name": "선원",
+      "class": "class_guildsman",
+      "guild": "guild_lamps",
+      "note": "항로 통행 증서가 있어야 큰 항구에 닿는다."
+    },
+    {
+      "id": "job_warehouse",
+      "name": "창고지기",
+      "class": "class_guildsman",
+      "guild": "guild_grain",
+      "note": "말과 되로 곡식을 달고 장부에 적는다."
+    },
+    {
+      "id": "job_caravaneer",
+      "name": "대상 일꾼",
+      "class": "class_guildsman",
+      "guild": "guild_caravan",
+      "note": "소금과 광물을 협곡 길로 나른다."
+    },
+    {
+      "id": "job_pearl_diver",
+      "name": "진주잡이",
+      "class": "class_commoner",
+      "guild": "guild_pearl",
+      "note": "숨을 오래 참는 아이들이 조로 일한다."
+    },
+    {
+      "id": "job_mercenary",
+      "name": "용병",
+      "class": "class_wanderer",
+      "guild": "guild_mercbands",
+      "note": "중개소를 거쳐 계약한다. 계약서 없이 나서는 사람은 후불을 못 받는다."
+    },
+    {
+      "id": "job_herb_picker",
+      "name": "약초꾼",
+      "class": "class_wanderer",
+      "guild": "guild_herbs",
+      "note": "조합 증표가 있으면 약초 값을 제대로 받는다."
+    },
+    {
+      "id": "job_porter",
+      "name": "짐꾼",
+      "class": "class_wanderer",
+      "guild": null,
+      "note": "장터와 부두의 품팔이. 조합이 없고 값이 불안정하다."
+    },
+    {
+      "id": "job_farmer",
+      "name": "농부",
+      "class": "class_commoner",
+      "guild": null,
+      "note": "세금과 징발을 가장 먼저 겪는다."
+    },
+    {
+      "id": "job_fisher",
+      "name": "어부",
+      "class": "class_commoner",
+      "guild": null,
+      "note": "물때를 읽는다."
+    }
+  ],
+  "rules": [
+    "길드에 든다고 마법이나 오러가 생기지 않는다.",
+    "길드는 가문의 하부 조직이 아니다. 가문은 길드에 일감을 줄 뿐 길드원의 충성을 요구할 수 없다.",
+    "길드는 종교 조직이 아니다. 신이나 교단을 두지 않는다.",
+    "길드 사이의 분쟁은 장터 서기들이 판결을 미루는 일이 잦아 오래 간다."
+  ]
+}
