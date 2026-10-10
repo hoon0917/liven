@@ -53,7 +53,7 @@ function row(label, value, raw = false) {
 
 async function init() {
   const FILES = ['world', 'regions', 'monsters', 'races', 'grades', 'nations', 'relations', 'sim-rules', 'state-initial',
-    'houses', 'names', 'events', 'elements', 'story', 'places', 'player', 'items'];
+    'houses', 'names', 'events', 'elements', 'story', 'places', 'player', 'items', 'duel'];
   let files;
   try {
     files = await Promise.all(FILES.map((f) => loadJSON(`data/${f}.json`)));
@@ -64,7 +64,7 @@ async function init() {
       <p class="error">데이터를 불러오지 못했습니다. data 폴더에 JSON 파일 ${FILES.length}개가 모두 있는지 확인하세요.<br><small>${esc(err.message)}</small></p>`;
     return;
   }
-  const [world, regionData, monsterCfg, races, grades, nations, relations, rules, stateInitial, houses, names, events, elements, story, placesData, playerData, items] = files;
+  const [world, regionData, monsterCfg, races, grades, nations, relations, rules, stateInitial, houses, names, events, elements, story, placesData, playerData, items, duel] = files;
 
   const regionById = Object.fromEntries(regionData.regions.map((r) => [r.id, r]));
   const nationById = Object.fromEntries(nations.nations.map((n) => [n.id, n]));
@@ -75,7 +75,7 @@ async function init() {
   const catOf = (kind) => events.events[kind]?.cat ?? BASE_CAT[kind] ?? '세계';
   const catOfEntry = (l) => l.cat ?? catOf(l.kind);
   const data = {
-    rules, grades, relations, stateInitial, world, names, events, elements, monsterCfg, story, player: playerData, items,
+    rules, grades, relations, stateInitial, world, names, events, elements, monsterCfg, story, player: playerData, items, duel,
     races: Object.fromEntries(races.races.map((r) => [r.id, r])),
     nationById, nationsList: nations.nations, regionsList: regionData.regions,
     neighbors: nations.neighbors, patrons: nations.patrons, houses: houses.houses,

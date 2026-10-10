@@ -1,0 +1,21 @@
+// 전술 결투 규칙 점검: node tools/test-duel.mjs
+import fs from 'fs';
+import { makeFighter, runDuel } from '../js/duel.js';
+const D = JSON.parse(fs.readFileSync(new URL('../data/duel.json', import.meta.url), 'utf8'));
+let seed = 7; const rng = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+const mk = (t, g) => makeFighter(`${t}${g}`, t, g, { ron: 20 + g * 15, skill: 30 + g * 8 });
+const stats = {};
+for (const [ta, tb] of [['aura', 'magic'], ['aura', 'aura'], ['magic', 'magic'], ['none', 'aura']]) {
+  for (let ga = 1; ga <= 4; ga++) for (let gb = 1; gb <= 4; gb++) {
+    let w = 0; const N = 400, rs = [];
+    for (let i = 0; i < N; i++) {
+      const a = ta === 'none' ? makeFighter('n', 'none', 0, { skill: 30 }) : mk(ta, ga);
+      const r = runDuel(a, mk(tb, gb), D, rng);
+      if (r.winner === 'a') w++; rs.push(r.rounds);
+      if (![a.hp].every(Number.isFinite)) throw new Error('NaN');
+    }
+    stats[`${ta}${ga} vs ${tb}${gb}`] = `${Math.round((w / N) * 100)}% / ${(rs.reduce((s, x) => s + x, 0) / N).toFixed(1)}수`;
+  }
+}
+for (const k of ['aura1 vs magic1', 'aura2 vs magic2', 'aura3 vs magic3', 'aura4 vs magic4', 'aura1 vs aura3', 'aura3 vs aura1', 'magic1 vs magic3', 'none1 vs aura1']) if (stats[k]) console.log(k, stats[k]);
+console.log('오류 없음.');

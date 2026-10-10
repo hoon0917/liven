@@ -1,6 +1,7 @@
 // 삶의 변수들: 장소의 장터, 물건과 장비, 론 잔량, 기억과 원수, 인연과 가족, 태교와 출산, 야망, 밝힌 지도, 전설과 대물림
 // 설계도: lore/12_변수설계도.md
 import { fill, pick, J } from './text.js';
+import { makeFighter, runDuel } from './duel.js';
 import { createPerson, deed, makeGivenName } from './people.js';
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -410,17 +411,29 @@ export function meetPerson(state, data, rng, pid, kind, checkFn) {
   }
   if (kind === 'duel') {
     const dc = 35 + (q.grade || 1) * 10;
-    if (checkFn('sword', dc)) {
+    let won, line = '';
+    if (data.duel) {
+      // 환과 막을 쓰는 전술 결투 (lore/19) — 수를 자동으로 골라 겨룬다
+      const D = data.duel;
+      const me = makeFighter(p.name, p.awakened ? p.vessel.dir : 'none', p.grade || 0, { hp: Math.max(1, p.hp), ron: p.ron?.cur || 0, skill: p.stats.sword + gearBonus(data, p, 'sword') });
+      const foe = makeFighter(q.name, q.grade ? q.type : 'none', q.grade || 0, { ron: D.npcRon.base + (q.grade || 0) * D.npcRon.perGrade, skill: 30 + (q.grade || 0) * 8 });
+      const r = runDuel(me, foe, D, rng);
+      if (p.awakened) p.ron.cur = Math.max(0, me.ron);
+      p.hp = clamp(Math.round(me.hp), 1, 100);
+      won = r.winner === 'a';
+      line = ` ${r.rounds}수를 겨룬 끝이었다.`;
+    } else won = checkFn('sword', dc);
+    if (won) {
       p.fame += 5 + (q.grade || 1) * 2;
       remember('duelWin', `${J(q.name, '과', '와')}의 결투에서 이겼다.`, -10);
       deed(state, q, `${J(p.name, '에게', '에게')} 결투에서 졌다.`.replace('에게에게', '에게'));
       state.log.push({ year: state.year, kind: 'player', cat: '인물', text: fill('{p:이} {q:과}의 결투에서 이겼다.', { p: p.name, q: `${label} ${q.name}` }), ids: [q.nation], persons: [p.personId, q.id], w: 30 });
-      return `${J(q.name, '의', '의')} 칼이 땅에 떨어졌다. 구경꾼들이 숨을 삼켰다.`.replace('의의', '의');
+      return `${J(q.name, '의', '의')} 칼이 땅에 떨어졌다. 구경꾼들이 숨을 삼켰다.${line}`.replace('의의', '의');
     }
-    p.hp -= Math.round(30 * (1 - guardOf(data, p)));
+    if (!data.duel) p.hp -= Math.round(30 * (1 - guardOf(data, p)));
     remember('duelLose', `${J(q.name, '과', '와')}의 결투에서 졌다.`, -15);
     setNemesis(state, data, 'person', { id: q.id, name: q.name });
-    return `${J(q.name, '의', '의')} 일격에 쓰러졌다. 그가 내려다보며 이름을 물었다.`.replace('의의', '의');
+    return `${J(q.name, '의', '의')} 일격에 쓰러졌다. 그가 내려다보며 이름을 물었다.${line}`.replace('의의', '의');
   }
   return '';
 }

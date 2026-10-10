@@ -1,0 +1,29 @@
+{
+  "status": "draft",
+  "note": "[초안] 환(環)과 막(膜)을 쓰는 여러 수의 전술 결투 규칙. 설명은 lore/19_전술결투.md. 론은 아무도 느끼거나 볼 수 없으므로 '론 잔량'은 본인의 몸 상태(기력)로만 표현한다.",
+  "maxRounds": 12,
+  "baseHp": 100,
+  "yieldHp": 20,
+  "shell": { "durability": 12, "ronPerRound": 1, "mendCost": 3, "mendAmount": 8 },
+  "ring": { "weaveCost": 2, "castCost": 3, "power": [0, 30, 66, 110, 160, 220], "interruptLoss": 1, "interruptChance": 0.35 },
+  "slash": { "base": 6, "skillDiv": 10, "guardCut": 0.5, "ronCost": 0 },
+  "npcRon": { "base": 20, "perGrade": 15 },
+  "moves": [
+    { "id": "duel_slash", "name": "베기", "for": ["none", "aura", "magic", "dual"], "desc": "칼로 친다. 막이 있으면 가장 바깥 막이 먼저 닳는다." },
+    { "id": "duel_guard", "name": "막기", "for": ["none", "aura", "magic", "dual"], "desc": "이번 수에 받는 베기 피해를 절반으로 줄인다." },
+    { "id": "duel_mend", "name": "막 다지기", "for": ["aura", "dual"], "desc": "론 3을 쓰고 가장 바깥 막의 내구를 되살린다." },
+    { "id": "duel_weave", "name": "고리 엮기", "for": ["magic", "dual"], "desc": "론 2를 쓰고 술식의 고리를 하나 더 엮는다. 등급을 넘을 수 없다." },
+    { "id": "duel_cast", "name": "술식 쏘기", "for": ["magic", "dual"], "desc": "엮어 둔 고리를 모두 쏜다. 고리가 많을수록 세게 맞는다." },
+    { "id": "duel_yield", "name": "물러나기", "for": ["none", "aura", "magic", "dual"], "desc": "졌다고 말하고 칼을 거둔다." }
+  ],
+  "texts": {
+    "slash": ["{a:이} 칼을 휘둘렀다.", "{a:이} 한 발 파고들며 칼을 뻗었다."],
+    "guard": ["{a:은} 칼을 세워 몸을 낮췄다."],
+    "mend": ["{a:은} 숨을 고르며 막을 다졌다."],
+    "weave": ["{a:은} 손끝으로 술식의 고리를 하나 더 엮었다."],
+    "cast": ["{a:이} 엮어 둔 고리를 한꺼번에 풀었다."],
+    "break": ["{b}의 막 한 겹이 깨졌다."],
+    "interrupt": ["{a}의 고리 하나가 흐트러졌다."],
+    "tired": ["{a:은} 숨이 가빠 막을 더 지탱하지 못했다."]
+  }
+}
