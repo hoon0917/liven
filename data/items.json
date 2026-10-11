@@ -492,6 +492,15 @@
       "weight": 1,
       "meal": true,
       "fatigue": -14
+    },
+    {
+      "id": "duel_ledger_bun",
+      "name": "연무장의 보리떡",
+      "kind": "consumable",
+      "price": 2,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -10
     }
   ],
   "alchemy": [

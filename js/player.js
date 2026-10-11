@@ -465,7 +465,7 @@ export function doAction(state, data, rng, places, id, arg = {}) {
       break;
     }
     case 'meet': {
-      say(meetPerson(state, data, rng, arg.pid, arg.kind, (stat, dc) => check(state, data, stat, dc, rng)));
+      say(meetPerson(state, data, rng, arg.pid, arg.kind, (stat, dc) => check(state, data, stat, dc, rng), arg.duelResult));
       p.fatigue += 8;
       break;
     }

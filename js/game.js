@@ -1,6 +1,7 @@
 // 인물 모드 화면: 이번 주 · 소지품 · 장터 · 사람 · 기록
 import { createPlayer, doAction, availableActions, resolveChoice, travelOptions, parseInput, seasonOf, context } from './player.js';
-import { marketItems, priceAt, buy, sell, equip, useItem, itemOf, carry, canCraft, propose, setTaegyo, ambitionProgress, heirs, continueAsHeir, addItem } from './life.js';
+import { marketItems, priceAt, buy, sell, equip, useItem, itemOf, carry, canCraft, propose, setTaegyo, ambitionProgress, heirs, continueAsHeir, addItem, duelFighters } from './life.js';
+import { beginDuel, stepDuel, legalMoves } from './duel.js';
 import { makeRng } from './monsters.js';
 import { J } from './text.js';
 
@@ -14,6 +15,7 @@ export function createGame(api) {
   let parsed = null;
   let tab = 'week';
   let note = '';
+  let duelS = null; // 수를 고르는 중인 결투 { s: 세션, pid }
   const S = () => api.getState();
   const P = data.player;
 
@@ -223,10 +225,36 @@ export function createGame(api) {
       <p class="muted small">밟아 본 수도 ${p.visitedCapitals.length}곳 · 쓰러뜨린 상급 마물 ${p.kills}마리 · 알고 있는 장소 ${p.known.length}곳</p>`;
   }
 
+  function showDuel() {
+    const st = S(), D = data.duel, { s, pid } = duelS;
+    const q = st.persons[pid];
+    const f = (x) => `<div class="duel-side"><strong>${esc(x.name)}</strong><span>몸 ${Math.max(0, Math.round(x.hp))}</span><span>막 ${x.shells.length}겹${x.shells.length ? `(바깥 ${x.shells[0]})` : ''}</span><span>고리 ${x.rings}/${x.grade}</span>${x === s.a ? `<span>숨 ${Math.round(x.ron)}</span>` : ''}</div>`;
+    const lines = s.log.slice(-3).map((r) => `<li><span class="muted">${r.round}수</span> ${esc(r.notes.join(' '))}</li>`).join('');
+    const ends = { yield: '한쪽이 물러났다.', down: '한쪽이 쓰러졌다.', points: '열두 수가 다 지나 몸이 더 성한 쪽이 이겼다.' };
+    panel.innerHTML = `<h2 class="duel-title">${esc(q?.name || '상대')}와의 결투 <span class="muted small">${s.round}/${D.maxRounds}수</span></h2>
+      <div class="duel-board">${f(s.a)}${f(s.b)}</div>
+      <ul class="duel-log">${lines || '<li class="muted">서로 칼을 뽑고 마주 섰다.</li>'}</ul>
+      ${s.done
+        ? `<p class="note">${ends[s.how]} ${s.winner === 'a' ? '내가 이겼다.' : '내가 졌다.'}</p><div class="btn-row"><button type="button" class="btn btn-primary" data-duel="end">결투를 마친다</button></div>`
+        : `<p class="muted small">한 수를 고른다. 막이 있으면 매 수 숨이 조금 든다.</p><div class="btn-row">${legalMoves(s.a).map((id) => { const m = D.moves.find((x) => x.id === id); return `<button type="button" class="btn sm" data-duel="${id}" title="${esc(m.desc)}">${esc(m.name)}</button>`; }).join('')}</div>
+        <ul class="muted small duel-help">${legalMoves(s.a).map((id) => { const m = D.moves.find((x) => x.id === id); return `<li><b>${esc(m.name)}</b> ${esc(m.desc)}</li>`; }).join('')}</ul>`}`;
+    panel.querySelectorAll('[data-duel]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.duel === 'end') {
+        const res = s, id = pid; duelS = null;
+        last = doAction(st, data, rng, api.places(), 'meet', { pid: id, kind: 'duel', duelResult: res, hooks: api.hooks });
+        parsed = null; tab = 'week'; api.afterTurn(last);
+        return;
+      }
+      stepDuel(s, b.dataset.duel, D, rng);
+      showDuel();
+    }));
+  }
+
   function showGame() {
     const st = S();
     const p = st.player;
     if (!p) return showCreate();
+    if (duelS) return showDuel();
     const places = api.places();
     const cx = context(st, data, places);
     if (!p.alive) {
@@ -253,7 +281,15 @@ export function createGame(api) {
     panel.querySelectorAll('[data-action]').forEach((b) => b.addEventListener('click', () => act(() => doAction(st, data, rng, places, b.dataset.action, { hooks: api.hooks }))));
     panel.querySelectorAll('[data-choice]').forEach((b) => b.addEventListener('click', () => act(() => resolveChoice(st, data, rng, places, +b.dataset.choice))));
     panel.querySelector('[data-act="go"]')?.addEventListener('click', () => act(() => doAction(st, data, rng, places, 'travel', { to: panel.querySelector('#travelTo').value, hooks: api.hooks })));
-    panel.querySelectorAll('[data-meet]').forEach((b) => b.addEventListener('click', () => act(() => doAction(st, data, rng, places, 'meet', { pid: b.dataset.meet, kind: b.dataset.kind, hooks: api.hooks }))));
+    panel.querySelectorAll('[data-meet]').forEach((b) => b.addEventListener('click', () => {
+      const q = st.persons[b.dataset.meet];
+      if (b.dataset.kind === 'duel' && data.duel && q?.alive) {
+        const { me, foe } = duelFighters(st, data, q);
+        duelS = { s: beginDuel(me, foe, data.duel), pid: b.dataset.meet };
+        return showDuel();
+      }
+      act(() => doAction(st, data, rng, places, 'meet', { pid: b.dataset.meet, kind: b.dataset.kind, hooks: api.hooks }));
+    }));
     panel.querySelectorAll('[data-buy]').forEach((b) => b.addEventListener('click', () => free(buy(st, data, cx.place, b.dataset.buy))));
     panel.querySelectorAll('[data-sell]').forEach((b) => b.addEventListener('click', () => free(sell(st, data, cx.place, b.dataset.sell))));
     panel.querySelectorAll('[data-equip]').forEach((b) => b.addEventListener('click', () => free(equip(st, data, b.dataset.equip))));

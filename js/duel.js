@@ -90,6 +90,27 @@ export function playRound(a, b, moves, D, rng) {
   return { notes, yielded };
 }
 
+// 한 수씩 겨룬다(사람이 수를 고르는 화면용). 세션을 만들고 stepDuel로 한 수씩 진행한다.
+export function beginDuel(a, b, D) {
+  setup(a, D); setup(b, D);
+  return { a, b, round: 0, log: [], done: false, winner: null, how: '' };
+}
+
+export function stepDuel(s, myMove, D, rng) {
+  if (s.done) return s;
+  const { a, b } = s;
+  const r = s.round + 1;
+  const mv = [legalMoves(a).includes(myMove) ? myMove : 'duel_slash', autoMove(b, a, D, rng, r)];
+  const res = playRound(a, b, mv, D, rng);
+  s.round = r;
+  s.log.push({ round: r, moves: mv, notes: res.notes, hp: [Math.round(a.hp), Math.round(b.hp)] });
+  if (res.yielded[0] || a.hp <= 0) { s.winner = 'b'; s.how = res.yielded[0] ? 'yield' : 'down'; }
+  else if (res.yielded[1] || b.hp <= 0) { s.winner = 'a'; s.how = res.yielded[1] ? 'yield' : 'down'; }
+  else if (r >= D.maxRounds) { s.winner = a.hp >= b.hp ? 'a' : 'b'; s.how = 'points'; }
+  s.done = !!s.winner;
+  return s;
+}
+
 // 끝까지 겨룬다. choose(f, foe, round)가 있으면 사람이 수를 고른다.
 export function runDuel(a, b, D, rng, choose = {}) {
   setup(a, D); setup(b, D);

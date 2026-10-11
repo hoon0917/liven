@@ -19,3 +19,13 @@ for (const [ta, tb] of [['aura', 'magic'], ['aura', 'aura'], ['magic', 'magic'],
 }
 for (const k of ['aura1 vs magic1', 'aura2 vs magic2', 'aura3 vs magic3', 'aura4 vs magic4', 'aura1 vs aura3', 'aura3 vs aura1', 'magic1 vs magic3', 'none1 vs aura1']) if (stats[k]) console.log(k, stats[k]);
 console.log('오류 없음.');
+// 한 수씩 고르는 결투(stepDuel)가 끝까지 정상으로 끝나는지
+{
+  const { beginDuel, stepDuel, legalMoves } = await import('../js/duel.js');
+  for (let i = 0; i < 300; i++) {
+    const s = beginDuel(mk(i % 2 ? 'aura' : 'magic', 1 + (i % 4)), mk('aura', 1 + (i % 3)), D);
+    while (!s.done) { const m = legalMoves(s.a); stepDuel(s, m[Math.floor(rng() * m.length)], D, rng); if (s.round > D.maxRounds) throw new Error('수 초과'); }
+    if (!s.winner || !Number.isFinite(s.a.hp)) throw new Error('step 결과 이상');
+  }
+  console.log('수 고르기 300판 정상.');
+}

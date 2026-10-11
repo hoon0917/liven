@@ -379,7 +379,16 @@ export function continueAsHeir(state, data, rng, places, childId, worldStep) {
 }
 
 // ---------- 세계의 인물과 만나기 ----------
-export function meetPerson(state, data, rng, pid, kind, checkFn) {
+// 결투에 나설 두 사람을 만든다. 화면에서 수를 고를 때도, 자동으로 겨룰 때도 쓴다.
+export function duelFighters(state, data, q) {
+  const p = state.player, D = data.duel;
+  const me = makeFighter(p.name, p.awakened ? p.vessel.dir : 'none', p.grade || 0, { hp: Math.max(1, p.hp), ron: p.ron?.cur || 0, skill: p.stats.sword + gearBonus(data, p, 'sword') });
+  const foe = makeFighter(q.name, q.grade ? q.type : 'none', q.grade || 0, { ron: D.npcRon.base + (q.grade || 0) * D.npcRon.perGrade, skill: 30 + (q.grade || 0) * 8 });
+  return { me, foe };
+}
+
+// duelResult: 화면에서 사람이 수를 골라 끝낸 결투 세션(beginDuel/stepDuel). 없으면 자동으로 겨룬다.
+export function meetPerson(state, data, rng, pid, kind, checkFn, duelResult) {
   const p = state.player;
   const q = state.persons[pid];
   if (!q || !q.alive) return '그 사람은 이제 이곳에 없다.';
@@ -415,9 +424,9 @@ export function meetPerson(state, data, rng, pid, kind, checkFn) {
     if (data.duel) {
       // 환과 막을 쓰는 전술 결투 (lore/19) — 수를 자동으로 골라 겨룬다
       const D = data.duel;
-      const me = makeFighter(p.name, p.awakened ? p.vessel.dir : 'none', p.grade || 0, { hp: Math.max(1, p.hp), ron: p.ron?.cur || 0, skill: p.stats.sword + gearBonus(data, p, 'sword') });
-      const foe = makeFighter(q.name, q.grade ? q.type : 'none', q.grade || 0, { ron: D.npcRon.base + (q.grade || 0) * D.npcRon.perGrade, skill: 30 + (q.grade || 0) * 8 });
-      const r = runDuel(me, foe, D, rng);
+      let me, r;
+      if (duelResult) { me = duelResult.a; r = { winner: duelResult.winner, rounds: duelResult.round }; }
+      else { const f = duelFighters(state, data, q); me = f.me; r = runDuel(f.me, f.foe, D, rng); }
       if (p.awakened) p.ron.cur = Math.max(0, me.ron);
       p.hp = clamp(Math.round(me.hp), 1, 100);
       won = r.winner === 'a';

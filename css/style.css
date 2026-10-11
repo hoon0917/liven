@@ -699,3 +699,10 @@ html, body {
 .foot { margin-top: 18px; border-top: 1px solid var(--ink-faint); padding-top: 12px; }
 #map .pl-unknown { opacity: 0.25; }
 #map text.pl-unknown { display: none; }
+
+/* 수를 고르는 결투 화면 */
+.duel-board { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }
+.duel-side { flex: 1 1 140px; display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border: 1px solid var(--line, #8884); border-radius: 6px; }
+.duel-log { list-style: none; padding: 0; margin: 8px 0; }
+.duel-log li { margin: 2px 0; }
+.duel-help { padding-left: 1.2em; }
