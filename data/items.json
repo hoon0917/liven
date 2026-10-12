@@ -501,6 +501,15 @@
       "weight": 1,
       "meal": true,
       "fatigue": -10
+    },
+    {
+      "id": "hunter_stew",
+      "name": "사냥꾼의 고기죽",
+      "kind": "consumable",
+      "price": 3,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -12
     }
   ],
   "alchemy": [

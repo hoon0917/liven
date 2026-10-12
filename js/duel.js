@@ -10,6 +10,14 @@ export function makeFighter(name, type, grade, o = {}) {
   return { name, type, grade: g, hp: o.hp ?? 100, ron: o.ron ?? 0, ronMax: o.ronMax ?? o.ron ?? 0, skill: o.skill ?? 30, shells: [], rings: 0 };
 }
 
+// 마물 한 마리를 싸우는 사람으로 만든다. 등급(tier 1~5)이 곧 강도이고, 물러나지 않는다.
+export function monsterFighter(m, D) {
+  const t = Math.max(1, Math.min(5, m.tier || 1)), M = D.monster;
+  const f = makeFighter(m.name, M.shells[t] ? 'aura' : 'none', M.shells[t], { hp: M.hp[t], ron: M.ron, skill: M.skill[t] });
+  f.monster = true;
+  return f;
+}
+
 function setup(f, D) {
   if (f.type === 'aura' || f.type === 'dual') f.shells = Array.from({ length: f.grade }, () => D.shell.durability);
   f.rings = 0;
@@ -28,7 +36,7 @@ export function legalMoves(f) {
 // 자동으로 고르는 수. 사람도 이 함수를 기본값으로 쓴다.
 export function autoMove(f, foe, D, rng) {
   const legal = legalMoves(f);
-  if (f.hp <= D.yieldHp && rng() < 0.5) return 'duel_yield';
+  if (f.hp <= D.yieldHp && rng() < 0.5 && !f.monster) return 'duel_yield';
   if (legal.includes('duel_cast') && (f.rings >= Math.min(f.grade, 2) || foe.hp <= D.ring.power[f.rings])) return 'duel_cast';
   if (legal.includes('duel_weave') && rng() < 0.7) return 'duel_weave';
   if (legal.includes('duel_mend') && f.shells[0] < D.shell.durability / 2 && rng() < 0.6) return 'duel_mend';
@@ -65,7 +73,7 @@ export function playRound(a, b, moves, D, rng) {
     if (m === 'duel_slash') {
       let dmg = D.slash.base + f.skill / D.slash.skillDiv + rng() * 6;
       if (guard[1 - i]) dmg *= D.slash.guardCut;
-      notes.push(fill(pickOf(rng, T.slash), { a: f.name }));
+      notes.push(fill(pickOf(rng, f.monster && T.monsterSlash ? T.monsterSlash : T.slash), { a: f.name }));
       hit(o, dmg, D, notes, T);
       if (o.rings > 0 && !guard[1 - i] && moves[1 - i] !== 'duel_cast' && rng() < D.ring.interruptChance) { o.rings -= D.ring.interruptLoss; notes.push(fill(T.interrupt[0], { a: o.name })); }
     } else if (m === 'duel_mend' && f.ron >= D.shell.mendCost && f.shells.length) {

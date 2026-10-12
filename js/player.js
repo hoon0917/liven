@@ -379,13 +379,15 @@ export function doAction(state, data, rng, places, id, arg = {}) {
       return { texts, encounter: null, ...advanceWeek(state, data, rng, places, arg.hooks) };
     }
     case 'hunt': {
-      const m = pick(rng, cx.monsters);
+      const m = (arg.monsterId && cx.monsters.find((x) => x.id === arg.monsterId)) || pick(rng, cx.monsters);
       const dc = 25 + m.tier * 15;
+      const dr = arg.duelResult; // 화면에서 수를 골라 겨룬 결과가 있으면 그것으로 승패를 정한다 [초안]
       let ronBonus = 0;
       if (p.awakened) { if (p.ron.cur >= 15) { p.ron.cur -= 15; ronBonus = p.grade * 18; } else ronBonus = p.grade * 5; }
       const power = p.stats.sword + gearBonus(data, p, 'sword') + gearBonus(data, p, 'hunt') + p.stats.survival * 0.3 + ronBonus + rng() * 60;
       p.fatigue += A.hunt.fatigue;
-      if (power >= dc) {
+      if (dr) { if (p.awakened) p.ron.cur = Math.max(0, dr.a.ron); p.hp = Math.max(1, Math.round(dr.a.hp)); }
+      if (dr ? dr.winner === 'a' : power >= dc) {
         state.monsters = state.monsters.filter((x) => x.id !== m.id);
         const reward = m.tier * 6 + Math.floor(rng() * 6);
         p.coins += reward; p.fame += m.tier * 2; gain('sword', [1, 2]); gain('survival', [1, 2]);
@@ -394,8 +396,7 @@ export function doAction(state, data, rng, places, id, arg = {}) {
         say(`${m.name}의 굴을 찾아냈다. 긴 싸움 끝에 쓰러뜨렸다. 현상금 ${reward}냥과 명성을 얻었다.`);
         if (m.tier >= 3) chronicle(state, fill('{p:이} {m:을} 홀로 쓰러뜨렸다.', { p: p.name, m: m.name }), 25);
       } else {
-        const dmg = Math.round((10 + m.tier * 9) * (1 - guardOf(data, p)));
-        p.hp -= dmg;
+        if (!dr) p.hp -= Math.round((10 + m.tier * 9) * (1 - guardOf(data, p)));
         setNemesis(state, data, 'monster', { id: m.id, name: m.name, tier: m.tier, regionId: m.regionId });
         say(`${m.name}에게 덤볐다가 크게 당했다. 겨우 목숨만 건졌다.`);
         const t = tryAwaken(state, data, rng, cx, m.tier / 2 + 1);

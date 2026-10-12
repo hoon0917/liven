@@ -1,7 +1,7 @@
 // 삶의 변수들: 장소의 장터, 물건과 장비, 론 잔량, 기억과 원수, 인연과 가족, 태교와 출산, 야망, 밝힌 지도, 전설과 대물림
 // 설계도: lore/12_변수설계도.md
 import { fill, pick, J } from './text.js';
-import { makeFighter, runDuel } from './duel.js';
+import { makeFighter, runDuel, monsterFighter } from './duel.js';
 import { createPerson, deed, makeGivenName } from './people.js';
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -385,6 +385,13 @@ export function duelFighters(state, data, q) {
   const me = makeFighter(p.name, p.awakened ? p.vessel.dir : 'none', p.grade || 0, { hp: Math.max(1, p.hp), ron: p.ron?.cur || 0, skill: p.stats.sword + gearBonus(data, p, 'sword') });
   const foe = makeFighter(q.name, q.grade ? q.type : 'none', q.grade || 0, { ron: D.npcRon.base + (q.grade || 0) * D.npcRon.perGrade, skill: 30 + (q.grade || 0) * 8 });
   return { me, foe };
+}
+
+// 마물과 싸울 두 쪽을 만든다.
+export function monsterDuelFighters(state, data, m) {
+  const p = state.player;
+  const me = makeFighter(p.name, p.awakened ? p.vessel.dir : 'none', p.grade || 0, { hp: Math.max(1, p.hp), ron: p.ron?.cur || 0, skill: p.stats.sword + gearBonus(data, p, 'sword') + gearBonus(data, p, 'hunt') });
+  return { me, foe: monsterFighter(m, data.duel) };
 }
 
 // duelResult: 화면에서 사람이 수를 골라 끝낸 결투 세션(beginDuel/stepDuel). 없으면 자동으로 겨룬다.

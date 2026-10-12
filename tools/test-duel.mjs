@@ -29,3 +29,22 @@ console.log('오류 없음.');
   }
   console.log('수 고르기 300판 정상.');
 }
+// 마물 상대 결투: 등급별 승률(수 고르기는 자동)
+{
+  const { monsterFighter, runDuel: run } = await import('../js/duel.js');
+  const out = [];
+  for (const [t, g] of [['none', 0], ['aura', 1], ['aura', 2], ['aura', 3], ['magic', 3], ['aura', 4], ['magic', 5]]) {
+    for (let tier = 1; tier <= 5; tier++) {
+      let w = 0; const N = 300;
+      for (let i = 0; i < N; i++) {
+        const me = t === 'none' ? makeFighter('나', 'none', 0, { skill: 40 }) : mk(t, g);
+        const mon = monsterFighter({ name: '마물', tier }, D);
+        const r = run(me, mon, D, rng);
+        if (r.winner === 'a') w++;
+        if (!Number.isFinite(me.hp) || !Number.isFinite(mon.hp)) throw new Error('NaN');
+      }
+      out.push(`${t}${g} vs ${tier}급 ${Math.round((w / N) * 100)}%`);
+    }
+  }
+  console.log(out.join(' | '));
+}

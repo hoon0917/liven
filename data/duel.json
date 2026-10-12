@@ -8,6 +8,7 @@
   "ring": { "weaveCost": 2, "castCost": 3, "power": [0, 30, 66, 110, 160, 220], "interruptLoss": 1, "interruptChance": 0.35 },
   "slash": { "base": 6, "skillDiv": 10, "guardCut": 0.5, "ronCost": 0 },
   "npcRon": { "base": 20, "perGrade": 15 },
+  "monster": { "hp": [0, 50, 80, 110, 150, 200], "skill": [0, 20, 35, 50, 65, 80], "shells": [0, 0, 1, 2, 3, 4], "ron": 60, "note": "마물은 물러나지 않는다. 껍질은 막과 같은 규칙으로 닳되, 등급 3 이상만 두른다. 마물 등급(1~5)이 곧 강도다." },
   "moves": [
     { "id": "duel_slash", "name": "베기", "for": ["none", "aura", "magic", "dual"], "desc": "칼로 친다. 막이 있으면 가장 바깥 막이 먼저 닳는다." },
     { "id": "duel_guard", "name": "막기", "for": ["none", "aura", "magic", "dual"], "desc": "이번 수에 받는 베기 피해를 절반으로 줄인다." },
@@ -24,6 +25,7 @@
     "cast": ["{a:이} 엮어 둔 고리를 한꺼번에 풀었다."],
     "break": ["{b}의 막 한 겹이 깨졌다."],
     "interrupt": ["{a}의 고리 하나가 흐트러졌다."],
-    "tired": ["{a:은} 숨이 가빠 막을 더 지탱하지 못했다."]
+    "tired": ["{a:은} 숨이 가빠 막을 더 지탱하지 못했다."],
+    "monsterSlash": ["{a:이} 이빨과 발톱을 드러내며 덮쳤다.", "{a:이} 몸을 낮췄다가 튀어나왔다.", "{a:이} 거친 숨을 내뱉으며 들이받았다."]
   }
 }

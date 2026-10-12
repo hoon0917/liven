@@ -1,6 +1,6 @@
 // 인물 모드 화면: 이번 주 · 소지품 · 장터 · 사람 · 기록
 import { createPlayer, doAction, availableActions, resolveChoice, travelOptions, parseInput, seasonOf, context } from './player.js';
-import { marketItems, priceAt, buy, sell, equip, useItem, itemOf, carry, canCraft, propose, setTaegyo, ambitionProgress, heirs, continueAsHeir, addItem, duelFighters } from './life.js';
+import { marketItems, priceAt, buy, sell, equip, useItem, itemOf, carry, canCraft, propose, setTaegyo, ambitionProgress, heirs, continueAsHeir, addItem, duelFighters, monsterDuelFighters } from './life.js';
 import { beginDuel, stepDuel, legalMoves } from './duel.js';
 import { makeRng } from './monsters.js';
 import { J } from './text.js';
@@ -227,11 +227,11 @@ export function createGame(api) {
 
   function showDuel() {
     const st = S(), D = data.duel, { s, pid } = duelS;
-    const q = st.persons[pid];
+    const q = pid ? st.persons[pid] : st.monsters.find((x) => x.id === duelS.mid);
     const f = (x) => `<div class="duel-side"><strong>${esc(x.name)}</strong><span>몸 ${Math.max(0, Math.round(x.hp))}</span><span>막 ${x.shells.length}겹${x.shells.length ? `(바깥 ${x.shells[0]})` : ''}</span><span>고리 ${x.rings}/${x.grade}</span>${x === s.a ? `<span>숨 ${Math.round(x.ron)}</span>` : ''}</div>`;
     const lines = s.log.slice(-3).map((r) => `<li><span class="muted">${r.round}수</span> ${esc(r.notes.join(' '))}</li>`).join('');
     const ends = { yield: '한쪽이 물러났다.', down: '한쪽이 쓰러졌다.', points: '열두 수가 다 지나 몸이 더 성한 쪽이 이겼다.' };
-    panel.innerHTML = `<h2 class="duel-title">${esc(q?.name || '상대')}와의 결투 <span class="muted small">${s.round}/${D.maxRounds}수</span></h2>
+    panel.innerHTML = `<h2 class="duel-title">${esc(q?.name || '상대')}${duelS.mid ? '과의 싸움' : '와의 결투'} <span class="muted small">${s.round}/${D.maxRounds}수</span></h2>
       <div class="duel-board">${f(s.a)}${f(s.b)}</div>
       <ul class="duel-log">${lines || '<li class="muted">서로 칼을 뽑고 마주 섰다.</li>'}</ul>
       ${s.done
@@ -240,8 +240,9 @@ export function createGame(api) {
         <ul class="muted small duel-help">${legalMoves(s.a).map((id) => { const m = D.moves.find((x) => x.id === id); return `<li><b>${esc(m.name)}</b> ${esc(m.desc)}</li>`; }).join('')}</ul>`}`;
     panel.querySelectorAll('[data-duel]').forEach((b) => b.addEventListener('click', () => {
       if (b.dataset.duel === 'end') {
-        const res = s, id = pid; duelS = null;
-        last = doAction(st, data, rng, api.places(), 'meet', { pid: id, kind: 'duel', duelResult: res, hooks: api.hooks });
+        const res = s, id = pid, mid = duelS.mid; duelS = null;
+        last = mid ? doAction(st, data, rng, api.places(), 'hunt', { monsterId: mid, duelResult: res, hooks: api.hooks })
+          : doAction(st, data, rng, api.places(), 'meet', { pid: id, kind: 'duel', duelResult: res, hooks: api.hooks });
         parsed = null; tab = 'week'; api.afterTurn(last);
         return;
       }
@@ -278,7 +279,14 @@ export function createGame(api) {
     const act = (fn) => { last = fn(); parsed = null; tab = 'week'; api.afterTurn(last); };
     const free = (msg) => { note = msg; api.afterTurn(); };
     panel.querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => { tab = b.dataset.tab; api.render(); }));
-    panel.querySelectorAll('[data-action]').forEach((b) => b.addEventListener('click', () => act(() => doAction(st, data, rng, places, b.dataset.action, { hooks: api.hooks }))));
+    panel.querySelectorAll('[data-action]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.action === 'hunt' && data.duel?.monster && cx.monsters.length) {
+        const m = cx.monsters[0], { me, foe } = monsterDuelFighters(st, data, m);
+        duelS = { s: beginDuel(me, foe, data.duel), pid: null, mid: m.id };
+        return showDuel();
+      }
+      act(() => doAction(st, data, rng, places, b.dataset.action, { hooks: api.hooks }));
+    }));
     panel.querySelectorAll('[data-choice]').forEach((b) => b.addEventListener('click', () => act(() => resolveChoice(st, data, rng, places, +b.dataset.choice))));
     panel.querySelector('[data-act="go"]')?.addEventListener('click', () => act(() => doAction(st, data, rng, places, 'travel', { to: panel.querySelector('#travelTo').value, hooks: api.hooks })));
     panel.querySelectorAll('[data-meet]').forEach((b) => b.addEventListener('click', () => {
