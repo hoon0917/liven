@@ -5,7 +5,7 @@
   "baseHp": 100,
   "yieldHp": 20,
   "shell": { "durability": 12, "ronPerRound": 1, "mendCost": 3, "mendAmount": 8 },
-  "ring": { "weaveCost": 2, "castCost": 3, "power": [0, 30, 66, 110, 160, 220], "interruptLoss": 1, "interruptChance": 0.35 },
+  "ring": { "weaveCost": 2, "castCost": 3, "power": [0, 36, 79, 132, 192, 264], "interruptLoss": 1, "interruptChance": 0.25, "pierce": 0.4 },
   "slash": { "base": 6, "skillDiv": 10, "guardCut": 0.5, "ronCost": 0 },
   "npcRon": { "base": 20, "perGrade": 15 },
   "monster": { "hp": [0, 50, 80, 110, 150, 200], "skill": [0, 20, 35, 50, 65, 80], "shells": [0, 0, 1, 2, 3, 4], "ron": 60, "note": "마물은 물러나지 않는다. 껍질은 막과 같은 규칙으로 닳되, 등급 3 이상만 두른다. 마물 등급(1~5)이 곧 강도다." },

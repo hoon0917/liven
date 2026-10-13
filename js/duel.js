@@ -45,14 +45,15 @@ export function autoMove(f, foe, D, rng) {
 }
 
 // 피해를 받는다: 바깥 막부터 닳고, 넘치면 몸에 닿는다.
-function hit(f, dmg, D, notes, T) {
-  let left = dmg;
+function hit(f, dmg, D, notes, T, pierce = 0) {
+  const through = dmg * pierce; // 껍질을 건너 몸에 바로 닿는 몫(술식)
+  let left = dmg - through;
   while (left > 0 && f.shells.length) {
     const s = f.shells[0];
     if (left >= s) { left -= s; f.shells.shift(); notes.push(fill(pickOf(() => 0, T.break), { b: f.name })); }
     else { f.shells[0] = s - left; left = 0; }
   }
-  f.hp -= Math.round(left);
+  f.hp -= Math.round(left + through);
 }
 
 // 한 수. moves = [a의 수, b의 수]
@@ -93,7 +94,7 @@ export function playRound(a, b, moves, D, rng) {
     if (f.ron < cost) { f.ron = 0; notes.push(fill(T.tired[0], { a: f.name })); return; }
     f.ron -= cost;
     notes.push(fill(T.cast[0], { a: f.name }));
-    hit(F[1 - i], D.ring.power[Math.min(r, D.ring.power.length - 1)] * (guard[1 - i] ? 0.7 : 1), D, notes, T);
+    hit(F[1 - i], D.ring.power[Math.min(r, D.ring.power.length - 1)] * (guard[1 - i] ? 0.7 : 1), D, notes, T, D.ring.pierce || 0);
   });
   return { notes, yielded };
 }

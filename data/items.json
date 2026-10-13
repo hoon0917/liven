@@ -510,6 +510,15 @@
       "weight": 1,
       "meal": true,
       "fatigue": -12
+    },
+    {
+      "id": "shell_barley_tea",
+      "name": "껍질 벗긴 보리차",
+      "kind": "consumable",
+      "price": 2,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -9
     }
   ],
   "alchemy": [
