@@ -145,6 +145,8 @@ function cond(c, state, data, cx) {
     case 'hasLegend': return (state.legends || []).length > 0 && !p.travel;
     case 'market': return !p.travel && !!cx.ps?.facilities.includes('market');
     case 'smithy': return !p.travel && !!cx.ps?.facilities.includes('smithy');
+    case 'safeLow': return !p.travel && !!cx.ps && cx.ps.safety < 50;
+    case 'safeHigh': return !p.travel && !!cx.ps && cx.ps.safety >= 70;
     case 'courting': return !!p.family?.partner;
     case 'hasChild': return (p.family?.children || []).some((id) => state.persons[id]?.alive);
     default: return false;
@@ -175,6 +177,7 @@ function applyFx(state, data, rng, cx, fx) {
     else if (k === 'coinsPct') p.coins = Math.max(0, Math.round(p.coins * (1 + v)));
     else if (k === 'fame') p.fame = Math.max(0, p.fame + v);
     else if (k === 'notoriety') p.notoriety = Math.max(0, p.notoriety + v);
+    else if (k === 'safety') { if (cx.ps) cx.ps.safety = clamp(cx.ps.safety + v, 0, 100); }
     else if (k === 'prep') cx.n.revolutionPrep += v;
     else if (k === 'stab') cx.n.stability = clamp(cx.n.stability + v, 0, 100);
     else if (k === 'houseFavor') p.houseFavor = clamp(p.houseFavor + v, -50, 100);
@@ -445,7 +448,8 @@ export function doAction(state, data, rng, places, id, arg = {}) {
       break;
     }
     case 'steal': {
-      if (check(state, data, 'stealth', 45, rng)) { const g = 6 + Math.floor(rng() * 14); p.coins += g; p.notoriety += 2; gain('stealth', [1, 2]); say(`가문 하인의 돈주머니를 슬쩍했다. ${g}냥.`); }
+      const watch = cx.ps ? Math.round((cx.ps.safety - 55) / 3) : 0; // 치안이 좋은 곳은 더 어렵다
+      if (check(state, data, 'stealth', 45 + watch, rng)) { if (cx.ps) cx.ps.safety = clamp(cx.ps.safety - 1, 0, 100); const g = 6 + Math.floor(rng() * 14); p.coins += g; p.notoriety += 2; gain('stealth', [1, 2]); say(`가문 하인의 돈주머니를 슬쩍했다. ${g}냥.`); }
       else { p.hp -= 12; p.notoriety += 5; say('붙잡혀 실컷 두들겨 맞았다. 얼굴이 알려졌다.'); }
       break;
     }

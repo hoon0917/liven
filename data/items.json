@@ -519,6 +519,15 @@
       "weight": 1,
       "meal": true,
       "fatigue": -9
+    },
+    {
+      "id": "watch_ginger_tea",
+      "name": "야경꾼의 생강차",
+      "kind": "consumable",
+      "price": 2,
+      "weight": 1,
+      "meal": true,
+      "fatigue": -8
     }
   ],
   "alchemy": [

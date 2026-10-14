@@ -110,7 +110,7 @@ export function createGame(api) {
         <h2 class="region-name">${esc(p.name)}</h2>
         <p class="region-type">${esc(P.origins[p.origin].name)}, ${esc(data.races[p.race].name)}, ${p.age}세${p.parent ? `, ${esc(p.parent)}의 아이` : ''}</p>
         <p class="pc-where">${where}</p>
-        <p class="pc-time">${esc(season.name)} · ${esc(p.weather)}${fac && !p.travel ? ` · ${esc(fac)}` : ''}</p>
+        <p class="pc-time">${esc(season.name)} · ${esc(p.weather)}${fac && !p.travel ? ` · ${esc(fac)}` : ''}${cx.ps && !p.travel ? ` · 치안 ${cx.ps.safety >= 70 ? '좋음' : cx.ps.safety >= 45 ? '보통' : '나쁨'}` : ''}</p>
       </div>
       <div class="pc-stats">
         ${bar('체력', p.hp, 100, p.hp < 30 ? 'danger' : '')}${bar('피로', p.fatigue, 100, p.fatigue > 70 ? 'danger' : '')}

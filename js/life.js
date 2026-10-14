@@ -289,6 +289,15 @@ export function weeklyLife(state, data, rng, places) {
     if (rng() < 0.15) { const it = pick(rng, data.items.goods); ps.drift[it.id] = clamp((ps.drift[it.id] || 0) + (rng() - 0.4) * 0.4, -0.3, 0.6); }
     for (const k of Object.keys(ps.stock)) ps.stock[k] += ps.stock[k] < 10 ? 1 : ps.stock[k] > 10 ? -1 : 0;
   }
+  // 장소의 치안: 나라의 안정도, 전쟁, 마물에 따라 목표로 천천히 움직인다 (lore/12 4절)
+  for (const pl of places) {
+    const ps = state.placeState?.[pl.id], n = state.nations[pl.nation];
+    if (!ps || !n) continue;
+    const war = state.wars.some((w) => w.a === pl.nation || w.b === pl.nation) ? 14 : 0;
+    const beast = state.monsters.some((m) => m.regionId === pl.regionId) ? 8 : 0;
+    const target = (pl.kind === 'capital' ? 70 : 55) + (n.stability - 60) * 0.5 - war - beast - (n.famine ? 10 : 0);
+    ps.safety = clamp(ps.safety + clamp((target - ps.safety) * 0.05, -1.5, 1.5), 0, 100);
+  }
   // 세계 인물의 이동: 수장과 강자가 나라 안을 오간다
   for (const q of Object.values(state.persons)) {
     if (!q.alive || q.role === 'player') continue;
