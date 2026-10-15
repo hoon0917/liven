@@ -27,6 +27,9 @@ const BASE_CAT = {
   start: '세계', eruption: '자연', meteor: '자연', ron: '자연', cohort: '인물', famine: '자연', monster: '마물',
   alliance: '외교', battle: '전쟁', peace: '전쟁', war: '전쟁', revolution: '혁명', reclaim: '정치',
 };
+const RACE_COLOR = { race_human: '#c58b4e', race_elf: '#6f9a5a', race_darkelf: '#6a5a8c', race_dwarf: '#8a8f94', race_orc: '#8c3b2a' };
+const RACE_SHORT = { race_human: '인간', race_elf: '엘프', race_darkelf: '다크엘프', race_dwarf: '드워프', race_orc: '오크' };
+const REL_COLOR = [[60, '#3f7f4f'], [20, '#7fa05a'], [-19, '#9a8f78'], [-49, '#c8923a'], [-69, '#c15a2c'], [-101, '#8c1c13']];
 const FILTERS = ['전체', '이야기', '전쟁', '정치', '외교', '인물', '마물', '자연', '탐험', '혁명'];
 const ROLE_TEXT = {
   ruler: '지도자', head: '가문 수장', champion: '이름난 강자', dispatched: '파견된 강자', hero: '양방향 각성자',
@@ -90,6 +93,8 @@ async function init() {
   let chronicleYears = 40;
   let admin = false;
   let showMonsters = true;
+  let showRaces = false;
+  let showRelLines = false;
   let timer = null;
   let speed = 0;
 
@@ -306,6 +311,56 @@ async function init() {
       star.setAttribute('class', 'meteor');
       g.appendChild(star);
     }
+
+    // 레이어: 종족 분포(나라별 띠), 관계선(수도 사이 선)
+    const caps = Object.fromEntries(map.places.filter((p) => p.kind === 'capital').map((p) => [p.nation, p]));
+    if (showRelLines) {
+      const gr = document.createElementNS(NS, 'g');
+      gr.setAttribute('class', 'layer-rel');
+      const ids = Object.keys(state.nations).filter((id) => caps[id]);
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        const a = ids[i], b = ids[j], v = state.relations[a < b ? `${a}|${b}` : `${b}|${a}`];
+        if (v === undefined || Math.abs(v) < 20) continue; // 우호 이상, 긴장 이하만 그린다
+        const color = REL_COLOR.find(([min]) => v >= min)[1];
+        const ln = document.createElementNS(NS, 'path');
+        const A = caps[a], B = caps[b], mx = (A.x + B.x) / 2 + (B.y - A.y) * 0.08, my = (A.y + B.y) / 2 - (B.x - A.x) * 0.08;
+        ln.setAttribute('d', `M${A.x} ${A.y}Q${mx} ${my} ${B.x} ${B.y}`);
+        ln.setAttribute('stroke', color);
+        ln.setAttribute('stroke-width', (1 + Math.min(4, Math.abs(v) / 25)).toFixed(1));
+        ln.setAttribute('stroke-dasharray', v < 0 ? '7 4' : 'none');
+        const t = document.createElementNS(NS, 'title');
+        t.textContent = `${nationById[a].name}·${nationById[b].name}: ${relationStage(v, relations.stages)} (${v > 0 ? '+' : ''}${fmt(v)})`;
+        ln.appendChild(t);
+        gr.appendChild(ln);
+      }
+      g.appendChild(gr);
+    }
+    if (showRaces) {
+      const gr = document.createElementNS(NS, 'g');
+      gr.setAttribute('class', 'layer-race');
+      for (const n of nations.nations) {
+        const c = caps[n.id];
+        if (!c) continue;
+        const W = 56, x0 = c.x - W / 2, y0 = c.y + 14;
+        let x = x0;
+        const bg = document.createElementNS(NS, 'rect');
+        bg.setAttribute('x', x0 - 1.5); bg.setAttribute('y', y0 - 1.5); bg.setAttribute('width', W + 3); bg.setAttribute('height', 9); bg.setAttribute('class', 'race-bar-bg');
+        gr.appendChild(bg);
+        const total = Object.values(n.races).reduce((a, b) => a + b, 0) || 1;
+        for (const [rid, pct] of Object.entries(n.races).sort((a, b) => b[1] - a[1])) {
+          const w = (pct / total) * W;
+          const r = document.createElementNS(NS, 'rect');
+          r.setAttribute('x', x.toFixed(1)); r.setAttribute('y', y0); r.setAttribute('width', w.toFixed(1)); r.setAttribute('height', 6);
+          r.setAttribute('fill', RACE_COLOR[rid] || '#999');
+          const t = document.createElementNS(NS, 'title');
+          t.textContent = `${n.name}: ${RACE_SHORT[rid] || rid} ${pct}%`;
+          r.appendChild(t);
+          gr.appendChild(r);
+          x += w;
+        }
+      }
+      g.appendChild(gr);
+    }
     const grain = svg.querySelector('rect[filter]');
     svg.insertBefore(gi, grain);
     svg.insertBefore(g, grain);
@@ -349,10 +404,16 @@ async function init() {
       ['', 'var(--mercenary)', '섬나라'], ['', 'var(--revolution)', '혁명 정부'], ['', 'var(--harsh)', '미개척 섬'],
       ['dashed', '', '알려지지 않은 섬'], ['hatched', '', '화산 무주지'], ['war', '', '전쟁 중'], ['occ', '', '점령당한 땅'],
     ];
+    const raceScale = Object.entries(RACE_COLOR).map(([id, c]) => `<span style="background:${c}" title="${RACE_SHORT[id]}"></span>`).join('');
+    const relScale = REL_COLOR.slice().reverse().map(([, c], i) => `<span style="background:${c}" title="${['전쟁 가능', '적대', '긴장', '중립', '우호', '동맹'][i]}"></span>`).join('');
     const scale = monsterCfg.tiers.map((t) => `<span style="background:${t.color}" title="${esc(t.name)}"></span>`).join('');
     legend.innerHTML = items.map(([cls, color, text]) =>
       `<div class="legend-item"><span class="swatch ${cls}" style="${color ? `background:${color}` : ''}"></span>${text}</div>`).join('') +
-      `<label class="legend-toggle"><input type="checkbox" id="toggleMonsters" ${showMonsters ? 'checked' : ''}>마물 표시<span class="tier-scale" aria-hidden="true">${scale}</span></label>`;
+      `<label class="legend-toggle"><input type="checkbox" id="toggleMonsters" ${showMonsters ? 'checked' : ''}>마물 표시<span class="tier-scale" aria-hidden="true">${scale}</span></label>` +
+      `<label class="legend-toggle"><input type="checkbox" id="toggleRaces" ${showRaces ? 'checked' : ''}>종족 분포<span class="tier-scale race-scale" aria-hidden="true">${raceScale}</span></label>` +
+      `<label class="legend-toggle"><input type="checkbox" id="toggleRel" ${showRelLines ? 'checked' : ''}>관계선<span class="tier-scale race-scale" aria-hidden="true">${relScale}</span></label>`;
+    legend.querySelector('#toggleRaces').addEventListener('change', (e) => { showRaces = e.target.checked; drawOverlay(); });
+    legend.querySelector('#toggleRel').addEventListener('change', (e) => { showRelLines = e.target.checked; drawOverlay(); });
     legend.querySelector('#toggleMonsters').addEventListener('change', (e) => {
       showMonsters = e.target.checked;
       svg.querySelector('#monsters')?.classList.toggle('is-hidden', !showMonsters);

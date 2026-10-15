@@ -706,3 +706,8 @@ html, body {
 .duel-log { list-style: none; padding: 0; margin: 8px 0; }
 .duel-log li { margin: 2px 0; }
 .duel-help { padding-left: 1.2em; }
+
+/* ===== 레이어: 종족 분포, 관계선 ===== */
+.layer-rel path { fill: none; stroke-linecap: round; opacity: 0.85; pointer-events: stroke; }
+.layer-race rect { pointer-events: all; }
+.race-bar-bg { fill: var(--paper); stroke: var(--ink); stroke-width: 0.8; }
